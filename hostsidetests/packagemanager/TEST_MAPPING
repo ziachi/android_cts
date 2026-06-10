@@ -1,0 +1,69 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsDomainVerificationHostTestCases"
+    },
+    {
+      "name": "CtsExtractNativeLibsHostTestCases"
+    },
+    {
+      "name": "CtsInstalledLoadingProgressHostTests"
+    },
+    {
+      "name": "CtsPackageManagerMultiUserHostTestCases"
+    },
+    {
+      "name": "CtsPackageManagerParsingHostTestCases"
+    },
+    {
+      "name": "CtsPackageManagerPreferredActivityHostTestCases"
+    },
+    {
+      "name": "CtsPackageManagerIncrementalStatsHostTestCases_NoLargeTest"
+    },
+    {
+      "name": "CtsPackageManagerStatsHostTestCases"
+    },
+    {
+      "name": "CtsPackageSettingHostTestCases"
+    },
+    {
+      "name": "CtsDynamicMimeHostTestCases"
+    },
+    {
+      "name": "CtsDynamicMimePreferredActivitiesHostTestCases"
+    },
+    {
+      "name": "CtsDynamicMimeSingleAppRebootHostTestCases"
+    },
+    {
+      "name": "CtsDynamicMimeRemoveRebootHostTestCases"
+    },
+    {
+      "name": "CtsDynamicMimeSingleAppGroupRebootHostTestCases"
+    },
+    {
+      "name": "CtsDynamicMimeIndependentGroupRebootHostTestCases"
+    },
+    {
+      "name": "CtsDynamicMimeComplexFilterRebootHostTestCases"
+    },
+    {
+      "name": "CtsDynamicMimeComplexFilterClearGroupRebootHostTestCases"
+    },
+    {
+      "name": "CtsDynamicMimeChangedGroupAppUpdateHostTestCases"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsPackageManagerIncrementalStatsHostTestCases_LargeTest"
+    },
+    {
+      "name": "CtsDeleteKeepDataHostTestCases"
+    },
+    {
+      "name": "CtsAppMetadataHostTestCases"
+    }
+  ]
+}

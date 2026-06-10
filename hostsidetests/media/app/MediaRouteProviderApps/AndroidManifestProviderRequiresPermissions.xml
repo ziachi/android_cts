@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="android.media.router.cts.provider_requires_permissions"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <application android:testOnly="true">
+        <service android:name="android.media.router.cts.PermissionsRequiredRouteProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.MediaRoute2ProviderService"/>
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

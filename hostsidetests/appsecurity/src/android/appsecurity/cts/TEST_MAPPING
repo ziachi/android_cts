@@ -1,0 +1,15 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsPackageManagerHostTestCases_cts_splittests",
+      "file_patterns": ["SplitTests\\.java"]
+    },
+    {
+      "name": "CtsInstantAppsHostTestCases_cts_ephemeraltest"
+    },
+    {
+      "name": "CtsPackageManagerHostTestCases_cts_isolatedsplitstests",
+      "file_patterns": ["IsolatedSplitsTests\\.java"]
+    }
+  ]
+}

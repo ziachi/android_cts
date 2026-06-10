@@ -1,0 +1,141 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+    default_team: "trendy_team_android_storage",
+}
+
+android_test_helper_app {
+    name: "CtsMediaProviderTestAppA",
+    manifest: "MediaProviderTestHelper/MediaProviderTestAppA.xml",
+    sdk_version: "test_current",
+    target_sdk_version: "36",
+    min_sdk_version: "30",
+    srcs: ["MediaProviderTestHelper/src/**/*.java"],
+    static_libs: [
+        "mediaprovider_flags_java_lib",
+        "cts-media-provider-lib",
+    ],
+    // Tag as a CTS artifact
+    test_suites: [
+        "general-tests",
+        "mts-mediaprovider",
+    ],
+}
+
+android_test_helper_app {
+    name: "CtsMediaProviderTestAppB",
+    manifest: "MediaProviderTestHelper/MediaProviderTestAppB.xml",
+    sdk_version: "test_current",
+    target_sdk_version: "36",
+    min_sdk_version: "30",
+    srcs: ["MediaProviderTestHelper/src/**/*.java"],
+    static_libs: [
+        "mediaprovider_flags_java_lib",
+        "cts-media-provider-lib",
+    ],
+    // Tag as a CTS artifact
+    test_suites: [
+        "general-tests",
+        "mts-mediaprovider",
+    ],
+}
+
+android_test_helper_app {
+    name: "CtsMediaProviderTestAppC",
+    manifest: "MediaProviderTestHelper/MediaProviderTestAppC.xml",
+    sdk_version: "test_current",
+    target_sdk_version: "36",
+    min_sdk_version: "30",
+    srcs: ["MediaProviderTestHelper/src/**/*.java"],
+    static_libs: [
+        "mediaprovider_flags_java_lib",
+        "cts-media-provider-lib",
+    ],
+    // Tag as a CTS artifact
+    test_suites: [
+        "general-tests",
+        "mts-mediaprovider",
+    ],
+}
+
+android_test {
+    name: "CtsMediaProviderTestCases",
+    defaults: ["cts_defaults"],
+
+    compile_multilib: "both",
+
+    test_suites: [
+        "cts",
+        "general-tests",
+        "sts",
+        "mts-mediaprovider",
+        "mcts-mediaprovider",
+    ],
+
+    libs: [
+        "android.test.mock.stubs.system",
+        "android.test.base.stubs.system",
+        "android.test.runner.stubs.system",
+    ],
+
+    static_libs: [
+        "androidx.test.core",
+        "compatibility-device-util-axt",
+        "ctstestrunner-axt",
+        "flag-junit",
+        "junit",
+        "truth",
+        "mediaprovider_flags_java_lib",
+        "cts-scopedstorage-lib",
+        "cts-media-provider-lib",
+    ],
+
+    srcs: [
+        "src/**/*.java",
+        "app/GalleryTestApp/src/**/*.java",
+        "MediaProviderTestHelper/src/**/*.java",
+        ":CtsProviderTestUtils",
+    ],
+
+    min_sdk_version: "21",
+    target_sdk_version: "33",
+
+    platform_apis: true,
+
+    data: [
+        ":CtsProviderGalleryTestApp",
+        ":CtsMediaProviderTestAppA",
+        ":CtsMediaProviderTestAppB",
+        ":CtsMediaProviderTestAppC",
+    ],
+
+    java_resources: [
+        ":CtsMediaProviderTestAppA",
+        ":CtsMediaProviderTestAppB",
+        ":CtsMediaProviderTestAppC",
+    ],
+
+    host_required: ["compatibility-host-provider-preconditions"],
+}
+
+filegroup {
+    name: "CtsMediaProviderTestUtils",
+    srcs: [
+        "src/android/provider/cts/media/MediaStoreUtils.java",
+        "src/android/provider/cts/media/MediaProviderTestUtils.java",
+        ":CtsProviderTestUtils",
+    ],
+}
+
+test_module_config {
+    name: "CtsMediaProviderTestCases_NoLarge",
+    base: "CtsMediaProviderTestCases",
+    test_suites: ["general-tests"],
+    exclude_annotations: ["android.platform.test.annotations.LargeTest"],
+}
+
+test_module_config {
+    name: "CtsMediaProviderTestCases_media_mediastore_downloadstest",
+    base: "CtsMediaProviderTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.provider.cts.media.MediaStore_DownloadsTest"],
+}

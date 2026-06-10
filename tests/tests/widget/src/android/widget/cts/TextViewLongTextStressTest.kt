@@ -1,0 +1,57 @@
+/*
+ * Copyright (C) 2024 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package android.widget.cts
+
+import android.graphics.Paint
+import android.text.StaticLayout
+import android.text.TextPaint
+import android.view.View.MeasureSpec
+import android.widget.TextView
+import androidx.test.InstrumentationRegistry
+import androidx.test.filters.SmallTest
+import androidx.test.runner.AndroidJUnit4
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@SmallTest
+@RunWith(AndroidJUnit4::class)
+class TextViewLongTextStressTest {
+
+    private val context = InstrumentationRegistry.getInstrumentation().getTargetContext()
+
+    @Test
+    fun LongTextDontCrash_100k_chars_TextView() {
+        val textView = TextView(context)
+        textView.text = "A".repeat(100_000)
+        textView.measure(
+            MeasureSpec.makeMeasureSpec(1024, MeasureSpec.AT_MOST),
+            MeasureSpec.makeMeasureSpec(1024, MeasureSpec.AT_MOST)
+        )
+    }
+
+    @Test
+    fun LongTextDontCrash_100k_chars_Paint() {
+        val paint = Paint()
+        paint.textSize = 100f
+        paint.measureText("A".repeat(100_000))
+    }
+
+    @Test
+    fun LongTextDontCrash_100k_chars_StaticLayout() {
+        val p = TextPaint()
+        StaticLayout.Builder.obtain("A".repeat(100_000), 0, 100_000, p, 1024).build()
+    }
+}

@@ -1,0 +1,187 @@
+// Copyright (C) 2016 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_team: "trendy_team_java_core_libraries",
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "CtsLibcoreOjTestCases",
+    defaults: ["cts_support_defaults"],
+    platform_apis: true,
+    static_libs: [
+        "core-ojtests-public",
+
+        // Jar containing expectations files.
+        "libcore-expectations-knownfailures-jar",
+    ],
+    libs: ["testng"],
+    dxflags: [
+        "--core-library",
+        "--android-platform-build",
+    ],
+    dex_preopt: {
+        enabled: false,
+    },
+    optimize: {
+        enabled: false,
+    },
+    // Include both the 32 and 64 bit versions of libjavacoretests,
+    // where applicable.
+    compile_multilib: "both",
+    min_sdk_version: "31",
+    target_sdk_version: "31",
+    // Tag this module as a cts test artifact
+    test_suites: [
+        "cts",
+        "general-tests",
+        "mcts-art",
+        "mts-art",
+        "mcts-art",
+    ],
+    data: [
+        ":CtsLibcoreTestRunner",
+    ],
+    per_testcase_directory: true,
+    host_required: ["cts-dalvik-host-test-runner"],
+    sdk_version: "test_current",
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_lang_invoke",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "org.openjdk.tests.java.lang.invoke",
+        "test.java.lang.invoke",
+    ],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_net",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["test.java.net"],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_awt_font",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["test.java.awt.font"],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_nio_file_attribute",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["test.java.nio.file.attribute"],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_security_cert",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["test.java.security.cert"],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_time",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "tck.java.time.serial",
+        "tck.java.time",
+        "test.java.time",
+    ],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_time_chrono",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "tck.java.time.chrono.serial",
+        "test.java.time.chrono",
+        "tck.java.time.chrono",
+    ],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_time_format",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "test.java.time.format",
+        "tck.java.time.format",
+    ],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_time_temporal",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "tck.java.time.temporal",
+        "tck.java.time.temporal.serial",
+        "test.java.time.temporal",
+    ],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_time_zone",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "test.java.time.zone",
+        "tck.java.time.zone.serial",
+        "tck.java.time.zone",
+    ],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_java_lang",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["test.java.lang"],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_java_net",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["test.java.net"],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_util",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "test.java.util",
+        "org.openjdk.tests.java.util",
+    ],
+}
+
+test_module_config {
+    name: "CtsLibcoreOjTestCases_util_stream",
+    base: "CtsLibcoreOjTestCases",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "org.openjdk.tests.java.util.stream",
+        "org.openjdk.testlib.java.util.stream",
+        "java.util.stream",
+    ],
+}

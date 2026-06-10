@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2021 The Android Open Source Project
+
+         Licensed under the Apache License, Version 2.0 (the "License");
+         you may not use this file except in compliance with the License.
+         You may obtain a copy of the License at
+
+                    http://www.apache.org/licenses/LICENSE-2.0
+
+         Unless required by applicable law or agreed to in writing, software
+         distributed under the License is distributed on an "AS IS" BASIS,
+         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+         See the License for the specific language governing permissions and
+         limitations under the License.
+-->
+
+<!-- Please check cts/tests/tests/tv/res/raw/tuner_cts_config_v1_default.xml as an example. -->
+<xs:schema version="2.0"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <!-- List the dynamic config versions supported by tuner testing. -->
+    <xs:simpleType name="Version">
+        <xs:restriction base="xs:decimal">
+            <xs:enumeration value="1.0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- FRONTEND SESSION -->
+    <xs:simpleType name="FrontendId">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- LNB SESSION -->
+    <xs:simpleType name="LnbSupportedVoltage">
+      <xs:restriction base="xs:string">
+          <xs:enumeration value="VOLTAGE_NONE"/>
+          <xs:enumeration value="VOLTAGE_5V"/>
+          <xs:enumeration value="VOLTAGE_11V"/>
+          <xs:enumeration value="VOLTAGE_12V"/>
+          <xs:enumeration value="VOLTAGE_13V"/>
+          <xs:enumeration value="VOLTAGE_14V"/>
+          <xs:enumeration value="VOLTAGE_15V"/>
+          <xs:enumeration value="VOLTAGE_18V"/>
+          <xs:enumeration value="VOLTAGE_19V"/>
+      </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="LnbSupportedVoltages">
+        <xs:sequence>
+            <xs:element name="voltage" type="LnbSupportedVoltage" minOccurs="2" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="LnbCapability">
+        <xs:sequence>
+            <xs:element name="supportedVoltages" type="LnbSupportedVoltages" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- DVBS SESSION -->
+    <xs:simpleType name="SymbolRate">
+        <xs:restriction base="xs:integer"/>
+    </xs:simpleType>
+    <xs:complexType name="DvbsCapability">
+        <xs:sequence>
+            <xs:element name="targetSymbolRate" type="SymbolRate" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- TUNER CTS CONFIGURATION -->
+    <xs:element name="tunerCtsConfiguration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="targetFrontendId" type="FrontendId" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="lnbCapability" type="LnbCapability" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="dvbsCapability" type="DvbsCapability" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="version" type="Version"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

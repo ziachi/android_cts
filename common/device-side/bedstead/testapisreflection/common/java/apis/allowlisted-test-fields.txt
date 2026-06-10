@@ -1,0 +1,15 @@
+android.content.pm.UserInfo,id,int
+android.content.pm.UserInfo,name,String
+android.content.pm.UserInfo,iconPath,String
+android.content.pm.UserInfo,flags,int
+android.content.pm.UserInfo,userType,String
+android.content.pm.UserInfo,serialNumber,int
+android.content.pm.UserInfo,creationTime,long
+android.content.pm.UserInfo,lastLoggedInTime,long
+android.content.pm.UserInfo,lastLoggedInFingerprint,String
+android.content.pm.UserInfo,partial,boolean
+android.content.pm.UserInfo,preCreated,boolean
+android.content.pm.UserInfo,profileGroupId,int
+android.content.pm.UserInfo,guestToRemove,boolean
+android.content.pm.UserInfo,restrictedProfileParentId,int
+android.content.pm.UserInfo,profileBadge,int

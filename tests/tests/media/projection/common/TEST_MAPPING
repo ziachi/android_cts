@@ -1,0 +1,24 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsMediaProjectionTestCases"
+    },
+    {
+      "name": "CtsMediaProjectionSDK33TestCases"
+    },
+    {
+      "name": "CtsMediaProjectionSDK34TestCases"
+    },
+    {
+      "name": "CtsMediaAudioTestCases",
+      "options": [
+        {
+          "include-filter": "android.media.audio.cts.RemoteSubmixTest"
+        },
+        {
+          "include-filter": "android.media.audio.cts.AudioPlaybackCaptureTest"
+        }
+      ]
+    }
+  ]
+}

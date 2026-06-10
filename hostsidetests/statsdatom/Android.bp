@@ -1,0 +1,200 @@
+// Copyright (C) 2020 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+java_test_host {
+    name: "CtsStatsdAtomHostTestCases",
+    team: "trendy_team_android_telemetry_client_infra",
+    defaults: ["cts_defaults"],
+    srcs: [
+        "src/**/alarm/*.java",
+        "src/**/appcompatstate/*.java",
+        "src/**/appfunctions/*.java",
+        "src/**/apphibernation/*.java",
+        "src/**/appops/*.java",
+        "src/**/appexit/*.java",
+        "src/**/appstart/*.java",
+        "src/**/backportedfixes/*.java",
+        "src/**/batterycycle/*.java",
+        "src/**/batterystats/*.java",
+        "src/**/binderstats/*.java",
+        "src/**/bluetooth/*.java",
+        "src/**/coregraphics/*.java",
+        "src/**/cpu/*.java",
+        "src/**/credentials/*.java",
+        "src/**/devicepower/*.java",
+        "src/**/devicestate/*.java",
+        "src/**/display/*.java",
+        "src/**/gamemanager/*.java",
+        "src/**/gnss/*.java",
+        "src/**/hardware/health/*.java",
+        "src/**/jobscheduler/*.java",
+        "src/**/integrity/*.java",
+        "src/**/media/*.java",
+        "src/**/media/projection/*.java",
+        "src/**/memory/*.java",
+        "src/**/net/*.java",
+        "src/**/notification/*.java",
+        "src/**/perf/*.java",
+        "src/**/perfetto/*.java",
+        "src/**/performancehintmanager/*.java",
+        "src/**/permissionstate/*.java",
+        "src/**/powermanager/*.java",
+        "src/**/settingsstats/*.java",
+        "src/**/sizecompatrestartbutton/*.java",
+        "src/**/statsd/*.java",
+        "src/**/telecom/*.java",
+        "src/**/telephony/*.java",
+        "src/**/tls/*.java",
+        "src/**/usb/*.java",
+        "src/**/users/*.java",
+        "src/**/vibrator/*.java",
+        "src/**/voiceinteraction/*.java",
+        "src/**/wifi/*.java",
+        "src/**/incremental/*.java",
+        "src/**/memorysafety/*.java",
+        "src/**/express/*.java",
+    ],
+
+    test_suites: [
+        "cts",
+        "general-tests",
+        "mts-uprobestats",
+    ],
+
+    libs: [
+        "compatibility-host-util",
+        "core_cts_test_resources",
+        "cts-tradefed",
+        "host-libprotobuf-java-full",
+        "tradefed",
+        "truth",
+    ],
+
+    static_libs: [
+        "android.app.appfunctions.flags-aconfig-java-host",
+        "android.hardware.usb.flags-aconfig-java-host",
+        "android.os.flags-aconfig-java-host",
+        "android.os.vibrator.flags-aconfig-java-host",
+        "power_flags_lib_host",
+        "backstage_power_flags_lib-host",
+        "power_hint_flags_lib_host",
+        "stats_flags_lib_host",
+        "uprobestats_mainline_flags_java_lib",
+        "cts-statsd-atom-host-test-utils",
+        "flag-junit-host",
+        "perfetto_config-full",
+        "cts_adpf_atom_common-host",
+        "cts_adpf_atom_common-host2",
+        "uprobestats-protos",
+        "truth-liteproto-extension",
+        "truth-proto-extension",
+    ],
+
+    device_common_data: [
+        ":CtsStatsdAtomApp",
+        ":CtsAppExitTestCases",
+        ":CtsStatsdAdpfApp",
+        ":CtsStatsdAdpfApp2",
+        ":CtsExternalServiceService",
+        ":CtsMediaProjectionTestCases",
+        ":CtsPropertyCompatAllowUserAspectRatioOverrideOptInApp",
+        ":CtsSimpleApp",
+        ":CtsStatsdAlarmHelper",
+        ":CtsStatsdAlarmHelper2",
+        ":CtsVoiceInteractionTestCases",
+        ":CtsCredentialManagerTestCases",
+        ":CtsStatsdExpressLogHelper",
+        ":CtsAppFunctionTestCases",
+        ":CtsAppFunctionsTestHelper",
+        ":CtsAppFunctionsSidecarTestHelper",
+        ":CtsTelecomTestCases",
+        ":CtsTelecomCujTestCases",
+        ":ManagedConnectionServiceApp",
+        ":TransactionalVoipAppMain",
+    ],
+    per_testcase_directory: true,
+}
+
+java_library_host {
+    name: "cts-statsd-atom-host-test-utils",
+    srcs: ["src/**/lib/*.java"],
+    static_libs: [
+        "platformprotos",
+        "host-libprotobuf-java-full",
+    ],
+    libs: [
+        "compatibility-host-util",
+        "cts-tradefed",
+        "tradefed",
+        "truth",
+    ],
+}
+
+test_module_config_host {
+    name: "CtsStatsdAtomHostTestCases_statsdatom_voiceinteraction",
+    base: "CtsStatsdAtomHostTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.cts.statsdatom.voiceinteraction"],
+}
+
+test_module_config_host {
+    name: "CtsStatsdAtomHostTestCases_statsdatom_jobscheduler",
+    base: "CtsStatsdAtomHostTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.cts.statsdatom.jobscheduler"],
+}
+
+test_module_config_host {
+    name: "CtsStatsdAtomHostTestCases_appexit_appexithosttest",
+    base: "CtsStatsdAtomHostTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.cts.statsdatom.appexit.AppExitHostTest"],
+    exclude_annotations: ["androidx.test.filters.LargeTest"],
+}
+
+test_module_config_host {
+    name: "CtsStatsdAtomHostTestCases_statsdatom_gamemanager",
+    base: "CtsStatsdAtomHostTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.cts.statsdatom.gamemanager"],
+}
+
+test_module_config_host {
+    name: "CtsStatsdAtomHostTestCases_statsdatom_powermanager",
+    base: "CtsStatsdAtomHostTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.cts.statsdatom.powermanager"],
+}
+
+test_module_config_host {
+    name: "CtsStatsdAtomHostTestCases_statsdatom_performancehintmanager",
+    base: "CtsStatsdAtomHostTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.cts.statsdatom.performancehintmanager"],
+}
+
+test_module_config_host {
+    name: "CtsStatsdAtomHostTestCases-kernel-presubmit-brightness",
+    base: "CtsStatsdAtomHostTestCases",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "android.cts.statsdatom.display.DisplayBrightnessChangedStatsTests",
+        "android.cts.statsdatom.statsd.UidAtomTests#testScreenBrightness",
+        "android.cts.statsdatom.display.DisplayWakeReportedStatsTests",
+    ],
+}

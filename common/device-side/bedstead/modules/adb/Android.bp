@@ -1,0 +1,53 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_library {
+    name: "bedstead-adb",
+    srcs: [
+        "src/main/kotlin/**/*.kt",
+    ],
+    manifest: "src/main/AndroidManifest.xml",
+    sdk_version: "current",
+    min_sdk_version: "29",
+    static_libs: [
+        "Nene",
+    ],
+}
+
+android_test {
+    name: "bedstead-adb-test",
+    srcs: [
+        "src/test/kotlin/**/*.kt",
+    ],
+    test_suites: [
+        "general-tests",
+    ],
+    static_libs: [
+        "bedstead",
+        "truth",
+        "bedstead-adb",
+        "Interactive",
+    ],
+    manifest: "src/test/AndroidManifest.xml",
+    min_sdk_version: "29",
+}
+
+android_test {
+    name: "bedstead-adb-interactive-test",
+    srcs: [
+        "src/test/kotlin/**/*.kt",
+    ],
+    test_suites: [
+        "general-tests",
+    ],
+    static_libs: [
+        "bedstead",
+        "truth",
+        "bedstead-adb",
+        "Interactive",
+    ],
+    manifest: "src/test/AndroidManifest.xml",
+    min_sdk_version: "29",
+    test_config: "InteractiveAndroidTest.xml",
+}

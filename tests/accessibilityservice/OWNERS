@@ -1,0 +1,4 @@
+# Bug template url: http://b/new?component=1530954&template=1958448
+
+include platform/frameworks/base:/services/accessibility/OWNERS
+include platform/frameworks/base:/services/accessibility/java/com/android/server/accessibility/magnification/OWNERS

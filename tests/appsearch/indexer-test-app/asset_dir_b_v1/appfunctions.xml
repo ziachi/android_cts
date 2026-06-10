@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<version>1</version>
+<appfunctions>
+    <appfunction>
+        <function_id>com.example.utils#print5</function_id>
+        <schema_name>print</schema_name>
+        <schema_version>1</schema_version>
+        <schema_category>utils</schema_category>
+    </appfunction>
+</appfunctions>

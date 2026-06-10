@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Definition for SchemaMetadata -->
+    <xs:documentType name="SchemaMetadata">
+        <xs:element name="schemaCategory" type="xs:string" />
+        <xs:element name="schemaName" type="xs:string" />
+        <xs:element name="schemaVersion" type="xs:long" />
+    </xs:documentType>
+
+
+    <!-- Definition for AppFunctionStaticMetadata -->
+    <xs:documentType name="AppFunctionStaticMetadata">
+        <xs:element name="functionId" type="xs:string" cardinality="2" indexingType="1"
+            tokenizerType="2" />
+        <xs:element name="packageName" type="xs:string" cardinality="2" indexingType="1"
+            tokenizerType="2" />
+        <xs:element name="schemaName" type="xs:string" cardinality="2" indexingType="1"
+            tokenizerType="2" />
+        <xs:element name="schemaVersion" type="xs:long" cardinality="2" indexingType="1" />
+        <xs:element name="schemaCategory" type="xs:string" cardinality="2" indexingType="1"
+            tokenizerType="2" />
+        <xs:element name="enabledByDefault" type="xs:boolean" cardinality="2" />
+        <xs:element name="restrictCallersWithExecuteAppFunctions" type="xs:boolean"
+            cardinality="2" />
+        <xs:element name="schemaMetadata" type="appfn:SchemaMetadata" cardinality="2"
+            shouldIndexNestedProperties="true" />
+        <xs:element name="displayNameStringRes" type="xs:long" cardinality="2" />
+        <xs:element name="mobileApplicationQualifiedId" type="xs:string" cardinality="2"
+            joinableValueType="1" />
+        <xs:element name="description" type="xs:string" cardinality="2" />
+    </xs:documentType>
+</xs:schema>

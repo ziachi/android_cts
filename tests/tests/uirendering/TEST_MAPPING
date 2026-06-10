@@ -1,0 +1,34 @@
+{
+  // Presubmit variants
+  "presubmit": [
+    {
+      "name": "CtsUiRenderingTestCases"
+    }
+  ],
+  "kernel-presubmit": [
+    {
+      "name": "CtsUiRenderingTestCases"
+    }
+  ],
+  // Postsubmit variants
+  "postsubmit": [
+    {
+      "name": "CtsUiRenderingTestCases",
+      "options": [
+        {
+          "exclude-annotation": "androidx.test.filters.FlakyTest"
+        }
+      ]
+    }
+  ],
+  "hwasan-postsubmit": [
+    {
+      "name": "CtsUiRenderingTestCases",
+      "options": [
+        {
+          "exclude-annotation": "androidx.test.filters.FlakyTest"
+        }
+      ]
+    }
+  ]
+}

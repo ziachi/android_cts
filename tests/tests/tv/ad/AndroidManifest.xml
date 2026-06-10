@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2014 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+     package="android.media.tv.ad.cts">
+
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.INJECT_EVENTS"/>
+
+    <queries>
+        <package android:name="com.android.providers.tv"/>
+    </queries>
+
+    <application>
+        <uses-library android:name="android.test.runner"/>
+
+        <meta-data android:name="android.media.tv.interactive.AppLinkInfo.ClassName"
+             android:value="android.media.tv.cts.TvInputSetupActivityStub" />
+        <meta-data android:name="android.media.tv.interactive.AppLinkInfo.Uri"
+             android:value="https://example.test" />
+
+        <service android:name="android.media.tv.ad.cts.StubTvInputService2"
+                 android:permission="android.permission.BIND_TV_INPUT"
+                 android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.tv.TvInputService"/>
+            </intent-filter>
+            <meta-data android:name="android.media.tv.input"
+                       android:resource="@xml/stub_tv_input_service"/>
+        </service>
+
+        <service android:name="android.media.tv.ad.cts.StubTvAdService"
+                 android:permission="android.permission.BIND_TV_AD_SERVICE"
+                 android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.tv.ad.TvAdService"/>
+            </intent-filter>
+            <meta-data android:name="android.media.tv.ad.service"
+                       android:resource="@xml/stub_tv_ad_service"/>
+        </service>
+        <activity android:name="android.media.tv.ad.cts.TvAdStubActivity"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.FRAMEWORK_INSTRUMENTATION_TEST"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+    <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner"
+         android:targetPackage="android.media.tv.ad.cts"
+         android:label="Tests for the TV AD APIs.">
+    </instrumentation>
+</manifest>

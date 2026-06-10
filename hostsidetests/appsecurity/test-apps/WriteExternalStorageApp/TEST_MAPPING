@@ -1,0 +1,8 @@
+{
+    "presubmit-large": [
+        {
+            "name": "CtsAppSecurityHostTestCases_cts_externalstoragehosttest"
+        }
+    ]
+}
+

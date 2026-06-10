@@ -1,0 +1,477 @@
+package {
+    default_team: "trendy_team_enterprise",
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+java_library_static {
+    name: "TestApp_JavaProtos",
+    sdk_version: "core_current",
+    host_supported: true,
+    proto: {
+        type: "lite",
+    },
+    srcs: ["src/library/main/proto/testapp_protos.proto"],
+}
+
+android_library {
+    name: "TestApp_TestApps",
+    sdk_version: "system_current",
+    srcs: [
+        "src/testapps/main/java/**/*.java",
+        "src/testapps/main/java/**/*.kt",
+    ],
+    static_libs: [
+        "EventLib",
+        "TestApp_Annotations",
+        "ConnectedAppsSDK",
+        "ConnectedAppsSDK_Annotations",
+        "androidx.annotation_annotation",
+        "RemoteFrameworkClasses",
+        "TestApisReflection",
+    ],
+    manifest: "src/testapps/main/AndroidManifest.xml",
+    min_sdk_version: "29",
+    plugins: [
+        "ConnectedAppsSDK_Processor",
+        "TestApp_Processor",
+    ],
+    lint: {
+        baseline_filename: "lint-baseline.xml",
+    },
+}
+
+android_library {
+    name: "TestApp",
+    sdk_version: "system_current",
+    srcs: [
+        "src/library/main/java/**/*.java",
+        "src/library/main/java/**/*.kt",
+    ],
+    static_libs: [
+        "Nene",
+        "EventLib",
+        "Queryable",
+        "TestApp_Annotations",
+        "ConnectedAppsSDK",
+        "ConnectedAppsSDK_Annotations",
+        "androidx.annotation_annotation",
+        "TestApp_TestApps",
+        "TestApp_JavaProtos",
+        "QueryableCommonAndroid",
+        "auto_value_annotations",
+    ],
+    manifest: "src/library/main/AndroidManifest.xml",
+    min_sdk_version: "29",
+    assets: [
+        ":TestApp_Apps",
+        ":TestApp_Metadata_Resources",
+    ],
+    plugins: [
+        "ConnectedAppsSDK_Processor",
+        "TestApp_Processor",
+        "auto_annotation_plugin",
+    ],
+}
+
+android_test {
+    name: "TestAppTest",
+    srcs: [
+        "src/test/java/**/*.java",
+        "src/test/java/**/*.kt",
+    ],
+    test_suites: [
+        "general-tests",
+    ],
+    static_libs: [
+        "Nene",
+        "TestApp",
+        "TestApp_TestApps",
+        "bedstead",
+        "bedstead-enterprise",
+        "EventLib",
+        "androidx.test.ext.junit",
+        "truth",
+        "testng", // for assertThrows
+        "bedstead-performance-analyzer",
+    ],
+    data: [":bedstead-testapp-test1"],
+    manifest: "src/test/AndroidManifest.xml",
+    min_sdk_version: "29",
+    plugins: ["auto_annotation_plugin"],
+}
+
+python_binary_host {
+    name: "index_testapps",
+    main: "tools/index/index_testapps.py",
+    srcs: [
+        "tools/index/index_testapps.py",
+        "src/library/main/proto/testapp_protos.proto",
+    ],
+    proto: {
+        canonical_path_from_root: false,
+    },
+}
+
+java_genrule {
+    name: "TestApp_Apps",
+    srcs: [
+        ":EmptyTestApp",
+        ":NotEmptyTestApp",
+        ":DeviceAdminTestApp",
+        ":TestOnlyDeviceAdminTestApp",
+        ":LockTaskApp",
+        ":DelegateTestApp",
+        ":ContentTestApp",
+        ":DevicePolicyManagementRoleHolderTestApp",
+        ":RemoteDPCTestApp",
+        ":RemoteDPCTestAppTargetingV28",
+        ":RemoteDPCTestAppTargetingV30",
+        ":DialerApp",
+        ":SmsApp",
+        ":AccountManagementApp",
+        ":RemoteAccountAuthenticatorApp",
+        ":MLCTestApp",
+        ":MultipleActivitiesTestApp",
+        ":HeadlessDOSingleUserTestApp",
+        ":RemoteDeviceAdminTestApp",
+    ],
+    out: [
+        "testapps/index.txt",
+        "testapps/EmptyTestApp.apk",
+        "testapps/NotEmptyTestApp.apk",
+        "testapps/DeviceAdminTestApp.apk",
+        "testapps/TestOnlyDeviceAdminTestApp.apk",
+        "testapps/LockTaskApp.apk",
+        "testapps/DelegateTestApp.apk",
+        "testapps/ContentTestApp.apk",
+        "testapps/DevicePolicyManagementRoleHolderTestApp.apk",
+        "testapps/RemoteDPCTestApp.apk",
+        "testapps/RemoteDPCTestAppTargetingV28.apk",
+        "testapps/RemoteDPCTestAppTargetingV30.apk",
+        "testapps/DialerApp.apk",
+        "testapps/SmsApp.apk",
+        "testapps/AccountManagementApp.apk",
+        "testapps/RemoteAccountAuthenticatorApp.apk",
+        "testapps/MLCTestApp.apk",
+        "testapps/MultipleActivitiesTestApp.apk",
+        "testapps/HeadlessDOSingleUserTestApp.apk",
+        "testapps/RemoteDeviceAdminTestApp.apk",
+    ],
+    tools: [
+        "index_testapps",
+        "aapt2",
+    ],
+    cmd: "mkdir -p $(genDir)/testapps" +
+        " && cp $(location :EmptyTestApp) $(genDir)/testapps" +
+        " && cp $(location :NotEmptyTestApp) $(genDir)/testapps" +
+        " && cp $(location :DeviceAdminTestApp) $(genDir)/testapps" +
+        " && cp $(location :TestOnlyDeviceAdminTestApp) $(genDir)/testapps" +
+        " && cp $(location :LockTaskApp) $(genDir)/testapps" +
+        " && cp $(location :DelegateTestApp) $(genDir)/testapps" +
+        " && cp $(location :ContentTestApp) $(genDir)/testapps" +
+        " && cp $(location :DevicePolicyManagementRoleHolderTestApp) $(genDir)/testapps" +
+        " && cp $(location :RemoteDPCTestApp) $(genDir)/testapps" +
+        " && cp $(location :RemoteDPCTestAppTargetingV28) $(genDir)/testapps" +
+        " && cp $(location :RemoteDPCTestAppTargetingV30) $(genDir)/testapps" +
+        " && cp $(location :DialerApp) $(genDir)/testapps" +
+        " && cp $(location :SmsApp) $(genDir)/testapps" +
+        " && cp $(location :AccountManagementApp) $(genDir)/testapps" +
+        " && cp $(location :RemoteAccountAuthenticatorApp) $(genDir)/testapps" +
+        " && cp $(location :MLCTestApp) $(genDir)/testapps" +
+        " && cp $(location :MultipleActivitiesTestApp) $(genDir)/testapps" +
+        " && cp $(location :HeadlessDOSingleUserTestApp) $(genDir)/testapps" +
+        " && cp $(location :RemoteDeviceAdminTestApp) $(genDir)/testapps" +
+        " && $(location index_testapps) --directory $(genDir)/testapps --aapt2 $(location aapt2)",
+}
+
+java_genrule {
+    name: "TestApp_Metadata_Resources",
+    srcs: [
+        "src/testapps/main/res/**/xml/*",
+    ],
+    out: [
+        "resources/device_admin.xml",
+        "resources/headless_single_user_device_admin.xml",
+        "resources/no_headless_device_owner_device_admin.xml",
+        "resources/test_xml.xml",
+    ],
+    cmd: "mkdir -p $(genDir)/resources" +
+        " && cp $(in) $(genDir)/resources",
+}
+
+android_test_helper_app {
+    name: "bedstead-testapp-test1",
+    static_libs: [
+        "EventLib",
+    ],
+    manifest: "testapps/TestApp1.xml",
+    min_sdk_version: "29",
+}
+
+android_test_helper_app {
+    name: "EmptyTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/EmptyTestAppManifest.xml",
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "NotEmptyTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    resource_dirs: ["src/testapps/main/res/test_resources"],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/NotEmptyTestAppManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "DeviceAdminTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    resource_dirs: ["src/testapps/main/res/device_admin"],
+    manifest: "manifests/DeviceAdminManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "HeadlessDOSingleUserTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    resource_dirs: ["src/testapps/main/res/device_admin"],
+    manifest: "manifests/HeadlessDOSingleUserManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "test_current",
+}
+
+android_test_helper_app {
+    name: "TestOnlyDeviceAdminTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    resource_dirs: ["src/testapps/main/res/device_admin"],
+    manifest: "manifests/TestOnlyDeviceAdminManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "LockTaskApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/LockTaskAppManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "DelegateTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/DelegateManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "ContentTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/ContentAppManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "DevicePolicyManagementRoleHolderTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/DevicePolicyManagementRoleHolderManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    resource_dirs: ["src/testapps/main/res/device_admin"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "RemoteDPCTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    resource_dirs: ["src/testapps/main/res/device_admin"],
+    manifest: "manifests/RemoteDPCManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+    target_sdk_version: "36",
+}
+
+android_test_helper_app {
+    name: "RemoteDPCTestAppTargetingV28",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    resource_dirs: ["src/testapps/main/res/device_admin"],
+    manifest: "manifests/RemoteDPCManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    aaptflags: [
+        "--rename-manifest-package com.android.cts.RemoteDPCV28",
+    ],
+    min_sdk_version: "29",
+    target_sdk_version: "28",
+}
+
+android_test_helper_app {
+    name: "RemoteDPCTestAppTargetingV30",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    resource_dirs: ["src/testapps/main/res/device_admin"],
+    manifest: "manifests/RemoteDPCManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    aaptflags: [
+        "--rename-manifest-package com.android.cts.RemoteDPCV30",
+    ],
+    min_sdk_version: "30",
+    target_sdk_version: "30",
+}
+
+android_test_helper_app {
+    name: "DialerApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/DialerAppManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "SmsApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/SmsAppManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "AccountManagementApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    resource_dirs: ["src/testapps/main/res/accountmanagement"],
+    manifest: "manifests/AccountManagementManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "MLCTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/MLCTestAppManifest.xml",
+    resource_dirs: ["src/testapps/main/res/mlctestapp"],
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "RemoteAccountAuthenticatorApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    resource_dirs: ["src/testapps/main/res/accountmanagement"],
+    manifest: "manifests/RemoteAccountAuthenticatorManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+    sdk_version: "system_current",
+}
+
+android_test_helper_app {
+    name: "MultipleActivitiesTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    defaults: ["mts-target-sdk-version-current"],
+    manifest: "manifests/MultipleActivitiesTestAppManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+}
+
+android_test_helper_app {
+    name: "RemoteDeviceAdminTestApp",
+    static_libs: [
+        "TestApp_TestApps",
+    ],
+    resource_dirs: ["src/testapps/main/res/device_admin"],
+    manifest: "manifests/deviceadmin/RemoteDeviceAdminManifest.xml",
+    additional_manifests: ["CommonManifest.xml"],
+    min_sdk_version: "29",
+}
+
+java_library {
+    name: "TestApp_Annotations",
+    sdk_version: "core_current",
+    srcs: [
+        "src/processor/main/java/com/android/bedstead/testapp/processor/annotations/*.java",
+        "src/processor/main/java/com/android/bedstead/testapp/processor/annotations/*.kt",
+    ],
+    host_supported: true,
+}
+
+java_plugin {
+    name: "TestApp_Processor",
+    processor_class: "com.android.bedstead.testapp.processor.Processor",
+    static_libs: [
+        "javapoet",
+        "auto_service_annotations",
+        "TestApp_Annotations",
+        "ConnectedAppsSDK_Annotations",
+        "RemoteFrameworkClasses_Processor_Src",
+    ],
+    srcs: [
+        "src/processor/main/java/com/android/bedstead/testapp/processor/Processor.java",
+    ],
+    plugins: ["auto_service_plugin"],
+    generates_api: true,
+}

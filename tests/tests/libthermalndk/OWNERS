@@ -1,0 +1,5 @@
+# Bug component: 46788
+file:platform/frameworks/base:/services/core/java/com/android/server/power/OWNERS
+xwxw@google.com
+wvw@google.com
+

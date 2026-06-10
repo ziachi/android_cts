@@ -1,0 +1,10 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsSoundTriggerTestCases"
+    },
+    {
+      "name": "CtsVoiceInteractionTestCases"
+    }
+  ]
+}

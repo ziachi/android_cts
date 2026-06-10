@@ -1,0 +1,6 @@
+per-file AndroidManifest*.xml = rossyeh@google.com,robinjacob@google.com,mariay@google.com,slotus@google.com,kgui@google.com
+per-file AndroidManifest*.xml = normancheung@google.com #{LAST_RESORT_SUGGESTION}
+
+# Wear
+per-file res/*-watch/* = file:platform/frameworks/base:/WEAR_OWNERS
+per-file res/*-watch-v*/* = file:platform/frameworks/base:/WEAR_OWNERS

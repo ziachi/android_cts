@@ -1,0 +1,54 @@
+// Copyright (C) 2009 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "CtsBluetoothTestCases",
+    team: "trendy_team_bluetooth",
+    defaults: ["cts_defaults"],
+    static_libs: [
+        "androidx.test.espresso.intents",
+        "androidx.test.rules",
+        "bluetooth_exported_flags_java_lib",
+        "bluetooth-test-util-lib",
+        "compatibility-device-util-axt",
+        "ctstestrunner-axt",
+        "flag-junit",
+        "PlatformProperties",
+    ],
+    libs: [
+        "android.test.base.stubs.system",
+        "android.test.runner.stubs.system",
+        "framework-bluetooth.stubs.module_lib",
+    ],
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.kt",
+    ],
+    // Allows access to system apis
+    platform_apis: true,
+    // Tag this module as a cts test artifact
+    test_suites: [
+        "cts",
+        "dts",
+        "general-tests",
+        "mcts-bt",
+        "mts-bt",
+    ],
+    min_sdk_version: "Tiramisu",
+    sdk_version: "module_current",
+}

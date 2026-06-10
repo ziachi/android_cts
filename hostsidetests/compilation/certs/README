@@ -1,0 +1,8 @@
+# Generated with:
+subject='/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+development/tools/make_key cts/hostsidetests/compilation/certs/testkey "$subject"
+development/tools/make_key cts/hostsidetests/compilation/certs/testkey2 "$subject"
+
+# Show certificate with:
+openssl x509 -in cts/hostsidetests/compilation/certs/testkey.x509.pem -text
+openssl x509 -in cts/hostsidetests/compilation/certs/testkey2.x509.pem -text

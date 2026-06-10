@@ -1,0 +1,27 @@
+{
+  "mainline-presubmit": [
+    {
+        "name": "CtsAppCloningHostTest_NoLarge[com.google.android.mediaprovider.apex]"
+    }
+  ],
+  "mediaprovider-mainline-presubmit": [
+    {
+        "name": "CtsAppCloningHostTest_NoLarge"
+    }
+  ],
+  "mainline-postsubmit": [
+    {
+        "name": "CtsAppCloningHostTest[com.google.android.mediaprovider.apex]"
+    }
+  ],
+  "presubmit": [
+    {
+      "name": "CtsAppCloningHostTest_NoLarge"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsAppCloningHostTest"
+    }
+  ]
+}

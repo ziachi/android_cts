@@ -1,0 +1,502 @@
+// Copyright (C) 2018 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+    default_team: "trendy_team_interactions_frameworks",
+}
+
+filegroup {
+    name: "cts-wm-components",
+    srcs: ["**/Components.java"],
+}
+
+filegroup {
+    name: "cts-wm-decor-inset-test-base",
+    srcs: ["src/android/server/wm/insets/DecorInsetTestsBase.java"],
+}
+
+filegroup {
+    name: "cts-wm-force-relayout-test-base",
+    srcs: ["src/android/server/wm/insets/ForceRelayoutTestBase.java"],
+}
+
+filegroup {
+    name: "cts-wm-untrusted-touch-test-base",
+    srcs: ["src/android/server/wm/input/WindowUntrustedTouchTestBase.java"],
+}
+
+filegroup {
+    name: "cts-wm-activity-record-input-sink-test-base",
+    srcs: [
+        "src/android/server/wm/activity/ActivityRecordInputSinkTestsBase.java",
+        "src/android/server/wm/activity/ActivityRecordInputSinkTestsActivity.java",
+    ],
+}
+
+filegroup {
+    name: "cts-wm-window-policy-test-base",
+    srcs: ["src/android/server/wm/window/WindowPolicyTestBase.java"],
+}
+
+java_defaults {
+    name: "CtsWindowManagerDeviceDefault",
+
+    defaults: ["cts_defaults"],
+
+    resource_dirs: ["res"],
+
+    asset_dirs: ["intent_tests"],
+
+    libs: ["android.test.runner.stubs"],
+
+    test_config_template: "AndroidTestTemplate.xml",
+
+    static_libs: [
+        "compatibility-device-util-axt",
+        "androidx.test.ext.junit",
+        "androidx.test.rules",
+        "hamcrest-library",
+        "platform-test-annotations",
+        "cts-input-lib",
+        "cts-wm-util",
+        "CtsSurfaceValidatorLib",
+        "CtsMockInputMethodLib",
+        "CtsAccessibilityCommon",
+        "metrics-helper-lib",
+        "truth",
+        "cts-wm-overlayapp-base",
+        "cts-wm-shared",
+        "platform-compat-test-rules",
+        "cts_window_jetpack_utils",
+        "com.android.hardware.input-aconfig-java",
+        "com.android.window.flags.window-aconfig-java",
+        "android.permission.flags-aconfig-java",
+        "android.app.flags-aconfig-java",
+        "android.view.inputmethod.flags-aconfig-java",
+        "ui-trace-collector",
+        "flag-junit",
+        "com_android_wm_shell_flags_lib",
+        "surfaceflinger_flags_java_lib",
+    ],
+
+    test_suites: [
+        "cts",
+        "general-tests",
+        "sts",
+        "automotive-general-tests",
+    ],
+
+    sdk_version: "test_current",
+    data: [
+        ":CtsPropertyCompatAllowOrientationOverrideApp",
+        ":CtsPropertyCompatAllowDisplayOrientationOverrideApp",
+        ":CtsPropertyCompatAllowMinAspectRatioOverrideOptInApp",
+        ":CtsPropertyCompatAllowMinAspectRatioOverrideOptOutApp",
+        ":CtsPropertyCompatAllowIgnoringOrientationRequestWhenLoopDetectedOptInApp",
+        ":CtsPropertyCompatAllowIgnoringOrientationRequestWhenLoopDetectedOptOutApp",
+        ":CtsPropertyCompatAllowIgnoringOrientationRequestWhenLoopDetectedUnsetApp",
+        ":CtsPropertyIgnoreOrientationRequestOverrideOptOutApp",
+        ":CtsPropertyIgnoreOrientationRequestOverrideOptInApp",
+        ":CtsPropertyCompatAllowResizeableActivityOverridesOptInApp",
+        ":CtsPropertyCompatAllowResizeableActivityOverridesOptOutApp",
+        ":CtsPropertyCompatAllowUserAspectRatioFullscreenOverrideOptInApp",
+        ":CtsPropertyCompatAllowUserAspectRatioFullscreenOverrideOptOutApp",
+        ":CtsPropertyCompatAllowUserAspectRatioOverrideOptInApp",
+        ":CtsPropertyCompatAllowUserAspectRatioOverrideOptOutApp",
+        ":CtsPropertyCameraCompatAllowForceRotationApp",
+        ":CtsPropertyCameraCompatAllowRefreshApp",
+        ":CtsPropertyCameraCompatEnableRefreshViaPauseOptInApp",
+        ":CtsPropertyCameraCompatEnableRefreshViaPauseOptOutApp",
+        ":CtsDragAndDropSourceApp",
+        ":CtsDragAndDropTargetApp",
+        ":CtsDeviceAlertWindowTestApp",
+        ":CtsAlertWindowService",
+        ":CtsPropertyCompatAllowSandboxingViewBoundsApisApp",
+        ":CtsPropertyCompatOptOutSandboxingViewBoundsApisApp",
+        ":CtsPropertyCompatEnableFakeFocusOptInApp",
+        ":CtsPropertyCompatEnableFakeFocusOptOutApp",
+        ":CtsDeviceServicesTestApp",
+        ":CtsDeviceServicesTestApp27",
+        ":CtsDeviceServicesTestApp30",
+        ":CtsDeviceServicesTestAppTv",
+        ":CtsDeviceServicesTestSecondApp",
+        ":CtsDeviceServicesTestThirdApp",
+        ":CtsDeviceDeprecatedAbiApp",
+        ":CtsDeviceDeprecatedSdkApp",
+        ":CtsDeviceDeskResourcesApp",
+        ":CtsDeviceDisplaySizeApp",
+        ":CtsDevicePrereleaseSdkApp",
+        ":CtsDeviceProfileableApp",
+        ":CtsMockInputMethod",
+        ":CtsMockInputMethod2",
+        ":CtsDeviceServicesTestShareUidAppA",
+        ":CtsDeviceServicesTestShareUidAppB",
+        ":CtsWindowManagerJetpackSecondUidApp",
+        ":CtsBackLegacyApp",
+        ":CtsDragAndDropTargetAppSdk23",
+        ":CtsDeviceAlertWindowTestAppSdk25",
+        ":CtsWindowManagerExternalApp",
+    ],
+    per_testcase_directory: true,
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceHelper-src",
+    srcs: ["src/**/HelperActivities.java"],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceActivity-src",
+    srcs: [
+        "src/**/activity/*.java",
+        "src/**/activity/*.kt",
+        "src/**/activity/lifecycle/*.java",
+        "src/**/intent/*.java",
+    ],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceAm-src",
+    srcs: ["src/**/am/*.java"],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceBackNavigation-src",
+    srcs: ["src/**/backnavigation/*.java"],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceAnimations-src",
+    srcs: [
+        "src/**/animations/*.java",
+    ],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceDisplay-src",
+    srcs: [
+        "src/**/display/*.java",
+        "src/**/intent/Activities.java",
+    ],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceInsets-src",
+    srcs: [
+        "src/**/insets/*.java",
+        "src/**/intent/Activities.java",
+    ],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceMultiDisplay-src",
+    srcs: [
+        "src/**/multidisplay/*.java",
+    ],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceKeyguard-src",
+    srcs: ["src/**/keyguard/*.java"],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceIme-src",
+    srcs: [
+        "src/**/ime/*.java",
+        "src/**/intent/Activities.java",
+    ],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceInput-src",
+    srcs: [
+        "src/**/input/*.java",
+        "src/**/input/*.kt",
+    ],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceOther-src",
+    srcs: [
+        "src/**/other/*.java",
+        "src/**/server/wm/*.java",
+    ],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceTaskFragment-src",
+    srcs: ["src/**/taskfragment/*.java"],
+}
+
+filegroup {
+    name: "CtsWindowManagerDeviceWindow-src",
+    srcs: ["src/**/window/*.java"],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceActivity",
+    team: "trendy_team_windowing_sdk",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceHelper-src",
+        ":CtsWindowManagerDeviceActivity-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceAm",
+    team: "trendy_team_windowing_sdk",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceAm-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceBackNavigation",
+    team: "trendy_team_windowing_animations_transitions",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceBackNavigation-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceAnimations",
+    team: "trendy_team_windowing_animations_transitions",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceAnimations-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceDisplay",
+    team: "trendy_team_display_framework",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceHelper-src",
+        ":CtsWindowManagerDeviceDisplay-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceKeyguard",
+    team: "trendy_team_windowing_animations_transitions",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceKeyguard-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceInput",
+    team: "trendy_team_android_input",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    kotlincflags: [
+        "-Werror",
+    ],
+
+    srcs: [
+        ":CtsWindowManagerDeviceInput-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceInsets",
+    team: "trendy_team_windowing_animations_transitions",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceInsets-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceIme",
+    team: "trendy_team_input_method_framework",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceIme-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceTaskFragment",
+    team: "trendy_team_windowing_sdk",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceHelper-src",
+        ":CtsWindowManagerDeviceTaskFragment-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceMultiDisplay",
+    team: "trendy_team_windowing_sdk",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceMultiDisplay-src",
+        ":CtsWindowManagerDeviceHelper-src",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceWindow",
+    team: "trendy_team_windowing_animations_transitions",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceWindow-src",
+        "alertwindowservice/src/**/*.java",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+android_test {
+    name: "CtsWindowManagerDeviceOther",
+    team: "trendy_team_windowing_sdk",
+    defaults: ["CtsWindowManagerDeviceDefault"],
+
+    srcs: [
+        ":CtsWindowManagerDeviceOther-src",
+        "alertwindowservice/src/**/*.java",
+        ":CtsVerifierMockVrListenerServiceFiles",
+    ],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceInsets_insets_windowinsetsanimationcontrollertests",
+    base: "CtsWindowManagerDeviceInsets",
+    test_suites: ["general-tests"],
+    include_filters: ["android.server.wm.insets.WindowInsetsAnimationControllerTests"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceWindow_window_toastwindowtest",
+    base: "CtsWindowManagerDeviceWindow",
+    test_suites: ["general-tests"],
+    include_filters: ["android.server.wm.window.ToastWindowTest"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceActivity_wm_cts",
+    base: "CtsWindowManagerDeviceActivity",
+    test_suites: ["general-tests"],
+    include_filters: ["android.content.wm.cts"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceAm_wm_cts",
+    base: "CtsWindowManagerDeviceAm",
+    test_suites: ["general-tests"],
+    include_filters: ["android.content.wm.cts"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceBackNavigation_wm_cts",
+    base: "CtsWindowManagerDeviceBackNavigation",
+    test_suites: ["general-tests"],
+    include_filters: ["android.content.wm.cts"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceDisplay_wm_cts",
+    base: "CtsWindowManagerDeviceDisplay",
+    test_suites: ["general-tests"],
+    include_filters: ["android.content.wm.cts"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceKeyguard_wm_cts",
+    base: "CtsWindowManagerDeviceKeyguard",
+    test_suites: ["general-tests"],
+    include_filters: ["android.content.wm.cts"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceInsets_wm_cts",
+    base: "CtsWindowManagerDeviceInsets",
+    test_suites: ["general-tests"],
+    include_filters: ["android.content.wm.cts"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceTaskFragment_wm_cts",
+    base: "CtsWindowManagerDeviceTaskFragment",
+    test_suites: ["general-tests"],
+    include_filters: ["android.content.wm.cts"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceWindow_wm_cts",
+    base: "CtsWindowManagerDeviceWindow",
+    test_suites: ["general-tests"],
+    include_filters: ["android.content.wm.cts"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceOther_wm_cts",
+    base: "CtsWindowManagerDeviceOther",
+    test_suites: ["general-tests"],
+    include_filters: ["android.content.wm.cts"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceBackNavigation_com_android_wm_shell_back",
+    base: "CtsWindowManagerDeviceBackNavigation",
+    test_suites: ["general-tests"],
+    include_filters: [
+        "android.server.wm.backnavigation.BackGestureInvokedTest",
+        "android.server.wm.backnavigation.BackNavigationTests",
+        "android.server.wm.backnavigation.OnBackInvokedCallbackGestureTest",
+    ],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceWindow_window_crossappdraganddroptests",
+    base: "CtsWindowManagerDeviceWindow",
+    test_suites: ["general-tests"],
+    include_filters: ["android.server.wm.window.CrossAppDragAndDropTests"],
+}
+
+test_module_config {
+    name: "CtsWindowManagerDeviceWindow_window_windowinputtests",
+    base: "CtsWindowManagerDeviceWindow",
+    test_suites: ["general-tests"],
+    include_filters: ["android.server.wm.window.WindowInputTests"],
+}

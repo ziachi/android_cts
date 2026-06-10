@@ -1,0 +1,5 @@
+# Bug component: 826709 for headroom API
+file:platform/frameworks/base:/ADPF_OWNERS
+
+# Bug component: 26805 for other APIs
+file:platform/frameworks/base:/core/java/android/os/health/OWNERS

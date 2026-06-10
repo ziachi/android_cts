@@ -1,0 +1,7 @@
+android.content.pm.UserInfo
+android.app.DreamManager
+android.app.ActivityTaskManager
+android.credentials.CredentialProviderInfo
+android.content.AutofillOptions
+android.content.ContentCaptureOptions
+android.app.ActivityOptions.LaunchCookie

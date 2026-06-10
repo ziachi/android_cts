@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ Copyright (C) 2025 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Definition for SchemaMetadata -->
+    <xs:documentType name="SchemaMetadata">
+        <xs:element name="schemaCategory" type="xs:string" />
+        <xs:element name="schemaName" type="xs:string" />
+        <xs:element name="schemaVersion" type="xs:long" />
+        <xs:element name="packageName" type="xs:string" cardinality="2" indexingType="1"
+            tokenizerType="2" />
+        <xs:element name="mobileApplicationQualifiedId" type="xs:string" cardinality="2"
+            joinableValueType="1" />
+    </xs:documentType>
+
+
+    <!-- Definition for AppFunctionStaticMetadata -->
+    <xs:documentType name="AppFunctionStaticMetadata">
+        <xs:element name="functionId" type="xs:string" cardinality="2" indexingType="1"
+            tokenizerType="2" />
+        <xs:element name="packageName" type="xs:string" cardinality="2" indexingType="1"
+            tokenizerType="2" />
+        <xs:element name="schemaName" type="xs:string" cardinality="2" indexingType="1"
+            tokenizerType="2" />
+        <xs:element name="schemaVersion" type="xs:long" cardinality="2" indexingType="1" />
+        <xs:element name="schemaCategory" type="xs:string" cardinality="2" indexingType="1"
+            tokenizerType="2" />
+        <xs:element name="enabledByDefault" type="xs:boolean" cardinality="2" />
+        <xs:element name="restrictCallersWithExecuteAppFunctions" type="xs:boolean"
+            cardinality="2" />
+        <xs:element name="displayNameStringRes" type="xs:long" cardinality="2" />
+        <xs:element name="mobileApplicationQualifiedId" type="xs:string" cardinality="2"
+            joinableValueType="1" />
+        <xs:element name="description" type="xs:string" cardinality="2" />
+    </xs:documentType>
+</xs:schema>

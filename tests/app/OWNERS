@@ -1,0 +1,7 @@
+# Bug component: 316234
+include platform/frameworks/base:/services/core/java/com/android/server/am/OWNERS
+include platform/frameworks/base:/ACTIVITY_MANAGER_OWNERS
+include platform/frameworks/base:/services/core/java/com/android/server/notification/OWNERS
+
+# Bug template url: https://b.corp.google.com/issues/new?component=158088&template=1975266 = per-file *AppStartTest*
+per-file *AppStartTest* = yforta@google.com, carmenjackson@google.com

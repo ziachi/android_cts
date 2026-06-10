@@ -1,0 +1,3 @@
+include platform/frameworks/base:/services/core/java/com/android/server/power/OWNERS
+
+per-file ThermalPowerManagerStatsTests* = file:platform/frameworks/base:/THERMAL_OWNERS

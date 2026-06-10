@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2024 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="android.packageinstaller.emptytestapp.rejectedbyverifier.cts">
+
+    <!--
+    The publicKey should match the certificate in the sufficient_verifier_cert
+    files. Refer to the README of sufficientverifierreject test app to learn how
+    to generate the publicKey.
+    -->
+    <package-verifier
+        android:name="android.packageinstaller.sufficientverifierreject"
+        android:publicKey="MIIBIDANBgkqhkiG9w0BAQEFAAOCAQ0AMIIBCAKCAQEA94b61X+eyTz9HDrhikRjlBDc2F+DBHC47YsXe/VsrFH0gOB5qC3XoDJ0tjtO0ooJdhW7SAR38/80Q9rlDGEaXmZW9jFyQ09JbOdOMmfmn0Ki5t8L8oGnC8jlrgk5q/wIFcFR5aEO2A01wA/yJlx8Vex2H4TgqrR+7xwuN/YLM30CxEzw3CyeaPA5g1sChCtkh//1TPRTqkjXv2WmNhzeviMYsPsxnyMUqSMSyB9oSkSfAwcCTqsxT3R7Vz+AH6khmY4fFdStu6yokgD5tPg5twtKnHKaSVxrYY4zyMQeEIbMkUInL6MRXpoTvd836l0+/RAkBPqzG0ktI5FVEXSmFwIBAw=="/>
+
+    <application android:hasCode="false" android:label="@string/app_name" />
+
+</manifest>

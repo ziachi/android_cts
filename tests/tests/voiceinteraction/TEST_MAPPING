@@ -1,0 +1,34 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsVoiceInteractionTestCases"
+    },
+    {
+      "name": "CtsLocalVoiceInteraction"
+    }
+  ],
+  "presubmit-large" : [
+    {
+      "name" : "CtsStatsdAtomHostTestCases",
+      "options": [
+        {
+          "exclude-annotation": "androidx.test.filters.FlakyTest"
+        },
+        {
+          "exclude-annotation": "org.junit.Ignore"
+        },
+        {
+          "include-filter": "android.cts.statsdatom.voiceinteraction"
+        }
+      ]
+    }
+  ],
+  "hwasan-postsubmit": [
+    {
+      "name": "CtsVoiceInteractionTestCases"
+    },
+    {
+      "name": "CtsLocalVoiceInteraction"
+    }
+  ]
+}

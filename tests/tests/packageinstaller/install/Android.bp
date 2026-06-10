@@ -1,0 +1,170 @@
+// Copyright (C) 2018 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_team: "trendy_team_framework_android_packages",
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "CtsPackageInstallSessionTestCases",
+    sdk_version: "test_current",
+    srcs: [
+        // go/keep-sorted start
+        "src/android/packageinstaller/install/cts/PackageInstallerTestBase.kt",
+        "src/android/packageinstaller/install/cts/PreapprovalInstallTest.kt",
+        "src/android/packageinstaller/install/cts/SessionParamsPermissionStateTest.kt",
+        "src/android/packageinstaller/install/cts/SessionTest.kt",
+        "src/android/packageinstaller/install/cts/SessionTestInstant.kt",
+        "src/android/packageinstaller/install/cts/SessionTestWithPia.kt",
+        // go/keep-sorted end
+    ],
+    static_libs: [
+        // go/keep-sorted start
+        "TestParameterInjector",
+        "android.security.flags-aconfig-java",
+        "androidx.test.rules",
+        "androidx.test.uiautomator_uiautomator",
+        "compatibility-device-util-axt",
+        "cts-install-lib",
+        "flag-junit",
+        "kotlin-test",
+        "platform-test-annotations",
+        "platform-test-rules",
+        "truth",
+        // go/keep-sorted end
+    ],
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+    data: [
+        ":CtsEmptyInstallerApp",
+        ":CtsEmptyTestApp",
+        ":CtsEmptyTestAppV2",
+        ":CtsEmptyTestApp_FullScreenIntent",
+    ],
+    per_testcase_directory: true,
+    platform_apis: true,
+    test_config: "CtsPackageInstallSessionTestCases.xml",
+}
+
+android_test {
+    name: "CtsPackageInstallTestCases",
+    sdk_version: "test_current",
+
+    srcs: [
+        "src/android/packageinstaller/install/cts/ExternalSourcesInstantAppsTest.kt",
+        "src/android/packageinstaller/install/cts/ExternalSourcesTestAppOpAllowed.kt",
+        "src/android/packageinstaller/install/cts/InstallAppMetadataTest.kt",
+        "src/android/packageinstaller/install/cts/InstallConstraintsTest.kt",
+        "src/android/packageinstaller/install/cts/InstallInfoTest.kt",
+        "src/android/packageinstaller/install/cts/InstallPreVerifiedDomainsTest.kt",
+        "src/android/packageinstaller/install/cts/InstallSourceInfoMultiUserTest.kt",
+        "src/android/packageinstaller/install/cts/InstallSourceInfoTest.kt",
+        "src/android/packageinstaller/install/cts/IntentTest.kt",
+        "src/android/packageinstaller/install/cts/PackageInstallerTestBase.kt",
+    ],
+
+    static_libs: [
+        "TestParameterInjector",
+        "android.content.pm.flags-aconfig-java",
+        "android.security.flags-aconfig-java",
+        "androidx.legacy_legacy-support-v4",
+        "androidx.test.ext.junit",
+        "androidx.test.rules",
+        "androidx.test.uiautomator_uiautomator",
+        "bedstead-root",
+        "compatibility-device-util-axt",
+        "cts-install-lib",
+        "flag-junit",
+        "kotlin-test",
+        "platform-test-annotations",
+        "platform-test-rules",
+        "truth",
+    ],
+
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+    data: [
+        ":CtsDisabledLauncherActivityApp",
+        ":CtsEmptyInstallerApp",
+        ":CtsEmptyTestApp",
+        ":CtsEmptyTestAppV2",
+        ":CtsEmptyTestApp_AppMetadataInApk",
+        ":CtsEmptyTestApp_AppMetadataInApk_ExceedSizeLimit",
+        ":CtsEmptyTestApp_FullScreenIntent",
+        ":CtsEmptyTestApp_RejectedByVerifier",
+        ":CtsSufficientVerifierReject",
+    ],
+    java_resources: [
+        ":HelloWorldSdk1",
+        ":HelloWorldUsingSdk1",
+    ],
+    per_testcase_directory: true,
+    platform_apis: true,
+}
+
+android_test {
+    name: "CtsUpdateOwnershipEnforcementTestCases",
+    sdk_version: "test_current",
+
+    srcs: [
+        "src/android/packageinstaller/install/cts/PackageInstallerTestBase.kt",
+        "src/android/packageinstaller/install/cts/UpdateOwnershipEnforcementMultiUserTest.kt",
+        "src/android/packageinstaller/install/cts/UpdateOwnershipEnforcementTest.kt",
+        "src/android/packageinstaller/install/cts/UpdateOwnershipEnforcementTestBase.kt",
+    ],
+
+    static_libs: [
+        "TestParameterInjector",
+        "android.content.pm.flags-aconfig-java",
+        "android.security.flags-aconfig-java",
+        "androidx.legacy_legacy-support-v4",
+        "androidx.test.ext.junit",
+        "androidx.test.rules",
+        "androidx.test.uiautomator_uiautomator",
+        "bedstead-root",
+        "compatibility-device-util-axt",
+        "cts-install-lib",
+        "flag-junit",
+        "kotlin-test",
+        "platform-test-annotations",
+        "platform-test-rules",
+        "truth",
+    ],
+
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+    data: [
+        ":CtsArchiveInstallerApp",
+        ":CtsArchiveTestApp",
+        ":CtsEmptyInstallerApp",
+        ":CtsEmptyTestApp",
+    ],
+    per_testcase_directory: true,
+    platform_apis: true,
+    test_config: "CtsUpdateOwnershipEnforcementTest.xml",
+}
+
+test_module_config {
+    name: "CtsPackageInstallTestCases_NoAppModeInstant",
+    base: "CtsPackageInstallTestCases",
+    test_suites: ["general-tests"],
+    exclude_annotations: ["android.platform.test.annotations.AppModeInstant"],
+}

@@ -1,0 +1,65 @@
+// Signature format: 2.0
+package android.media.tv.tuner.cts.configuration.v1 {
+
+  public class DvbsCapability {
+    ctor public DvbsCapability();
+    method @Nullable public java.math.BigInteger getTargetSymbolRate();
+    method public boolean hasTargetSymbolRate();
+    method public void setTargetSymbolRate(@Nullable java.math.BigInteger);
+  }
+
+  public class LnbCapability {
+    ctor public LnbCapability();
+    method @Nullable public android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltages getSupportedVoltages();
+    method public boolean hasSupportedVoltages();
+    method public void setSupportedVoltages(@Nullable android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltages);
+  }
+
+  public enum LnbSupportedVoltage {
+    method @NonNull public String getRawName();
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage VOLTAGE_11V;
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage VOLTAGE_12V;
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage VOLTAGE_13V;
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage VOLTAGE_14V;
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage VOLTAGE_15V;
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage VOLTAGE_18V;
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage VOLTAGE_19V;
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage VOLTAGE_5V;
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage VOLTAGE_NONE;
+  }
+
+  public class LnbSupportedVoltages {
+    ctor public LnbSupportedVoltages();
+    method @Nullable public java.util.List<android.media.tv.tuner.cts.configuration.v1.LnbSupportedVoltage> getVoltage();
+  }
+
+  public class TunerCtsConfiguration {
+    ctor public TunerCtsConfiguration();
+    method @Nullable public android.media.tv.tuner.cts.configuration.v1.DvbsCapability getDvbsCapability();
+    method @Nullable public android.media.tv.tuner.cts.configuration.v1.LnbCapability getLnbCapability();
+    method @Nullable public java.math.BigInteger getTargetFrontendId();
+    method @Nullable public android.media.tv.tuner.cts.configuration.v1.Version getVersion();
+    method public boolean hasDvbsCapability();
+    method public boolean hasLnbCapability();
+    method public boolean hasTargetFrontendId();
+    method public boolean hasVersion();
+    method public void setDvbsCapability(@Nullable android.media.tv.tuner.cts.configuration.v1.DvbsCapability);
+    method public void setLnbCapability(@Nullable android.media.tv.tuner.cts.configuration.v1.LnbCapability);
+    method public void setTargetFrontendId(@Nullable java.math.BigInteger);
+    method public void setVersion(@Nullable android.media.tv.tuner.cts.configuration.v1.Version);
+  }
+
+  public enum Version {
+    method @NonNull public String getRawName();
+    enum_constant public static final android.media.tv.tuner.cts.configuration.v1.Version _1_0;
+  }
+
+  public class XmlParser {
+    ctor public XmlParser();
+    method @Nullable public static android.media.tv.tuner.cts.configuration.v1.TunerCtsConfiguration read(@NonNull java.io.InputStream) throws javax.xml.datatype.DatatypeConfigurationException, java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method @Nullable public static String readText(@NonNull org.xmlpull.v1.XmlPullParser) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+    method public static void skip(@NonNull org.xmlpull.v1.XmlPullParser) throws java.io.IOException, org.xmlpull.v1.XmlPullParserException;
+  }
+
+}
+

@@ -1,0 +1,30 @@
+package {
+    default_team: "trendy_team_enterprise",
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_library {
+    name: "bedstead-performance-analyzer",
+    srcs: [
+        "src/main/kotlin/**/*.kt",
+    ],
+    static_libs: [
+        "truth",
+    ],
+    sdk_version: "current",
+    manifest: "src/main/AndroidManifest.xml",
+    min_sdk_version: "29",
+}
+
+android_test {
+    name: "bedstead-performance-test",
+    srcs: [
+        "src/test/kotlin/**/*.kt",
+    ],
+    static_libs: [
+        "bedstead-performance-analyzer",
+        "bedstead",
+    ],
+    manifest: "src/test/AndroidManifest.xml",
+    min_sdk_version: "29",
+}

@@ -1,0 +1,47 @@
+package {
+    default_team: "trendy_team_enterprise",
+}
+
+// Because of the complex circular dependencies involving the permissions module so far
+// we have only separated the source code but it is still included as part of the build targets for
+// Harrier and Nene. We need to split Harrier and Nene into core targets to get the dependencies
+// flowing in a single direction to split these targets
+filegroup {
+    name: "bedstead-permissions-common-srcs",
+    srcs: [
+        "src/main/kotlin/com/android/bedstead/permissions/annotations/*.kt",
+        "src/main/kotlin/com/android/bedstead/permissions/annotations/*.java",
+        "src/main/kotlin/com/android/bedstead/permissions/CommonPermissions.java",
+    ],
+}
+
+filegroup {
+    name: "bedstead-permissions-harrier-srcs",
+    srcs: [
+        "src/main/kotlin/com/android/bedstead/permissions/*.kt",
+    ],
+}
+
+filegroup {
+    name: "bedstead-permissions-nene-srcs",
+    srcs: [
+        "src/main/kotlin/com/android/bedstead/permissions/*.java",
+    ],
+}
+
+android_test {
+    name: "bedstead-permissions-test",
+    srcs: [
+        "src/test/kotlin/**/*.kt",
+    ],
+    test_suites: [
+        "general-tests",
+    ],
+    static_libs: [
+        "bedstead",
+        "bedstead-root",
+        "truth",
+    ],
+    manifest: "src/test/AndroidManifest.xml",
+    min_sdk_version: "29",
+}

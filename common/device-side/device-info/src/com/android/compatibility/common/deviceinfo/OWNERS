@@ -1,0 +1,8 @@
+# Bug component: 1122335
+
+# Bug component: 1084732 = per-file KeystoreAttestationDeviceInfo.java
+# Bug template url: http://b/new?component=1084732&template=1604634 = per-file KeystoreAttestationDeviceInfo.java
+per-file KeystoreAttestationDeviceInfo.java = file:platform/cts:/tests/tests/keystore/OWNERS
+
+# Bug component: 137825 = per-file PermissionDeviceInfo.java
+per-file PermissionDeviceInfo.java = file:platform/frameworks/base:/core/java/android/permission/OWNERS

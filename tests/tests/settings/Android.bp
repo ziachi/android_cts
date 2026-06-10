@@ -1,0 +1,43 @@
+package {
+    default_team: "trendy_team_android_settings_app",
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "CtsSettingsTestCases",
+    defaults: ["cts_defaults"],
+
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+
+    libs: ["android.test.runner.stubs.test"],
+
+    static_libs: [
+        "androidx.slice_slice-core",
+        "androidx.slice_slice-view",
+        "androidx.test.rules",
+        "androidx.window_window",
+        "aconfig_settings_flags_lib",
+        "aconfig_settingslib_flags_java_lib",
+        "android.provider.flags-aconfig-java",
+        "compatibility-common-util-devicesidelib",
+        "compatibility-device-util-axt",
+        "com.android.window.flags.window-aconfig-java",
+        "ctstestrunner-axt",
+        "bedstead-enterprise",
+        "junit",
+        "truth",
+        "telephony_flags_core_java_lib",
+        "camera_platform_flags_java_lib",
+        "com_android_car_settings_flags_lib",
+    ],
+
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.kt",
+    ],
+
+    sdk_version: "test_current",
+}

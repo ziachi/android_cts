@@ -1,0 +1,34 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+    default_team: "trendy_team_framework_backstage_power",
+}
+
+android_test {
+    name: "CtsCalendarProviderTestCases",
+    defaults: ["cts_defaults"],
+
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+
+    libs: [
+        "android.test.mock.stubs.test",
+        "android.test.base.stubs.test",
+        "android.test.runner.stubs.test",
+    ],
+
+    static_libs: [
+        "compatibility-device-util-axt",
+        "ctstestrunner-axt",
+        "junit",
+        "truth",
+        "mockito-target-minus-junit4",
+        "androidx.test.rules",
+    ],
+
+    srcs: ["src/**/*.java"],
+
+    sdk_version: "test_current",
+    min_sdk_version: "29",
+}

@@ -1,0 +1,4 @@
+# Bug component: 41727 = per-file CameraDeviceInfo.java
+
+per-file CameraDeviceInfo.java = file:platform/frameworks/av:/camera/OWNERS
+per-file DisplayDeviceInfo.java = file:platform/frameworks/native:/services/surfaceflinger/OWNERS

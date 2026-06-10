@@ -1,0 +1,7 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsPackageManagerHostTestCases_cts_isolatedsplitstests"
+    }
+  ]
+}

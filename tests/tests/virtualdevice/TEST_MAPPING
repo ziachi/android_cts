@@ -1,0 +1,55 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsVirtualDevicesTestCases"
+    },
+    {
+      "name": "CtsVirtualDevicesAudioTestCases"
+    },
+    {
+      "name": "CtsVirtualDevicesSensorTestCases"
+    },
+    {
+      "name": "CtsVirtualDevicesAppLaunchTestCases"
+    },
+    {
+      "name": "CtsVirtualDevicesCameraTestCases",
+      "keywords": ["primary-device"]
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsVirtualDevicesCameraCtsTestCases",
+      "keywords": ["primary-device"],
+      "options": [
+        {
+          "exclude-filter": "android.hardware.camera2.cts.StillCaptureTest#testAePrecaptureTriggerCancelJpegCapture[1]"
+        },
+        {
+          "exclude-filter": "android.hardware.camera2.cts.ExtendedCameraCharacteristicsTest#testCameraPerfClassCharacteristics[1]"
+        },
+        {
+          "exclude-filter": "android.hardware.camera2.cts.ExtendedCameraCharacteristicsTest#testCameraUPerfClassCharacteristics[1]"
+        },
+        {
+          "exclude-filter": "android.hardware.camera2.cts.ExtendedCameraCharacteristicsTest#testCameraOrientationAlignedWithDevice[1]"
+        },
+        {
+          "exclude-filter": "android.hardware.camera2.cts.ConcurrentCameraTest#testMandatoryConcurrentStreamCombination[1]"
+        },
+        {
+          "exclude-filter": "android.hardware.camera2.cts.CaptureRequestTest#testNoiseReductionModeControl[1]"
+        },
+        {
+          "exclude-filter": "android.hardware.camera2.cts.CameraManagerTest#testCameraManagerGetDeviceIdList[1]"
+        },
+        {
+          "exclude-filter": "android.hardware.camera2.cts.CameraExtensionCharacteristicsTest#testExtensionAvailability"
+        }
+      ]
+    },
+    {
+    "name": "CtsVirtualDevicesAppLaunchSdk35TestCases"
+    }
+  ]
+}

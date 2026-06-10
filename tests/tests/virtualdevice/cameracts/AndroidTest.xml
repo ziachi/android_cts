@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2024 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<configuration description="Configuration for Virtual Device Manager Camera Tests running the Camera CTS tests">
+    <!-- Only run tests if the device under test is SDK version 34 (Android 14) or above. -->
+    <object type="module_controller" class="com.android.tradefed.testtype.suite.module.Sdk34ModuleController" />
+    <object type="module_controller" class="com.android.tradefed.testtype.suite.module.DeviceFeatureModuleController">
+        <!-- Skip the test on automotive devices, as virtual camera is not supported there. -->
+        <option name="forbidden-feature" value="android.hardware.type.automotive"/>
+    </object>
+    <object type="module_controller" class="com.android.tradefed.testtype.suite.module.CommandSuccessModuleController" >
+        <option name="command-timeout" value="2000" />
+        <!-- Skip the test if we're not able to execute virtual_camera commands on device. -->
+        <option name="run-command" value="cmd -w virtual_camera" />
+        <!-- Skip the test on low ram devices. -->
+        <option name="run-command" value="getprop ro.config.low_ram | grep -v true" />
+        <!-- Skip the test if a virtual camera cannot be created successfully. -->
+        <option name="run-command" value="cmd -w virtual_camera enable_test_camera" />
+        <option name="run-command" value="cmd -w virtual_camera disable_test_camera" />
+    </object>
+
+    <option name="config-descriptor:metadata" key="component" value="framework" />
+    <option name="config-descriptor:metadata" key="parameter" value="not_instant_app" />
+    <option name="config-descriptor:metadata" key="parameter" value="not_multi_abi" />
+    <option name="config-descriptor:metadata" key="parameter" value="secondary_user" />
+    <option name="config-descriptor:metadata" key="parameter" value="run_on_sdk_sandbox" />
+
+    <!-- Camera ID value must match with the ID set in the enable_test_camera command below -->
+    <option name="instrumentation-arg" key="camera-id" value="637473" />
+
+    <option name="not-shardable" value="true" />
+    <option name="test-suite-tag" value="cts" />
+
+    <target_preparer class="com.android.tradefed.targetprep.suite.SuiteApkInstaller">
+        <option name="cleanup-apks" value="true" />
+        <option name="test-file-name" value="CtsCameraTestCases.apk" />
+        <option name="check-min-sdk" value="true" />
+    </target_preparer>
+
+    <!-- disable GPP UI -->
+    <target_preparer class="com.android.tradefed.targetprep.DeviceSetup">
+        <option name="force-skip-system-props" value="true" />
+        <option name="set-global-setting" key="verifier_engprod" value="1" />
+        <option name="set-global-setting" key="verifier_verify_adb_installs" value="0" />
+        <option name="restore-settings" value="true" />
+    </target_preparer>
+
+    <target_preparer class="com.android.tradefed.targetprep.RunCommandTargetPreparer">
+        <option name="throw-if-cmd-fail" value="true" />
+        <option name="run-command-timeout" value="5000"/>
+        <option name="run-command" value="input keyevent KEYCODE_WAKEUP" />
+        <option name="run-command" value="wm dismiss-keyguard" />
+        <option name="run-command" value="cmd -w virtual_camera enable_test_camera --camera_id=637473" />
+        <option name="teardown-command" value="cmd virtual_camera disable_test_camera" />
+        <option name="teardown-command-timeout" value="5000"/>
+    </target_preparer>
+
+    <test class="com.android.tradefed.testtype.AndroidJUnitTest" >
+        <option name="package" value="android.camera.cts" />
+        <option name="runtime-hint" value="12m" />
+    </test>
+</configuration>

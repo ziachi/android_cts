@@ -1,0 +1,369 @@
+{{- /*
+ * CompMethod generates comparison method constant from a RequiredMeasurement
+ */}}
+{{- define "CompMethod" -}}
+    {{- $c :=.GetComparison }}
+    {{- $mt :=.GetMeasurementType }}
+    {{- if eq $mt.String "MEASUREMENT_TYPE_BOOL" -}}BOOLEAN
+    {{- else if eq $mt.String "MEASUREMENT_TYPE_DOUBLE" -}}DOUBLE
+    {{- else if eq $mt.String "MEASUREMENT_TYPE_INT" -}}INTEGER
+    {{- else if eq $mt.String "MEASUREMENT_TYPE_STRING" -}}STRING
+    {{- else if eq $mt.String "MEASUREMENT_TYPE_LONG" -}}LONG
+    {{- else if eq $mt.String "MEASUREMENT_TYPE_FLOAT" -}}FLOAT
+    {{- else }}{{$mt}}
+    {{- end }}_
+    {{- if eq $c.String "COMPARISON_EQUAL" -}}EQ
+    {{- else if eq $c.String "COMPARISON_LESS_THAN" -}}LT
+    {{- else if eq $c.String "COMPARISON_LESS_THAN_OR_EQUAL" -}}LTE
+    {{- else if eq $c.String "COMPARISON_GREATER_THAN" -}}GT
+    {{- else if eq $c.String "COMPARISON_GREATER_THAN_OR_EQUAL" -}}GTE
+    {{- else if eq $c.String "COMPARISON_INFO_ONLY" -}}INFO
+    {{- else if eq $c.String "COMPARISON_CONFIG" -}}INFO
+    {{- else if eq $c.String "COMPARISON_CAMERA_HARDWARE_LEVEL_GREATER_THAN_OR_EQUAL" -}}CAM_HW_LEVEL_GTE
+    {{- else }}{{$c}}
+    {{- end }}
+{{- end -}}
+
+
+{{- /*
+ * JavaClass generates Java class name from a MeasurementType
+ */}}
+{{- define "JavaClass" -}}
+    {{- if eq .String "MEASUREMENT_TYPE_BOOL" -}}Boolean
+    {{- else if eq .String "MEASUREMENT_TYPE_DOUBLE" -}}Double
+    {{- else if eq .String "MEASUREMENT_TYPE_INT" -}}Integer
+    {{- else if eq .String "MEASUREMENT_TYPE_STRING" -}}String
+    {{- else if eq .String "MEASUREMENT_TYPE_LONG" -}}Long
+    {{- else if eq .String "MEASUREMENT_TYPE_FLOAT" -}}Float
+    {{- else }}{{.}}
+    {{- end }}
+{{- end -}}
+
+{{- /*
+ * JavaClass generates Java type from a MeasurementType
+ */}}
+{{- define "JavaType" -}}
+    {{- if eq .String "MEASUREMENT_TYPE_BOOL" -}}boolean
+    {{- else if eq .String "MEASUREMENT_TYPE_DOUBLE" -}}double
+    {{- else if eq .String "MEASUREMENT_TYPE_INT" -}}int
+    {{- else if eq .String "MEASUREMENT_TYPE_STRING" -}}String
+    {{- else if eq .String "MEASUREMENT_TYPE_LONG" -}}long
+    {{- else if eq .String "MEASUREMENT_TYPE_FLOAT" -}}float
+    {{- else }}{{.}}
+    {{- end }}
+{{- end -}}
+
+{{- /*
+ * VersionCode generates the android.Build VersionCode constant from an mpc value.
+ * It is an error if the mpc value listed here.
+ */}}
+{{- define "VersionCode" -}}
+    VERSION_CODES.
+    {{- if  eq . 30}}R
+    {{- else if eq . 31}}S
+    {{- else if eq . 33}}TIRAMISU
+    {{- else if eq . 34}}UPSIDE_DOWN_CAKE
+    {{- else if eq . 35}}VANILLA_ICE_CREAM
+    {{- else }}{{.}}
+    {{- end }}
+{{- end -}}
+
+
+{{- /*
+ * MeasurementValue gets value from RequiredValue base on the MeasurementType
+ * It is an error if the MeasurementType is not listed here.
+ */}}
+{{- define "MeasurementValue" -}}
+    {{- if eq .MeasurementType.String "MEASUREMENT_TYPE_BOOL" -}}{{.RequiredValue.GetBoolValue}}
+    {{- else if eq .MeasurementType.String "MEASUREMENT_TYPE_DOUBLE" -}}{{printf "%f" .RequiredValue.GetDoubleValue}}
+    {{- else if eq .MeasurementType.String "MEASUREMENT_TYPE_INT" -}}{{.RequiredValue.GetIntValue}}
+    {{- else if eq .MeasurementType.String "MEASUREMENT_TYPE_STRING" -}}"{{.RequiredValue.GetStringValue}}"
+    {{- else if eq .MeasurementType.String "MEASUREMENT_TYPE_LONG" -}}{{.RequiredValue.GetLongValue}}L
+    {{- else if eq .MeasurementType.String "MEASUREMENT_TYPE_FLOAT" -}}{{printf "%f" .RequiredValue.GetFloatValue}}f
+    {{- else }}{{.MeasurementType}}
+    {{- end }}
+{{- end -}}
+
+/*
+ * Copyright (C) 2024 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package android.mediapc.cts.common;
+
+import android.os.Build.VERSION_CODES;
+
+/**
+ * Requirements Classes.
+ */
+public final class Requirements {
+
+{{- range $r := .ReqList.GetRequirements }}
+{{- if $r.GetName }}
+
+    /**
+      * Add a new {{UpperCamelCase $r.GetName}}Requirement for requirement {{ $r.GetId }} to a
+      * {@code PerformanceClassEvaluator} instance.
+      {{- with $r.GetDescription}}
+      *
+      * {{.}}{{end}}
+      */
+    public static {{UpperCamelCase $r.GetName}}Requirement.With add{{ SafeReqID $r.GetId | UpperCase}}() {
+        return new {{UpperCamelCase $r.GetName}}Requirement.With();
+    }
+
+    /**
+      * {{ $r.GetId }} {{$r.GetName}}
+      {{- with $r.GetDescription}}
+      *
+      * {{.}}{{end}}
+      */
+    public static final class {{UpperCamelCase $r.GetName}}Requirement extends Requirement {
+
+        public static final class With {
+            private With() {}
+            {{- range $t_id, $t := $r.GetTestConfigs }}
+            {{- if ne $t_id "" }}
+            public static final class Config{{ SafeTestConfigID $t_id | UpperCamelCase}} {
+                private Config{{ SafeTestConfigID $t_id | UpperCamelCase}}() {}
+                public {{UpperCamelCase $r.GetName}}Requirement to(PerformanceClassEvaluator pce) {
+                    return pce.addRequirement({{UpperCamelCase $r.GetName}}Requirement.create
+                            {{- SafeTestConfigID $t_id | UpperCamelCase}}());
+                }
+                {{- range $v_id, $v := $r.GetVariants }}
+                {{- if HasConfigVariant $r $t_id $v_id }}
+                public Config{{ SafeTestConfigID $t_id | UpperCamelCase}}AndVariant
+                        {{- UpperCamelCase $v_id}} withVariant{{- UpperCamelCase $v_id}}() {
+                    return new Config{{SafeTestConfigID $t_id | UpperCamelCase}}AndVariant
+                        {{- UpperCamelCase $v_id}}();
+                }
+                {{- end }}{{/* if HasConfigVariant */}}
+                {{- end }}{{/* range $v_id, $v */}}
+            }
+            {{- end }}
+            {{- end }}{{/* range $t_id, $t */}}
+
+            {{- range $v_id, $v := $r.GetVariants }}
+            public static final class Variant{{UpperCamelCase $v_id}} {
+                private Variant{{UpperCamelCase $v_id}}() {}
+                {{- range $t_id, $t := $r.GetTestConfigs }}
+                {{- if HasConfigVariant $r $t_id $v_id }}
+                {{- if eq $t_id "" }}
+                public {{UpperCamelCase $r.GetName}}Requirement to(PerformanceClassEvaluator pce) {
+                    return pce.addRequirement({{UpperCamelCase $r.GetName}}Requirement.create
+                            {{- UpperCamelCase $v_id}}());
+                }
+                {{- else }}
+                public Config{{ SafeTestConfigID $t_id | UpperCamelCase}}AndVariant
+                        {{- UpperCamelCase $v_id}} withConfig
+                        {{- SafeTestConfigID $t_id | UpperCamelCase}}() {
+                    return new Config{{SafeTestConfigID $t_id | UpperCamelCase}}AndVariant
+                        {{- UpperCamelCase $v_id}}();
+                }
+                {{- end }}
+                {{- end }}{{/* if HasConfigVariant */}}
+                {{- end }}{{/* range $t_id, $t */}}
+            }
+            {{- end }}{{/* range $v_id, $v */}}
+
+            {{- range $t_id, $t := $r.GetTestConfigs }}
+            {{- if ne $t_id "" }}
+            {{- range $v_id, $v := $r.GetVariants }}
+            {{- if HasConfigVariant $r $t_id $v_id }}
+            public static final class Config{{SafeTestConfigID $t_id | UpperCamelCase}}AndVariant
+                    {{- UpperCamelCase $v_id}} {
+                private Config{{ SafeTestConfigID $t_id | UpperCamelCase}}AndVariant
+                    {{- UpperCamelCase $v_id}}() {}
+                public {{UpperCamelCase $r.GetName}}Requirement to(PerformanceClassEvaluator pce) {
+                    return pce.addRequirement({{UpperCamelCase $r.GetName}}Requirement.create
+                        {{- SafeTestConfigID $t_id | UpperCamelCase}}
+                        {{- UpperCamelCase $v_id}}());
+                }
+            }
+            {{- end }}{{/* if HasConfigVariant */}}
+            {{- end }}{{/* range $v_id, $v */}}
+            {{- end }}
+            {{- end }}{{/* range $t_id, $t */}}
+
+            {{- range $t_id, $t := $r.GetTestConfigs }}
+            {{- if eq $t_id "" }}
+            public {{UpperCamelCase $r.GetName}}Requirement to(PerformanceClassEvaluator pce) {
+                return pce.addRequirement({{UpperCamelCase $r.GetName}}Requirement.create());
+            }
+            {{- else }}
+            public Config{{ SafeTestConfigID $t_id | UpperCamelCase}} withConfig
+                    {{- SafeTestConfigID $t_id | UpperCamelCase}}() {
+                return new Config{{ SafeTestConfigID $t_id | UpperCamelCase}}();
+            }
+            {{- end }}
+            {{- end }}{{/* range $t_id, $t */}}
+
+            {{- range $v_id, $v := $r.GetVariants }}
+            public Variant{{UpperCamelCase $v_id}} withVariant{{UpperCamelCase $v_id}}() {
+                return new Variant{{UpperCamelCase $v_id}}();
+            }
+            {{- end }}{{/* range $v_id, $v */}}
+        }
+
+
+        {{- range $t_id, $t := $r.GetTestConfigs }}
+
+        /**
+          * {{ $r.GetId }} {{$r.GetName}}
+          {{- with $r.GetDescription}}
+          *
+          * {{.}}{{end}}
+          */
+        private static {{UpperCamelCase $r.GetName}}Requirement create
+                {{- SafeTestConfigID $t_id | UpperCamelCase}}() {
+            {{- range $m_id, $m := $r.GetMeasurements }}
+            {{- $mt := $m.GetMeasurementType}}
+            {{- $c := $m.GetComparison}}
+            var {{LowerCamelCase $m_id}} =
+                RequiredMeasurement.<{{template "JavaClass" $mt}}>builder()
+                    .setId("{{$m_id}}")
+                    .setPredicate(RequirementConstants.{{template "CompMethod" $m}})
+                    {{- range $mpc, $s := $r.GetSpecs }}
+                    {{- if eq $s.GetTestConfigId $t_id }}
+                    {{- with index $s.GetRequiredValues $m_id}}
+                    .addRequiredValue({{template "VersionCode" $mpc}}, {{template
+                         "MeasurementValue" Dict "RequiredValue" . "MeasurementType" $mt}})
+                    {{- end}}
+                    {{- end}}
+                    {{- end}}
+                    .build();
+            {{- end }}
+
+            {{UpperCamelCase $r.GetName}}Requirement req =
+                new {{UpperCamelCase $r.GetName}}Requirement(
+                    /* id */ "{{ SafeReqID $r.GetId }}{{ SafeTestConfigID $t_id }}",
+                    /* cddId */ "{{$r.GetId}}",
+                    /* configId */ null,
+                    /* variantId */ null
+                    {{- range $m_id, $m := $r.GetMeasurements }},
+                    {{LowerCamelCase $m_id}}
+                    {{- end}});
+            {{- range $m_id, $m := $r.GetMeasurements }}
+            {{- $mt := $m.GetMeasurementType}}
+            {{- $c := $m.GetComparison}}
+            {{- if eq $c.String "COMPARISON_CONFIG" }}
+            {{- range $s := $r.GetSpecs }}
+            {{- if eq $s.GetTestConfigId $t_id }}
+            {{- with index $s.GetRequiredValues $m_id}}
+            req.setMeasuredValue("{{$m_id}}",
+                {{- template "MeasurementValue" Dict "RequiredValue" . "MeasurementType" $mt}});
+            {{- break }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            return req;
+        }
+        {{- end }}{{/* range $t_id, $t */}}
+
+        {{- range $t_id, $t := $r.GetTestConfigs }}
+        {{- range $v_id, $v := $r.GetVariants }}
+        {{- if HasConfigVariant $r $t_id $v_id }}
+
+        /**
+          * {{ $r.GetId }} {{$r.GetName}}{{- with $v.GetDescription}} {{.}}{{end}}
+          {{- with $r.GetDescription}}
+          *
+          * {{.}}{{end}}
+          */
+        private static {{UpperCamelCase $r.GetName}}Requirement create
+                {{- SafeTestConfigID $t_id | UpperCamelCase }}{{UpperCamelCase $v_id}}() {
+            {{- range $m_id, $m := $r.GetMeasurements }}
+            {{- $mt := $m.GetMeasurementType}}
+            {{- $c := $m.GetComparison}}
+            var {{LowerCamelCase $m_id}} = RequiredMeasurement
+                    .<{{template "JavaClass" $mt}}>builder()
+                    .setId("{{$m_id}}")
+                    .setPredicate(RequirementConstants.{{template "CompMethod" $m}})
+                    {{- range $mpc, $s := $r.GetSpecs }}
+                    {{- if eq $s.GetTestConfigId $t_id }}
+                    {{- $vs := index $s.GetVariantSpecs $v_id}}
+                    {{- if $vs }}
+                    {{- with index $vs.GetRequiredValues $m_id}}
+                    .addRequiredValue({{template "VersionCode" $mpc}}, {{template
+                         "MeasurementValue" Dict "RequiredValue" . "MeasurementType" $mt}})
+                    {{- end}}{{/* if $vs */}}
+                    {{- end}}{{/* with rv */}}
+                    {{- end }}{{/* with t */}}
+                    {{- end}}{{/* range $mpc, $s */}}
+                    .build();
+            {{- end}}{{/* range $m_id, $m */}}
+            {{UpperCamelCase $r.GetName}}Requirement req =
+                new {{UpperCamelCase $r.GetName}}Requirement(
+                    /* id */ "{{ SafeReqID $r.GetId }}{{ SafeTestConfigID $t_id }}",
+                    /* cddId */ "{{$r.GetId}}",
+                    /* configId */ {{with $t_id}}"{{.}}"{{else}}null{{end}},
+                    /* variantId */ {{with $v_id}}"{{.}}"{{else}}null{{end}}
+                    {{- range $m_id, $m := $r.GetMeasurements }},
+                    {{LowerCamelCase $m_id}}
+                    {{- end}});
+            {{- range $m_id, $m := $r.GetMeasurements }}
+            {{- $mt := $m.GetMeasurementType}}
+            {{- $c := $m.GetComparison}}
+            {{- if eq $c.String "COMPARISON_CONFIG" }}
+            {{- range $s := $r.GetSpecs }}
+            {{- if eq $s.GetTestConfigId $t_id }}
+            {{- with index $s.GetRequiredValues $m_id}}
+            req.setMeasuredValue("{{$m_id}}",
+                {{- template "MeasurementValue" Dict "RequiredValue" . "MeasurementType" $mt}});
+            {{- break }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            return req;
+        }
+        {{- end }}{{/* if HasConfigVariant */}}
+        {{- end }}{{/* range $v_id, $v */}}
+        {{- end }}{{/* range $t_id, $t */}}
+
+        {{- range $m_id, $m := $r.GetMeasurements }}
+        {{- $mt := $m.GetMeasurementType}}
+        {{- $c := $m.GetComparison}}
+        {{- if eq $c.String "COMPARISON_CONFIG" }}
+
+        /** {{$m.GetDescription}} */
+        public {{template "JavaType" $mt}} get{{UpperCamelCase $m_id}}() {
+            return this.getMeasuredValue("{{$m_id}}", {{template "JavaClass" $mt}}.class);
+        }
+        {{- else }}
+
+        /** {{$m.GetDescription}} */
+        public void set{{UpperCamelCase $m_id}}({{template "JavaType" $mt}} v) {
+            this.setMeasuredValue("{{$m_id}}", v);
+        }
+        {{- end }}{{/* if eq */}}
+        {{- end }}{{/* range $m_id, $m */}}
+
+        private {{UpperCamelCase $r.GetName}}Requirement(
+                String id,
+                String cddId,
+                String configId,
+                String variantId,
+                RequiredMeasurement<?>... reqs) {
+            super(id, cddId, configId, variantId, reqs);
+        }
+    }
+{{- end }} {{/* if $r.GetName */}}
+{{- end }} {{/* range $r */}}
+
+    private Requirements () {}
+}

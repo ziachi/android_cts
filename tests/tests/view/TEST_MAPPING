@@ -1,0 +1,12 @@
+{
+  "presubmit": [
+    {
+      "name": "minikin_tests"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsViewTestCases_cts_surfaceoomtest"
+    }
+  ]
+}

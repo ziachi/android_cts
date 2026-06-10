@@ -1,0 +1,12 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsAppEnumerationTestCases_android_server_pm"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsAppEnumerationTestCases"
+    }
+  ]
+}

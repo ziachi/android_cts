@@ -1,0 +1,17 @@
+{
+  "presubmit-large": [
+    {
+      // large runs all tests except the ones still too big for presubmit
+      "name": "CtsAppTestCases_all-except-large"
+    },
+    // These tests fail often, splitting into own module for better tracking
+    {
+      "name": "CtsAppTestCases_activitymanagerprocessstatetest"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsAppTestCases"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "presubmit-large": [
+    {
+      "name": "CtsDevicePolicyManagerTestCases_Permissions"
+    },
+    {
+      "name": "CtsDevicePolicyManagerTestCases_LockSettingsTest"
+    }
+  ],
+  "postsubmit-devicepolicy": [
+    {
+      "name": "CtsDevicePolicyManagerTestCases"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsDevicePolicyManagerTestCases_Permissions_NoFlakes",
+      "name": "CtsDevicePolicyManagerTestCases_LockSettings_NoFlakes"
+    }
+  ]
+}

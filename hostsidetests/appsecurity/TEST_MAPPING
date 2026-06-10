@@ -1,0 +1,7 @@
+{
+  "postsubmit": [
+    {
+      "name": "CtsAppDataIsolationHostTestCases_qualified-tests"
+    }
+  ]
+}

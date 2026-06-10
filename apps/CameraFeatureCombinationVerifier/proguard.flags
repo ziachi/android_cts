@@ -1,0 +1,7 @@
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclassmembers class org.junit.runners.JUnit4 {
+    public <methods>;
+}

@@ -1,0 +1,18 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+java_library_host {
+    name: "bedstead-testapis-parser",
+    srcs: [
+        "src/main/java/**/*.java",
+        "src/main/java/**/*.kt",
+    ],
+    static_libs: [
+        "kotlinpoet",
+        "guava",
+    ],
+    java_resource_dirs: [
+        "java/",
+    ],
+}

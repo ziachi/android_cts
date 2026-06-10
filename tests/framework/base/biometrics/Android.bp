@@ -1,0 +1,132 @@
+// Copyright (C) 2017 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_team: "trendy_team_biometrics_framework",
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "CtsBiometricsTestCases",
+
+    defaults: ["cts_defaults"],
+    test_suites: [
+        "cts",
+        "vts10",
+        "general-tests",
+    ],
+
+    compile_multilib: "both",
+    libs: [
+        "android.test.runner.stubs.test",
+        "android.test.base.stubs.test",
+    ],
+    static_libs: [
+        "androidx.annotation_annotation",
+        "androidx.test.ext.junit",
+        "compatibility-device-util-axt",
+        "com_android_systemui_flags_lib",
+        "cts-biometric-util",
+        "cts-input-lib",
+        "cts-wm-util",
+        "ctstestrunner-axt",
+        "mockito-target-minus-junit4",
+        "platform-test-annotations",
+        "platformprotosnano",
+        "androidx.test.uiautomator_uiautomator",
+        "android.hardware.biometrics.flags-aconfig-java",
+        "flag-junit",
+    ],
+
+    srcs: ["src/android/server/biometrics/*.java"],
+    data: [
+        ":CtsBiometricServiceTestApp",
+        ":CtsBiometricServiceUtilTestApp",
+    ],
+
+    sdk_version: "test_current",
+
+    manifest: "AndroidManifest.xml",
+    test_config: "AndroidTest.xml",
+}
+
+android_test {
+    name: "CtsFingerprintTestCases",
+
+    defaults: ["cts_defaults"],
+    test_suites: [
+        "cts",
+        "vts10",
+        "general-tests",
+    ],
+
+    compile_multilib: "both",
+    libs: [
+        "android.test.runner.stubs.system",
+        "android.test.base.stubs.system",
+    ],
+    static_libs: [
+        "androidx.annotation_annotation",
+        "androidx.test.ext.junit",
+        "compatibility-device-util-axt",
+        "cts-biometric-util",
+        "cts-biometric-util-fpm",
+        "cts-input-lib",
+        "cts-wm-util",
+        "ctstestrunner-axt",
+        "mockito-target-minus-junit4",
+        "platform-test-annotations",
+        "platformprotosnano",
+        "androidx.test.uiautomator_uiautomator",
+        "android.hardware.biometrics.flags-aconfig-java",
+        "flag-junit",
+        "bedstead",
+        "truth",
+    ],
+
+    srcs: ["src/android/server/biometrics/fingerprint/*.java"],
+    data: [
+        ":CtsFingerprintServiceTestApp",
+        ":CtsBiometricServiceUtilTestApp",
+    ],
+
+    // removed in 35+
+    platform_apis: true,
+
+    manifest: "AndroidManifest-fpm.xml",
+    test_config: "AndroidTest-fpm.xml",
+}
+
+java_test_helper_library {
+    name: "cts-biometric-util",
+    sdk_version: "test_current",
+    static_libs: [
+        "androidx.annotation_annotation",
+        "cts-wm-util",
+        "android.hardware.biometrics.flags-aconfig-java",
+    ],
+
+    srcs: ["src/android/server/biometrics/util/*.java"],
+}
+
+java_test_helper_library {
+    name: "cts-biometric-util-fpm",
+
+    static_libs: [
+        "androidx.annotation_annotation",
+        "cts-wm-util",
+    ],
+
+    srcs: ["src/android/server/biometrics/fingerprint/util/*.java"],
+}

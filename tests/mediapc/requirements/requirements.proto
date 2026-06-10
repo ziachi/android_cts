@@ -1,0 +1,175 @@
+// Copyright (C) 2024 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto2";
+
+// Changes to this file require manaul update of the AOSP Go code.
+// update the go code with:
+//   aprotoc --go_out=paths=source_relative:. \
+//     cts/tests/mediapc/requirements/mpc.proto \
+//     cts/tests/mediapc/requirements/requirements.proto
+
+package android.media.performanceclass.requirements;
+
+import "cts/tests/mediapc/requirements/mpc.proto";
+
+option java_multiple_files = true;
+
+option go_package = "cts/test/mediapc/requirements/requirements_go_proto";
+
+// A list of requirements.
+message RequirementList {
+  repeated Requirement requirements = 1;
+  // All valid MPC levels
+  repeated int64 all_mpcs = 2 [packed = true];
+}
+
+// A Media Performance Class Requirement with required measurements and
+// specifications including required values for each relevant MPC level.
+message Requirement {
+  // ID exactly as shown in the CDD
+  optional string id = 1;
+  // Short human readable name. Must be unique.
+  optional string name = 2;
+  optional string description = 3;
+  optional Group group = 4;
+
+  map<int64, RequirementSpec> specs = 5;
+
+  // measurement_id to RequiredMeasurements
+  // The measurement_id is a field name safe string.
+  map<string, RequiredMeasurement> measurements = 6;
+
+  // Whether this requirement is a non-CTS test. Cts tests require fields in the
+  // test cases proto to be repeated fields. Non-Cts tests need optional fields.
+  optional bool is_non_cts_test = 7 [default = false];
+
+  // Tests may use different setups depending on which performance class(es)
+  // are being tested. This field specifies a list of identifiers for each
+  // setup. Each identifier must have at least one corresponding entry in specs.
+  // The list can just be a single entry of a blank string if only one setup
+  // exists.
+  map<string, TestConfig> test_configs = 8;
+
+  // variant_id to Variant
+  //
+  // The variant_id is a field name safe string.
+  map<string, Variant> variants = 57;
+}
+
+message RequirementSpec {
+  optional android.media.performanceclass.MediaPerformanceClass mpc =
+      1;
+  // The specification of the requirement at the given MPC level exactly as
+  // described in the CDD.
+  optional string specification = 3;
+
+  // measurement_id to RequiredMeasurements
+  //
+  // The measurement_id is a field name safe string.
+  // The measurement_id must match the id of a RequiredMeasurement in the parent
+  // Requirement.
+  map<string, RequiredValue> required_values = 4;
+
+  // variant_id to VariantSpec
+  // The variant_id is a field name safe string.
+  map<string, VariantSpec> variant_specs = 5;
+
+  // The test config id to use for this spec. If not specified, defaults to an
+  // empty string.
+  optional string test_config_id = 6 [default = ""];
+}
+
+enum Group {
+  GROUP_UNSPECIFIED = 0;
+  GROUP_MEDIA = 1;
+  GROUP_CAMERA = 2;
+  GROUP_HARDWARE = 3;
+  GROUP_PERFORMANCE = 4;
+}
+
+// A required measurement needed verifiy a MPC requirement.
+message RequiredMeasurement {
+  // The id is a field name safe string.
+  optional string id = 1;
+  optional string description = 2;
+  optional MeasurementType measurement_type = 3;
+  optional Comparison comparison = 4;
+
+  reserved 5;  // is_test_differentiator
+
+  // Must be unique per requirement and greater than or equal to 3.
+  optional int32 proto_field_number = 6;
+}
+
+// A required value for a RequiredMeasurement at a given MPC level.
+message RequiredValue {
+  // The id is a field name safe string.
+  optional string id = 1;
+  reserved 2;  // comparison
+  oneof value {
+    string string_value = 3;
+    int64 int_value = 4;
+    double double_value = 5;
+    bool bool_value = 6;
+    int64 long_value = 7;
+    float float_value = 8;
+  }
+}
+
+// Variants are used when an alternative set of required values should apply
+message Variant {
+  // When the variant should be used.
+  optional string description = 1;
+}
+
+// The set values required for a variant
+message VariantSpec {
+  // measurement_id to RequiredMeasurements
+  //
+  // The measurement_id is a field name safe string.
+  // The measurement_id must match the id of a RequiredMeasurement in the parent
+  // Requirement.
+  map<string, RequiredValue> required_values = 4;
+}
+
+message TestConfig {
+  reserved 1;  // id
+  optional string description = 2;
+  // The proto field number of the test config. Must be unique across all
+  // requirements.
+  optional int32 proto_field_number = 3;
+}
+
+enum Comparison {
+  COMPARISON_UNSPECIFIED = 0;
+  COMPARISON_EQUAL = 1;
+  COMPARISON_LESS_THAN = 2;
+  COMPARISON_LESS_THAN_OR_EQUAL = 3;
+  COMPARISON_GREATER_THAN = 4;
+  COMPARISON_GREATER_THAN_OR_EQUAL = 5;
+  COMPARISON_INFO_ONLY = 6;
+  COMPARISON_CONFIG = 7;
+  COMPARISON_CAMERA_HARDWARE_LEVEL_GREATER_THAN_OR_EQUAL = 8;
+}
+
+enum MeasurementType {
+  MEASUREMENT_TYPE_UNSPECIFIED = 0;
+  MEASUREMENT_TYPE_BOOL = 1;
+  MEASUREMENT_TYPE_DOUBLE = 2;
+  MEASUREMENT_TYPE_INT = 3;
+  MEASUREMENT_TYPE_STRING = 4;
+  MEASUREMENT_TYPE_LONG = 5;
+  MEASUREMENT_TYPE_FLOAT = 6;
+}

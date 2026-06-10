@@ -1,0 +1,40 @@
+# SurfaceControl
+per-file ASurfaceControlBackPressureTest.java = file:platform/frameworks/base:/services/core/java/com/android/server/wm/OWNERS
+per-file ASurfaceControlTest.java = file:platform/frameworks/base:/services/core/java/com/android/server/wm/OWNERS
+per-file AttachedSurfaceControlSyncTest.java = file:platform/frameworks/base:/services/core/java/com/android/server/wm/OWNERS
+per-file AttachedSurfaceControlTest.java = file:platform/frameworks/base:/services/core/java/com/android/server/wm/OWNERS
+per-file SurfaceControlTest.java = file:platform/frameworks/base:/services/core/java/com/android/server/wm/OWNERS
+per-file SurfaceViewSyncTest.java = file:platform/frameworks/base:/services/core/java/com/android/server/wm/OWNERS
+
+per-file *ScrollCapture*.java = file:platform/frameworks/base:/packages/SystemUI/src/com/android/systemui/screenshot/OWNERS
+
+# Input
+# Bug component: 25699 = per-file ContentInfoTest.java,KeyboardShortcutInfoTest.java,AutoHandwritingTest.java,HandwritingBoundsOffsetTest.java,KeyboardShortcutGroupTest.java,KeyEventInterceptTest.java,KeyEventTest.java,KeyEventInjectionTest.java,KeyCharacterMapTest.java
+# Bug component: 136048 = per-file InputDeviceMultiDeviceKeyEventTest.java,InputDeviceEnabledTest.java,InputDeviceVibratorTest.java,InputDeviceSensorManagerTest.java,InputDeviceKeyLayoutMapTest.java,InputDeviceVibratorManagerTest.java,HoverTest.java,ViewUnbufferedTest.java,PointerCaptureTest.java,ContentPaneFocusTest.java,TouchDelegateTest.java,InputQueueTest.java,MotionEvent_PointerPropertiesTest.java,MotionEventTest.java,VerifyInputEventTest.java
+per-file ContentInfoTest.java = file:platform/frameworks/base:/INPUT_OWNERS
+per-file ContentPaneFocusTest.java = file:platform/frameworks/base:/INPUT_OWNERS
+per-file HoverTest.java = file:platform/frameworks/base:/INPUT_OWNERS
+per-file ViewUnbufferedTest.java = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *Handwriting* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *InputDevice* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *InputEvent* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *InputQueue* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *KeyCharacter* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *KeyEvent* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *Keyboard* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *PointerCapture* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *MotionEvent* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *Touch* = file:platform/frameworks/base:/INPUT_OWNERS
+per-file *VelocityTracker* = file:platform/frameworks/base:/INPUT_OWNERS
+
+per-file *NativeHeapLeakDetector* = file:platform/frameworks/base:/INPUT_OWNERS
+
+# Graphics
+# Bug component: 1075130 = per-file SurfaceOOMTest.java,TextureViewTest.java,TextureViewCameraTest.java,PixelCopyTest.java,TextureViewSnapshotTest.java,TextureViewStressTest.java,DisplayRefreshRateTest.java
+per-file DisplayRefreshRateTest.java = file:platform/frameworks/base:/graphics/java/android/graphics/OWNERS
+per-file PixelCopyTest.java = file:platform/frameworks/base:/graphics/java/android/graphics/OWNERS
+per-file SurfaceOOMTest.java = file:platform/frameworks/base:/graphics/java/android/graphics/OWNERS
+per-file TextureViewCameraTest.java = file:platform/frameworks/base:/graphics/java/android/graphics/OWNERS
+per-file TextureViewSnapshotTest.java = file:platform/frameworks/base:/graphics/java/android/graphics/OWNERS
+per-file TextureViewStressTest.java = file:platform/frameworks/base:/graphics/java/android/graphics/OWNERS
+per-file TextureViewTest.java = file:platform/frameworks/base:/graphics/java/android/graphics/OWNERS

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><!--
+  ~ Copyright (C) 2025 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<appfunctions>
+    <AppFunctionStaticMetadata>
+        <id>com.example.utils#print1</id>
+        <functionId>com.example.utils#print1</functionId>
+        <schemaName>print</schemaName>
+        <schemaVersion>1</schemaVersion>
+        <schemaCategory>utils</schemaCategory>
+        <enabledByDefault>true</enabledByDefault>
+        <restrictCallersWithExecuteAppFunctions>false
+        </restrictCallersWithExecuteAppFunctions>
+        <displayNameStringRes>12</displayNameStringRes>
+        <schemaMetadata>
+            <id>com.example.utils#print/schemaMetadata</id>
+            <schemaName>print</schemaName>
+            <schemaVersion>1</schemaVersion>
+            <schemaCategory>utils</schemaCategory>
+        </schemaMetadata>
+        <parameters>
+            <id>com.example.utils#print/parameter0/message</id>
+            <name>message</name>
+            <required>true</required>
+            <schema>
+                <id>com.example.utils#print/parameter0/message/schema</id>
+                <dataType>8</dataType>
+                <documentSchemaType>string</documentSchemaType>
+                <selfReference>
+                    <id>com.example.utils#print/parameter0/message/schema/selfReference</id>
+                    <dataType>8</dataType>
+                    <documentSchemaType>string</documentSchemaType>
+                </selfReference>
+            </schema>
+        </parameters>
+        <parameters>
+            <id>com.example.utils#print/parameter1/message1</id>
+            <name>message1</name>
+            <required>true</required>
+            <schema>
+                <id>com.example.utils#print/parameter1/message1/schema</id>
+                <dataType>8</dataType>
+                <documentSchemaType>string</documentSchemaType>
+            </schema>
+        </parameters>
+        <response>
+            <id>com.example.utils#print/response</id>
+            <isNullable>false</isNullable>
+            <schema>
+                <id>com.example.utils#print/response/schema</id>
+                <dataType>3</dataType>
+                <properties>
+                    <id>com.example.utils#print/response/schema/properties0</id>
+                    <name>result</name>
+                    <required>true</required>
+                    <schema>
+                        <id>com.example.utils#print/response/schema/properties0/schema</id>
+                        <dataType>8</dataType>
+                    </schema>
+                </properties>
+            </schema>
+        </response>
+        <components>
+            <id>com.example.utils#print/components0</id>
+            <schemas>
+                <id>com.example.utils#print/components0/schema</id>
+                <dataType>3</dataType>
+                <documentSchemaType>object</documentSchemaType>
+                <properties>
+                    <id>com.example.utils#print/components0/schema/properties0</id>
+                    <name>email</name>
+                    <required>true</required>
+                    <schema>
+                        <id>com.example.utils#print/components0/schema/properties0/schema
+                        </id>
+                        <dataType>8</dataType>
+                    </schema>
+                </properties>
+            </schemas>
+        </components>
+    </AppFunctionStaticMetadata>
+</appfunctions>

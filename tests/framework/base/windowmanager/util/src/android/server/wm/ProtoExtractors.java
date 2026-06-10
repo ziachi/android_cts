@@ -1,0 +1,124 @@
+/*
+ * Copyright (C) 2017 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License
+ */
+
+package android.server.wm;
+
+import android.app.WindowConfiguration;
+import android.content.res.Configuration;
+import android.graphics.Rect;
+
+import perfetto.protos.Configuration.ConfigurationProto;
+import perfetto.protos.Rect.RectProto;
+import perfetto.protos.WindowConfiguration.WindowConfigurationProto;
+
+/**
+ * Utility class for extracting some common framework object from nano proto objects.
+ * Normally the extractors will be in the framework object class, but we don't want the framework to
+ * depend on nano proto due to size cost.
+ * TODO: This class should probably be in frameworks/base/lib project so it can be used
+ * outside of CTS.
+ */
+public class ProtoExtractors {
+    /**
+     * Extracts a {link Configuration} from a corresponding proto.
+     */
+    public static Configuration extract(ConfigurationProto proto) {
+        final Configuration config = new Configuration();
+        if (proto == null) {
+            return config;
+        }
+        config.windowConfiguration.setTo(extract(proto.getWindowConfiguration()));
+        config.densityDpi = proto.getDensityDpi();
+        config.orientation = proto.getOrientation();
+        config.screenHeightDp = proto.getScreenHeightDp();
+        config.screenWidthDp = proto.getScreenWidthDp();
+        config.smallestScreenWidthDp = proto.getSmallestScreenWidthDp();
+        config.screenLayout = proto.getScreenLayout();
+        config.uiMode = proto.getUiMode();
+        return config;
+    }
+
+    /**
+     * Extracts a {link WindowConfiguration} from a corresponding proto.
+     */
+    public static WindowConfiguration extract(WindowConfigurationProto proto) {
+        final WindowConfiguration config = new WindowConfiguration();
+        if (proto == null) {
+            return config;
+        }
+        config.setAppBounds(extract(proto.getAppBounds()));
+        config.setBounds(extract(proto.getBounds()));
+        config.setMaxBounds(extract(proto.getMaxBounds()));
+        config.setWindowingMode(proto.getWindowingMode());
+        config.setActivityType(proto.getActivityType());
+        return config;
+    }
+
+    /**
+     * Extracts a {link Rect} from a corresponding proto.
+     */
+    public static Rect extract(RectProto proto) {
+        if (proto == null) {
+            return null;
+        }
+        return new Rect(proto.getLeft(), proto.getTop(), proto.getRight(), proto.getBottom());
+    }
+
+    /**
+     * Extracts a {link Configuration} from a corresponding proto.
+     */
+    public static Configuration extract(android.content.nano.ConfigurationProto proto) {
+        final Configuration config = new Configuration();
+        if (proto == null) {
+            return config;
+        }
+        config.windowConfiguration.setTo(extract(proto.windowConfiguration));
+        config.densityDpi = proto.densityDpi;
+        config.orientation = proto.orientation;
+        config.screenHeightDp = proto.screenHeightDp;
+        config.screenWidthDp = proto.screenWidthDp;
+        config.smallestScreenWidthDp = proto.smallestScreenWidthDp;
+        config.screenLayout = proto.screenLayout;
+        config.uiMode = proto.uiMode;
+        return config;
+    }
+
+    /**
+     * Extracts a {link WindowConfiguration} from a corresponding proto.
+     */
+    public static WindowConfiguration extract(android.app.nano.WindowConfigurationProto proto) {
+        final WindowConfiguration config = new WindowConfiguration();
+        if (proto == null) {
+            return config;
+        }
+        config.setAppBounds(extract(proto.appBounds));
+        config.setBounds(extract(proto.bounds));
+        config.setMaxBounds(extract(proto.maxBounds));
+        config.setWindowingMode(proto.windowingMode);
+        config.setActivityType(proto.activityType);
+        return config;
+    }
+
+    /**
+     * Extracts a {link Rect} from a corresponding proto.
+     */
+    public static Rect extract(android.graphics.nano.RectProto proto) {
+        if (proto == null) {
+            return null;
+        }
+        return new Rect(proto.left, proto.top, proto.right, proto.bottom);
+    }
+}

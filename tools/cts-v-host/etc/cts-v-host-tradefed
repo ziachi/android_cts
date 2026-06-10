@@ -1,0 +1,125 @@
+#!/bin/bash
+
+# Copyright (C) 2024 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# launcher script for cts-v-host
+# can be used from an Android build environment, or a standalone cts-v zip
+
+UTILS_SCRIPT="$(dirname $(realpath $0))/test-utils-script"
+
+if [ ! -f "${UTILS_SCRIPT}" ]
+then
+  UTILS_SCRIPT="${ANDROID_BUILD_TOP}/platform_testing/scripts/test-utils-script"
+fi
+
+if [ ! -f "${UTILS_SCRIPT}" ]
+then
+  echo -e "Cannot find test-utils-script in the same location as this script" \
+          "and ANDROID_BUILD_TOP is not defined."
+  exit 1
+fi
+
+source ${UTILS_SCRIPT}
+
+checkPath aapt2
+checkPath adb
+
+RDBG_FLAG=$(getRemoteDbgFlag)
+
+# get OS
+HOST=`uname`
+HOST_ARCH=`uname -sm`
+if [ "$HOST_ARCH" == "Linux x86_64" ]; then
+    OS="linux-x86"
+elif [ "$HOST_ARCH" == "Linux aarch64" ]; then
+    OS="linux-arm64"
+    # Bundled java is for linux-x86 so use host JDK on linux-arm64
+    JAVA_BINARY=java
+elif [[ "$HOST_ARCH" == *"Darwin"* ]]; then
+    OS="darwin"
+    # Bundled java is for linux so use host JDK on Darwin
+    JAVA_BINARY=java
+else
+    echo "Unrecognized OS"
+    exit
+fi
+
+# check if in Android build env
+if [ ! -z "${ANDROID_BUILD_TOP}" ]; then
+    if [ ! -z "${ANDROID_HOST_OUT}" ]; then
+      CTSV_HOST_ROOT=${ANDROID_HOST_OUT}/cts-v-host
+    else
+      CTSV_HOST_ROOT=${ANDROID_BUILD_TOP}/${OUT_DIR:-out}/host/${OS}/cts-v-host
+    fi
+    if [ ! -d ${CTSV_HOST_ROOT} ]; then
+        echo "Could not find $CTSV_HOST_ROOT in Android build environment. Try 'make cts-v-host'"
+        exit
+    fi;
+fi;
+
+if [ -z ${CTSV_HOST_ROOT} ]; then
+    # assume we're in an extracted cts-v install
+    CTSV_HOST_ROOT="$(dirname $(realpath $0))/../.."
+fi;
+
+if [ -z ${JAVA_BINARY} ]; then
+    JAVA_BINARY=${CTSV_HOST_ROOT}/android-cts-v-host/jdk/bin/java
+fi;
+
+if [ ! -f "${JAVA_BINARY}" ]; then
+    JAVA_BINARY=java
+fi
+
+checkPath ${JAVA_BINARY}
+
+# Java version on Mac not within our control, so let it be best effort
+if [ ${OS} != "darwin" ]; then
+    checkJavaVersion ${JAVA_BINARY}
+else
+    echo "Mac is not a fully supported OS, so Java version support will be best effort"
+fi
+
+loadSharedLibraries "$HOST"
+
+ATS_CONSOLE_JAR=${CTSV_HOST_ROOT}/android-cts-v-host/tools/ats_console_deploy.jar
+ATS_OLC_SERVER_JAR=${CTSV_HOST_ROOT}/android-cts-v-host/tools/ats_olc_server_local_mode_deploy.jar
+checkFile ${ATS_CONSOLE_JAR}
+checkFile ${ATS_OLC_SERVER_JAR}
+
+FASTBOOT_FLAGS=" \
+  --enable_fastboot_in_android_real_device=true \
+  --fastboot='$(type -P fastboot 2>/dev/null)' \
+"
+if ! type -P fastboot &> /dev/null; then
+    FASTBOOT_FLAGS="--enable_fastboot_in_android_real_device=false"
+fi;
+
+# Add a new variable to control the dynamic downloader
+ENABLE_XTS_DYNAMIC_DOWNLOADER=${ENABLE_XTS_DYNAMIC_DOWNLOADER:-"false"}
+
+DEVICE_INFRA_SERVICE_FLAGS=" \
+  --aapt='$(type -P aapt2 2>/dev/null)' \
+  --adb='$(type -P adb 2>/dev/null)' \
+  --ats_console_olc_server_path='${ATS_OLC_SERVER_JAR}' \
+  --enable_cts_verifier_result_reporter=true \
+  --enable_xts_dynamic_downloader=${ENABLE_XTS_DYNAMIC_DOWNLOADER} \
+  --public_dir=/tmp \
+  --simplified_log_format=true \
+  --tmp_dir_root=/tmp \
+  --xts_res_dir_root='${HOME}/xts' \
+  ${FASTBOOT_FLAGS} \
+"
+
+LANG=en_US.UTF-8 TEST_TMPDIR=/tmp ${JAVA_BINARY} --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx4g -XX:+HeapDumpOnOutOfMemoryError -DXTS_ROOT=${CTSV_HOST_ROOT} -DXTS_TYPE=cts-v-host -DDEVICE_INFRA_SERVICE_FLAGS="${DEVICE_INFRA_SERVICE_FLAGS}" -jar ${ATS_CONSOLE_JAR} "$@"

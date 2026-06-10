@@ -1,0 +1,168 @@
+// Copyright (C) 2024 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_team: "trendy_team_framework_android_packages",
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+java_defaults {
+    name: "cts_package_installer_cuj_defaults",
+    defaults: ["cts_defaults"],
+    sdk_version: "test_current",
+
+    static_libs: [
+        "androidx.legacy_legacy-support-v4",
+        "androidx.test.uiautomator_uiautomator",
+        "androidx.test.rules",
+        "androidx.test.ext.junit",
+        "compatibility-device-util-axt",
+        "platform-test-annotations",
+        "truth",
+    ],
+
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+    data: [
+        ":CtsInstallerCujTestApp",
+        ":CtsInstallerCujTestAppV2",
+        ":CtsInstallerCujTestInstaller",
+        ":CtsInstallerCujTestInstallerV2",
+        ":CtsInstallerCujTestNoLauncherActivityApp",
+        ":CtsInstallerCujTestNoLauncherActivityAppV2",
+    ],
+    per_testcase_directory: true,
+}
+
+android_test {
+    name: "CtsPackageInstallerCUJInstallationTestCases",
+    defaults: ["cts_package_installer_cuj_defaults"],
+    manifest: "AndroidManifest_installation.xml",
+    srcs: [
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationViaIntentActionViewTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationViaIntentTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/PackageInstallerCujTestBase.java",
+    ],
+    test_config: "InstallationTest.xml",
+}
+
+android_test {
+    name: "CtsPackageInstallerCUJInstallationViaIntentForResultTestCases",
+    defaults: ["cts_package_installer_cuj_defaults"],
+    manifest: "AndroidManifest_installation_forResult.xml",
+    srcs: [
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationViaIntentForResultTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/PackageInstallerCujTestBase.java",
+    ],
+    test_config: "InstallationViaIntentForResultTest.xml",
+}
+
+android_test {
+    name: "CtsPackageInstallerCUJInstallationViaSessionTestCases",
+    defaults: ["cts_package_installer_cuj_defaults"],
+    manifest: "AndroidManifest_installation_viaSession.xml",
+    srcs: [
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationViaSessionTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/PackageInstallerCujTestBase.java",
+    ],
+    test_config: "InstallationViaSessionTest.xml",
+}
+
+android_test {
+    name: "CtsPackageInstallerCUJUninstallationTestCases",
+    defaults: ["cts_package_installer_cuj_defaults"],
+    manifest: "AndroidManifest_uninstallation.xml",
+    srcs: [
+        "src/android/packageinstaller/criticaluserjourney/cts/PackageInstallerCujTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UninstallationTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UninstallationViaIntentActionDeleteTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UninstallationViaIntentActionUninstallPackageTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UninstallationViaPackageInstallerApiTest.java",
+    ],
+    test_config: "UninstallationTest.xml",
+}
+
+android_test {
+    name: "CtsPackageInstallerCUJUpdateOwnerShipTestCases",
+    defaults: ["cts_package_installer_cuj_defaults"],
+    manifest: "AndroidManifest_updateownership.xml",
+    srcs: [
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationViaIntentForResultWithUpdateOwnershipTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationViaIntentWithUpdateOwnershipTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationViaSessionWithUpdateOwnershipTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/PackageInstallerCujTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UpdateOwnershipTestBase.java",
+    ],
+    test_config: "UpdateOwnerShipTest.xml",
+}
+
+android_test {
+    name: "CtsPackageInstallerCUJUpdateSelfTestCases",
+    defaults: ["cts_package_installer_cuj_defaults"],
+    manifest: "AndroidManifest_updateself.xml",
+    srcs: [
+        "src/android/packageinstaller/criticaluserjourney/cts/InstallationTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/PackageInstallerCujTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UpdateSelfViaIntentTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UpdateSelfViaSessionTest.java",
+    ],
+    test_config: "UpdateSelfTest.xml",
+}
+
+android_test {
+    name: "CtsPackageInstallerCUJDeviceAdminTestCases",
+    defaults: ["cts_package_installer_cuj_defaults"],
+
+    static_libs: [
+        "bedstead-enterprise",
+    ],
+
+    data: [
+        ":CtsPackageInstallerDeviceAdminApp",
+    ],
+    per_testcase_directory: true,
+    manifest: "AndroidManifest_deviceadmin.xml",
+    srcs: [
+        "src/android/packageinstaller/criticaluserjourney/cts/PackageInstallerCujTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UninstallationTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UninstallDeviceAdminAppTest.java",
+    ],
+    test_config: "DeviceAdminTest.xml",
+}
+
+android_test {
+    name: "CtsPackageInstallerCUJMultiUsersTestCases",
+    defaults: ["cts_package_installer_cuj_defaults"],
+
+    static_libs: [
+        "bedstead-enterprise",
+    ],
+
+    per_testcase_directory: true,
+    manifest: "AndroidManifest_multiusers.xml",
+    srcs: [
+        "src/android/packageinstaller/criticaluserjourney/cts/PackageInstallerCujTestBase.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UninstallationWithCloneProfileTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UninstallationWithMultiUsersTest.java",
+        "src/android/packageinstaller/criticaluserjourney/cts/UninstallationTestBase.java",
+
+    ],
+    test_config: "MultiUsersTest.xml",
+}

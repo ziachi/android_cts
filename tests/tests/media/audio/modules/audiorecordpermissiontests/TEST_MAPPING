@@ -1,0 +1,17 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsMediaAudioPermissionTestCases",
+      "options": [
+        {
+          "exclude-annotation": "androidx.test.filters.FlakyTest"
+        }
+      ]
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsMediaAudioPermissionTestCases"
+    }
+  ]
+}

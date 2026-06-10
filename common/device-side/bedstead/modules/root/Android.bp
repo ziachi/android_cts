@@ -1,0 +1,64 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+filegroup {
+    name: "bedstead-root-annotations-srcs",
+    srcs: [
+        "src/main/kotlin/com/android/xts/root/annotations/*.kt",
+    ],
+}
+
+java_library {
+    name: "bedstead-root-annotations",
+    srcs: [":bedstead-root-annotations-srcs"],
+    static_libs: [
+        "HarrierCommonAndroid",
+        "auto_value_annotations",
+    ],
+
+    sdk_version: "current",
+
+    plugins: ["auto_annotation_plugin"],
+}
+
+java_library_host {
+    name: "bedstead-root-annotations-host",
+    srcs: [":bedstead-root-annotations-srcs"],
+    static_libs: [
+        "bedstead-core-annotations",
+        "auto_value_annotations",
+    ],
+    plugins: ["auto_annotation_plugin"],
+}
+
+android_library {
+    name: "bedstead-root",
+    srcs: [
+        "src/main/kotlin/**/*.kt",
+    ],
+    manifest: "src/main/AndroidManifest.xml",
+    min_sdk_version: "29",
+    static_libs: [
+        "bedstead",
+        "bedstead-adb",
+        "bedstead-root-annotations",
+    ],
+}
+
+android_test {
+    name: "bedstead-root-test",
+    srcs: [
+        "src/test/kotlin/**/*.kt",
+    ],
+    test_suites: [
+        "general-tests",
+    ],
+    static_libs: [
+        "bedstead",
+        "truth",
+        "bedstead-root",
+    ],
+    manifest: "src/test/AndroidManifest.xml",
+    min_sdk_version: "29",
+}

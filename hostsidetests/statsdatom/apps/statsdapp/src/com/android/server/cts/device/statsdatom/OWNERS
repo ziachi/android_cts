@@ -1,0 +1,4 @@
+per-file BackportedFixesTest* = file:/backported_fixes/OWNERS
+per-file ThermalPowerManagerTests* = file:platform/frameworks/base:/THERMAL_OWNERS
+per-file PowerManagerTests* = file:platform/frameworks/base:/services/core/java/com/android/server/power/OWNERS
+per-file MediaProjectionTests* = file:platform/frameworks/base:/media/java/android/media/projection/OWNERS

@@ -1,0 +1,12 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsBugreportTestCases_android_server_os"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsBugreportTestCases"
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+// Copyright (C) 2021 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_team: "trendy_team_android_media_codec_framework",
+    // See: http://go/android-license-faq
+    default_applicable_licenses: [
+        "Android-Apache-2.0",
+        "cts_tests_tests_media_license", // CC-BY
+    ],
+}
+
+java_defaults {
+    name: "MediaCodecTestCases_defaults",
+    defaults: ["cts_defaults"],
+    // include both the 32 and 64 bit versions
+    compile_multilib: "both",
+    static_libs: [
+        "ctstestrunner-axt",
+        "cts-media-common",
+        "ctsmediav2common",
+        "testng",
+    ],
+    jni_libs: [
+        "libctsmediacommon_jni",
+    ],
+    aaptflags: [
+        // Do not compress these files:
+        "-0 .vp9",
+        "-0 .ts",
+        "-0 .heic",
+        "-0 .trp",
+        "-0 .ota",
+        "-0 .mxmf",
+    ],
+    srcs: [
+        "src/**/*.java",
+        "aidl/**/*.aidl",
+    ],
+    // This test uses private APIs
+    platform_apis: true,
+    jni_uses_sdk_apis: true,
+    libs: [
+        "android.test.base.stubs.system",
+        "android.test.runner.stubs.system",
+    ],
+    host_required: ["cts-dynamic-config"],
+    min_sdk_version: "29",
+    target_sdk_version: "31",
+}
+
+android_test {
+    name: "CtsMediaCodecTestCases",
+    defaults: ["MediaCodecTestCases_defaults"],
+    test_config: "AndroidTest.xml",
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+}
+
+android_test {
+    name: "MctsMediaCodecTestCases",
+    defaults: ["MediaCodecTestCases_defaults"],
+    test_config: "AndroidTest-mcts.xml",
+    test_suites: [
+        "cts",
+        "general-tests",
+        "mcts-media",
+        "mts-media",
+    ],
+}
+
+test_module_config {
+    name: "CtsMediaCodecTestCases_cts_encodedecodetest",
+    base: "CtsMediaCodecTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.media.codec.cts.EncodeDecodeTest"],
+}
+
+test_module_config {
+    name: "CtsMediaCodecTestCases_cts_decodeeditencodetest",
+    base: "CtsMediaCodecTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.media.codec.cts.DecodeEditEncodeTest"],
+}
+
+test_module_config {
+    name: "MctsMediaCodecTestCases_cts_encodedecodetest",
+    base: "MctsMediaCodecTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.media.codec.cts.EncodeDecodeTest"],
+}
+
+test_module_config {
+    name: "MctsMediaCodecTestCases_cts_decodeeditencodetest",
+    base: "MctsMediaCodecTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.media.codec.cts.DecodeEditEncodeTest"],
+}
+
+test_module_config {
+    name: "MctsMediaCodecTestCases_cts_extractdecodeeditencodemuxtest",
+    base: "MctsMediaCodecTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.media.codec.cts.ExtractDecodeEditEncodeMuxTest"],
+}
+
+test_module_config {
+    name: "CtsMediaCodecTestCases_PresubmitNoDevice",
+    base: "CtsMediaCodecTestCases",
+    test_suites: ["general-tests"],
+    include_annotations: ["android.platform.test.annotations.Presubmit"],
+    exclude_annotations: ["android.platform.test.annotations.RequiresDevice"],
+}
+
+test_module_config {
+    name: "MctsMediaCodecTestCases_Presubmit",
+    base: "MctsMediaCodecTestCases",
+    test_suites: ["general-tests"],
+    include_annotations: ["android.platform.test.annotations.Presubmit"],
+}
+
+test_module_config {
+    name: "CtsMediaCodecTestCases_PlatinumTest",
+    base: "CtsMediaCodecTestCases",
+    test_suites: ["general-tests"],
+    include_annotations: ["android.platform.test.annotations.PlatinumTest"],
+}

@@ -1,0 +1,4 @@
+# Bug component: 533273
+set noparent
+
+include platform/frameworks/base:/apex/jobscheduler/ALARM_OWNERS

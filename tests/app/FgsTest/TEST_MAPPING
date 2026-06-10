@@ -1,0 +1,7 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsAppFgsTestCases_pm_Presubmit"
+    }
+  ]
+}

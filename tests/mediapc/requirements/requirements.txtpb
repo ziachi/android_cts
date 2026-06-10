@@ -1,0 +1,6447 @@
+# Copyright (C) 2024 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# proto-file: wireless/android/mediapc_requirements/requirements.proto
+# proto-message: RequirementList
+all_mpcs: [30, 31, 33, 34, 35]
+requirements {
+  id: "5.1/H-1-1"
+  name: "Video Decoder Instances"
+  description: "Video decoder instances"
+  test_configs: {
+    key: "720p"
+    value: {
+      description: "Tests running at 720p"
+      proto_field_number: 1
+    }
+  }
+  test_configs: {
+    key: "1080p"
+    value: {
+      description: "Tests running at 1080p"
+      proto_field_number: 2
+    }
+  }
+  test_configs: {
+    key: "4k"
+    value: {
+      description: "Tests running at 4k"
+      proto_field_number: 3
+    }
+  }
+  variants: {
+    key: "VP9"
+    value: {
+      description: "When one of the codecs is VP9, variant used in 720p tests"
+    }
+  }
+  variants: {
+    key: "AV1"
+    value: {
+      description: "When one of the codecs is AV1, variant used in 720p tests"
+    }
+  }
+  measurements: {
+    key: "concurrent_sessions"
+    value: {
+      description: "The number of concurrent sessions"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description: "The resolution the test was run at"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST advertise the maximum number of hardware video decoder sessions that can be run concurrently in any codec combination via the CodecCapabilities.getMaxSupportedInstances() and VideoCapabilities.getSupportedPerformancePoints() methods."
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "same"
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "concurrent_sessions"
+            value {
+              int_value: 2
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "concurrent_sessions"
+            value {
+              int_value: 6
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      test_config_id: "1080p"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-2"
+  name: "Concurrent Video Decoder Sessions"
+  description: "Concurrent video decoder sessions"
+  test_configs: {
+    key: "720p"
+    value: {
+      description: "Tests running at 720p"
+      proto_field_number: 4
+    }
+  }
+  test_configs: {
+    key: "1080p"
+    value: {
+      description: "Tests running at 1080p"
+      proto_field_number: 5
+    }
+  }
+  test_configs: {
+    key: "4k"
+    value: {
+      description: "Tests running at 4k"
+      proto_field_number: 6
+    }
+  }
+  variants: {
+    key: "VP9"
+    value: {
+      description: "When one of the codecs is VP9, variant used in 720p tests"
+    }
+  }
+  variants: {
+    key: "AV1"
+    value: {
+      description: "When one of the codecs is AV1, variant used in 720p tests"
+    }
+  }
+  measurements: {
+    key: "concurrent_fps"
+    value: {
+      description: "The number of frames per second that can be decoded concurrently"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "frame_drops_per_sec"
+    value: {
+      description: "The number of frames dropped per second"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description: "The resolution the test was run at"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST support 6 instances of hardware video decoder sessions (AVC or HEVC) in any codec combination running concurrently at 720p resolution@30 fps."
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST support 6 instances of hardware video decoder sessions (AVC, HEVC, VP9* or later) in any codec combination running concurrently at 720p resolution@30 fps. *Only 2 instances are required if VP9 codec is present."
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "concurrent_fps"
+            value {
+              double_value: 57  # 2 decoders * 30 fps * 0.95 tolerance factor
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "concurrent_fps"
+            value {
+              double_value: 171  # 6 decoders * 30 fps * 0.95 tolerance factor
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support 6 instances of hardware video decoder sessions (AVC, HEVC, VP9, AV1 or later) in any codec combination running concurrently at 1080p resolution@30 fps."
+      test_config_id: "1080p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support 6 instances of 8-bit (SDR) hardware video decoder sessions (AVC, HEVC, VP9, AV1 or later) in any codec combination running concurrently with 3 sessions at 1080p resolution@30 fps and 3 sessions at 4k resolution@30fps, unless AV1. AV1 codecs are only required to support 1080p resolution, but are still required to support 6 instances at 1080p30fps."
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support 6 instances of 8-bit (SDR) hardware video decoder sessions (AVC, HEVC, VP9, AV1, or later) in any codec combination running concurrently with 3 sessions at 1080p resolution@30 fps and 3 sessions at 4k resolution@30fps, unless AV1. For all sessions, there MUST NOT be more than 1 frame dropped per second. AV1 codecs are only required to support 1080p resolution, but are still required to support 6 instances at 1080p30fps."
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "frame_drops_per_sec"
+        value {
+          double_value: 1
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-3"
+  name: "Video Encoder Instances"
+  description: "Video encoder instances"
+  test_configs: {
+    key: "720p"
+    value: {
+      description: "Tests running at 720p"
+      proto_field_number: 7
+    }
+  }
+  test_configs: {
+    key: "1080p"
+    value: {
+      description: "Tests running at 1080p"
+      proto_field_number: 8
+    }
+  }
+  test_configs: {
+    key: "4k"
+    value: {
+      description: "Tests running at 4k"
+      proto_field_number: 9
+    }
+  }
+  variants: {
+    key: "VP9"
+    value: {
+      description: "When one of the codecs is VP9, variant used in 720p tests"
+    }
+  }
+  variants: {
+    key: "AV1"
+    value: {
+      description: "When one of the codecs is AV1, variant used in 720p tests"
+    }
+  }
+  measurements: {
+    key: "concurrent_sessions"
+    value: {
+      description: "The number of concurrent sessions"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description: "The resolution the test was run at"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST advertise the maximum number of hardware video encoder sessions that can be run concurrently in any codec combination via the CodecCapabilities.getMaxSupportedInstances() and VideoCapabilities.getSupportedPerformancePoints() methods."
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "same"
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "concurrent_sessions"
+            value {
+              int_value: 2
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "concurrent_sessions"
+            value {
+              int_value: 6
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      test_config_id: "1080p"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-4"
+  name: "Concurrent Video Encoder Sessions"
+  description: "Concurrent video encoder sessions"
+  test_configs: {
+    key: "720p"
+    value: {
+      description: "Tests running at 720p"
+      proto_field_number: 10
+    }
+  }
+  test_configs: {
+    key: "1080p"
+    value: {
+      description: "Tests running at 1080p"
+      proto_field_number: 11
+    }
+  }
+  test_configs: {
+    key: "4k"
+    value: {
+      description: "Tests running at 4k"
+      proto_field_number: 12
+    }
+  }
+  variants: {
+    key: "byte_buffer_mode"
+    value: {
+      description: "When the test is run in byte buffer mode"
+    }
+  }
+  measurements: {
+    key: "concurrent_fps"
+    value: {
+      description: "The number of frames per second that can be decoded concurrently"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "frame_drops_per_sec"
+    value: {
+      description: "The number of frames dropped per second"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description: "The resolution the test was run at"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST support 6 instances of hardware video encoder sessions (AVC or HEVC) in any codec combination running concurrently at 720p resolution@30 fps."
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 encoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "byte_buffer_mode"
+        value: {
+          required_values: {
+            key: "concurrent_fps"
+            value {
+              double_value: 0  # Requirement not asserted in byte buffer mode
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST support 6 instances of hardware video encoder sessions (AVC, HEVC, VP9* or later) in any codec combination running concurrently at 720p resolution@30 fps. *Only 2 instances are required if VP9 codec is present."
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 encoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "byte_buffer_mode"
+        value: {
+          required_values: {
+            key: "concurrent_fps"
+            value {
+              double_value: 0  # Requirement not asserted in byte buffer mode
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support 6 instances of hardware video encoder sessions (AVC, HEVC, VP9, AV1 or later) in any codec combination running concurrently at 1080p resolution@30fps."
+      test_config_id: "1080p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 encoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+      variant_specs: {
+        key: "byte_buffer_mode"
+        value: {
+          required_values: {
+            key: "concurrent_fps"
+            value {
+              double_value: 0  # Requirement not asserted in byte buffer mode
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 1080
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support 6 instances of 8-bit (SDR) hardware video encoder sessions (AVC, HEVC, VP9, AV1 or later) in any codec combination running concurrently with 4 sessions at 1080p resolution@30 fps and 2 sessions at 4k resolution@30fps, unless AV1. AV1 codecs are only required to support 1080p resolution, but are still required to support 6 instances at 1080p30fps."
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 encoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+      variant_specs: {
+        key: "byte_buffer_mode"
+        value: {
+          required_values: {
+            key: "concurrent_fps"
+            value {
+              double_value: 0  # Requirement not asserted in byte buffer mode
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 2160
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support 6 instances of 8-bit (SDR) hardware video encoder sessions (AVC, HEVC, VP9, AV1, or later) in any codec combination running concurrently with 4 sessions at 1080p resolution@30 fps and 2 sessions at 4k resolution@30fps, unless AV1. For all sessions, there MUST NOT be more than 1 frame dropped per second. AV1 codecs are only required to support 1080p resolution, but are still required to support 6 instances at 1080p30fps."
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 171  # 6 encoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "frame_drops_per_sec"
+        value {
+          double_value: 1
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+      variant_specs: {
+        key: "byte_buffer_mode"
+        value: {
+          required_values: {
+            key: "concurrent_fps"
+            value {
+              double_value: 0  # Requirement not asserted in byte buffer mode
+            }
+          }
+          required_values: {
+            key: "frame_drops_per_sec"
+            value {
+              double_value: 1
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value: {
+              int_value: 2160
+            }
+          }
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-5"
+  name: "Video Transcoding Instances"
+  description: "Video transcoding instances"
+  test_configs: {
+    key: "720p"
+    value: {
+      description: "Tests running at 720p"
+      proto_field_number: 13
+    }
+  }
+  test_configs: {
+    key: "1080p"
+    value: {
+      description: "Tests running at 1080p"
+      proto_field_number: 14
+    }
+  }
+  test_configs: {
+    key: "4k"
+    value: {
+      description: "Tests running at 4k"
+      proto_field_number: 15
+    }
+  }
+  variants: {
+    key: "VP9"
+    value: {
+      description: "When one of the codecs is VP9, variant used in 720p tests"
+    }
+  }
+  variants: {
+    key: "AV1"
+    value: {
+      description: "When one of the codecs is AV1, variant used in 720p tests"
+    }
+  }
+  measurements: {
+    key: "concurrent_sessions"
+    value: {
+      description: "The number of concurrent sessions"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description: "The resolution the test was run at"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST advertise the maximum number of hardware video encoder and decoder sessions that can be run concurrently in any codec combination via the CodecCapabilities.getMaxSupportedInstances() and VideoCapabilities.getSupportedPerformancePoints() methods."
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "same"
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "concurrent_sessions"
+            value {
+              int_value: 2
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "concurrent_sessions"
+            value {
+              int_value: 6
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      test_config_id: "1080p"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_sessions"
+        value {
+          int_value: 6
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-6"
+  name: "Concurrent Video Transcoding Sessions"
+  description: "Concurrent video transcoding sessions"
+  test_configs: {
+    key: "720p"
+    value: {
+      description: "Tests running at 720p"
+      proto_field_number: 16
+    }
+  }
+  test_configs: {
+    key: "1080p"
+    value: {
+      description: "Tests running at 1080p"
+      proto_field_number: 17
+    }
+  }
+  test_configs: {
+    key: "4k"
+    value: {
+      description: "Tests running at 4k"
+      proto_field_number: 18
+    }
+  }
+  variants: {
+    key: "VP9"
+    value: {
+      description: "When one of the codecs is VP9, variant used in 720p tests"
+    }
+  }
+  variants: {
+    key: "AV1"
+    value: {
+      description: "When one of the codecs is AV1, variant used in 720p tests"
+    }
+  }
+  measurements: {
+    key: "concurrent_fps"
+    value: {
+      description: "The number of frames per second that can be decoded concurrently"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "frame_drops_per_sec"
+    value: {
+      description: "The number of frames dropped per second"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description: "The resolution the test was run at"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST support 6 instances of hardware video decoder and hardware video encoder sessions (AVC or HEVC) in any codec combination running concurrently at 720p@30 fps resolution."
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 85.5  # 6 codecs * 30 fps * 0.95 tolerance factor / 2
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST support 6 instances of hardware video decoder and hardware video encoder sessions (AVC, HEVC, VP9* or later) in any codec combination running concurrently at 720p@30fps resolution. *Only 2 instances are required if VP9 codec is present."
+      test_config_id: "720p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 85.5  # 6 codecs * 30 fps * 0.95 tolerance factor / 2
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 720
+        }
+      }
+      variant_specs: {
+        key: "VP9"
+        value: {
+          required_values: {
+            key: "concurrent_fps"
+            value {
+              double_value: 28.5  # 2 codecs * 30 fps * 0.95 tolerance factor / 2
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+      variant_specs: {
+        key: "AV1"
+        value: {
+          required_values: {
+            key: "concurrent_fps"
+            value {
+              double_value: 85.5  # 6 codecs * 30 fps * 0.95 tolerance factor / 2
+            }
+          }
+          required_values: {
+            key: "resolution"
+            value {
+              int_value: 720
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support 6 instances of hardware video decoder and hardware video encoder sessions (AVC, HEVC, VP9, AV1 or later) in any codec combination running concurrently at 1080p@30fps resolution."
+      test_config_id: "1080p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 85.5  # 6 codecs * 30 fps * 0.95 tolerance factor / 2
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support 6 instances of 8-bit (SDR) hardware video decoder and hardware video encoder sessions (AVC, HEVC, VP9, AV1 or later) in any codec combination running concurrently with 3 sessions at 4K@30fps resolution (unless AV1), out of which at most 2 are encoder sessions and 3 sessions at 1080p resolution. AV1 codecs are only required to support 1080p resolution, but are still required to support 6 instances at 1080p30fps."
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 85.5  # 6 codecs * 30 fps * 0.95 tolerance factor / 2
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support 6 instances of 8-bit (SDR) hardware video decoder and hardware video encoder sessions (AVC, HEVC, VP9, AV1, or later) in any codec combination running concurrently with 3 sessions at 4K@30fps resolution (unless AV1), out of which at most 2 are encoder sessions and 3 sessions at 1080p resolution. For all sessions, there MUST NOT be more than 1 frame dropped per second. AV1 codecs are only required to support 1080p resolution, but are still required to support 6 instances at 1080p30fps."
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 85.5  # 6 codecs * 30 fps * 0.95 tolerance factor / 2
+        }
+      }
+      required_values: {
+        key: "frame_drops_per_sec"
+        value {
+          double_value: 1
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-7"
+  name: "Video encoder init latency"
+  description:
+    "Maximum codec initialization latency for a 1080p or smaller video "
+    "encoding session for all hardware video encoders when under load."
+  test_configs: {
+    key: ""
+    value: {
+      proto_field_number: 19
+    }
+  }
+  measurements: {
+    key: "codec_initialization_latency_ms"
+    value: {
+      description: "Codec initialization latency in milliseconds"
+      measurement_type: MEASUREMENT_TYPE_LONG
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  variants: {
+    key: "dolby"
+    value: {
+      description: "When the codec is Dolby Vision"
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification:
+        "MUST have a codec initialization latency of 65 ms or less for a 1080p "
+        "or smaller video encoding session for all hardware video encoders when "
+        "under load. Load here is defined as a concurrent 1080p to 720p "
+        "video-only transcoding session using hardware video codecs together "
+        "with the 1080p audio-video recording initialization."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 65
+        }
+      }
+      variant_specs: {
+        key: "dolby"
+        value: {
+          required_values: {
+            key: "codec_initialization_latency_ms"
+            value {
+              long_value: 65
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification:
+        "MUST have a codec initialization latency of 50 ms or less for a 1080p "
+        "or smaller video encoding session for all hardware video encoders "
+        "when under load. Load here is defined as a concurrent 1080p to 720p "
+        "video-only transcoding session using hardware video codecs together "
+        "with the 1080p audio-video recording initialization."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 50
+        }
+      }
+      variant_specs: {
+        key: "dolby"
+        value: {
+          required_values: {
+            key: "codec_initialization_latency_ms"
+            value {
+              long_value: 50
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification:
+        "MUST have a codec initialization latency of 40 ms or less for a 1080p "
+        "or smaller video encoding session for all hardware video encoders "
+        "when under load. Load here is defined as a concurrent 1080p to 720p "
+        "video-only transcoding session using hardware video codecs together "
+        "with the 1080p audio-video recording initialization."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 40
+        }
+      }
+      variant_specs: {
+        key: "dolby"
+        value: {
+          required_values: {
+            key: "codec_initialization_latency_ms"
+            value {
+              long_value: 50
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification:
+        "MUST have a codec initialization latency of 40 ms or less for a 1080p "
+        "or smaller video encoding session for all hardware video encoders "
+        "when under load. Load here is defined as a concurrent 1080p to 720p "
+        "video-only transcoding session using hardware video codecs together "
+        "with the 1080p audio-video recording initialization. For Dolby vision "
+        "codec, the codec initialization latency MUST be 50 ms or less."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 40
+        }
+      }
+      variant_specs: {
+        key: "dolby"
+        value: {
+          required_values: {
+            key: "codec_initialization_latency_ms"
+            value {
+              long_value: 50
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification:
+        "MUST have a codec initialization latency of 40 ms or less for a 1080p "
+        "or smaller video encoding session for all hardware video encoders "
+        "when under load. Load here is defined as a concurrent 1080p to 720p "
+        "video-only transcoding session using hardware video codecs together "
+        "with the 1080p audio-video recording initialization. For Dolby vision "
+        "codec, the codec initialization latency MUST be 50 ms or less."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 40
+        }
+      }
+      variant_specs: {
+        key: "dolby"
+        value: {
+          required_values: {
+            key: "codec_initialization_latency_ms"
+            value {
+              long_value: 50
+            }
+          }
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-8"
+  name: "Audio encoder init latency"
+  description: "Maximum codec initialization latency for a 128 kbps or lower bitrate audio encoding session for all audio encoders when under load."
+  test_configs: {
+    key: ""
+    value: {
+      proto_field_number: 20
+    }
+  }
+  measurements: {
+    key: "codec_initialization_latency_ms"
+    value: {
+      description: "Codec initialization latency in milliseconds"
+      measurement_type: MEASUREMENT_TYPE_LONG
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs: {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST have a codec initialization latency of 50 ms or less for a 128 kbps or lower bitrate audio encoding session for all audio encoders when under load. Load here is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs together with the 1080p audio-video recording initialization."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 50
+        }
+      }
+    }
+  }
+  specs: {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST have a codec initialization latency of 40 ms or less for a 128 kbps or lower bitrate audio encoding session for all audio encoders when under load. Load here is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs together with the 1080p audio-video recording initialization."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 40
+        }
+      }
+    }
+  }
+  specs: {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have a codec initialization latency of 30 ms or less for a 128 kbps or lower bitrate audio encoding session for all audio encoders when under load. Load here is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs together with the 1080p audio-video recording initialization."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 30
+        }
+      }
+    }
+  }
+  specs: {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 30
+        }
+      }
+    }
+  }
+  specs: {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 30
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-9"
+  name: "Secure Video Decoder Sessions"
+  description: "Secure hardware decoders"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 21
+    }
+  }
+  test_configs: {
+    key: "HDR"
+    value: {
+      description: "Test config for hdr tests"
+      proto_field_number: 22
+    }
+  }
+  measurements: {
+    key: "concurrent_fps"
+    value: {
+      description: "Achieved FPS"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "frame_drops_per_sec"
+    value: {
+      description: "Number of frame drops per second"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "is_hdr"
+    value: {
+      description: "Whether the test is HDR or not"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification:
+        "MUST support 2 instances of secure hardware video decoder sessions "
+        "(AVC, HEVC, VP9, AV1 or later) in any codec combination running "
+        "concurrently at 1080p resolution@30 fps."
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 57  # 2 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "is_hdr"
+        value {
+          bool_value: false
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification:
+        "MUST support 2 instances of secure hardware video decoder sessions "
+        "(AVC, HEVC, VP9, AV1 or later) in any codec combination running "
+        "concurrently at 1080p resolution@30 fps for both 8-bit "
+        "(SDR) and 10-bit HDR content."
+      test_config_id: "HDR"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 57  # 2 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "is_hdr"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification:
+        "MUST support 2 instances of secure hardware video decoder sessions "
+        "(AVC, HEVC, VP9, AV1, or later) in any codec combination running "
+        "concurrently at 1080p resolution@30 fps for both 8-bit "
+        "(SDR) and 10-bit HDR content. For all sessions, there MUST NOT be "
+        "more than 1 frame dropped per second."
+      test_config_id: "HDR"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 57  # 2 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "frame_drops_per_sec"
+        value {
+          double_value: 1
+        }
+      }
+      required_values: {
+        key: "is_hdr"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-10"
+  name: "Video Decoder Sessions"
+  description: "hardware decoders, secure with non-secure hardware decoders"
+  test_configs: {
+    key: "1080p"
+    value: {
+      description: "Test config for 1080p"
+      proto_field_number: 23
+    }
+  }
+  test_configs: {
+    key: "4k"
+    value: {
+      description: "Test config for 4k"
+      proto_field_number: 24
+    }
+  }
+  measurements: {
+    key: "concurrent_fps"
+    value: {
+      description: "Achieved FPS"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "frame_drops_per_sec"
+    value: {
+      description: "Number of frame drops per second"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description: "The resolution the test was run at"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support 3 instances of non-secure hardware video decoder sessions together with 1 instance of secure hardware video decoder session (4 instances total) (AVC, HEVC, VP9, AV1 or later) in any codec combination running concurrently at 1080p resolution@30fps."
+      test_config_id: "1080p"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 114  # 4 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support 3 instances of non-secure hardware video decoder sessions together with 1 instance of secure hardware video decoder session (4 instances total) (AVC, HEVC, VP9, AV1 or later) in any codec combination running concurrently with 3 sessions at 4K resolution@30 fps (unless AV1) which includes one secure decoder session and 1 nn-secure session at 1080p resolution@30fps where at most 2 sessions can be in 10-bit HDR. AV1 codec sessions are only required to support 1080p resolution even when this requirement calls for 4K."
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 114  # 4 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support 3 instances of non-secure hardware video decoder sessions together with 1 instance of secure hardware video decoder session (4 instances total) (AVC, HEVC, VP9, AV1, or later) in any codec combination running concurrently with 3 sessions at 4K resolution@30fps (unless AV1) which includes one secure decoder session and 1 nn-secure session at 1080p resolution@30fps where at most 2 sessions can be in 10-bit HDR. For all sessions, there MUST NOT be more than 1 frame dropped per second. AV1 codec sessions are only required to support 1080p resolution even when this requirement calls for 4K."
+      test_config_id: "4k"
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 114  # 4 decoders * 30 fps * 0.95 tolerance factor
+        }
+      }
+      required_values: {
+        key: "frame_drops_per_sec"
+        value {
+          double_value: 1
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-11"
+  name: "Secure Hardware Decoders"
+  description: "Supports various secure hardware decoders"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 25
+    }
+  }
+  measurements: {
+    key: "secure_requirement_satisfied_boolean"
+    value: {
+      description: "Are secure hardware decoders supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support a secure decoder for every hardware AVC, HEVC, VP9 or AV1 decoder on the device."
+      required_values: {
+        key: "secure_requirement_satisfied_boolean"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values: {
+        key: "secure_requirement_satisfied_boolean"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "secure_requirement_satisfied_boolean"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-12"
+  name: "Video Decoder Init Latency"
+  description: "Video decoder initialization latency"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 26
+    }
+  }
+  variants: {
+    key: "dolby"
+    value: {
+      description: "When the codec is Dolby Vision"
+    }
+  }
+  measurements: {
+    key: "codec_initialization_latency_ms"
+    value: {
+      description: "Codec initialization latency in milliseconds"
+      measurement_type: MEASUREMENT_TYPE_LONG
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have a codec initialization latency of 40 ms or less for a 1080p or smaller video decoding session for all hardware video decoders when under load. Load here is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs together with the 1080p audio-video playback initialization. For Dolby vision codec, the codec initialization latency MUST be 50 ms or less."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 40
+        }
+      }
+      variant_specs: {
+        key: "dolby"
+        value: {
+          required_values: {
+            key: "codec_initialization_latency_ms"
+            value {
+              long_value: 50
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 40
+        }
+      }
+      variant_specs: {
+        key: "dolby"
+        value: {
+          required_values: {
+            key: "codec_initialization_latency_ms"
+            value {
+              long_value: 50
+            }
+          }
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 40
+        }
+      }
+      variant_specs: {
+        key: "dolby"
+        value: {
+          required_values: {
+            key: "codec_initialization_latency_ms"
+            value {
+              long_value: 50
+            }
+          }
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-13"
+  name: "Audio decoder init latency"
+  description: "Maximum codec initialization latency for a 128 kbps or lower bitrate audio decoding session for all audio decoders when under load."
+  test_configs: {
+    key: ""
+    value: {
+      proto_field_number: 27
+    }
+  }
+  measurements: {
+    key: "codec_initialization_latency_ms"
+    value: {
+      description: "Codec initialization latency in milliseconds"
+      measurement_type: MEASUREMENT_TYPE_LONG
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have a codec initialization latency of 30 ms or less for a 128 kbps or lower bitrate audio decoding session for all audio decoders when under load. Load here is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs together with the 1080p audio-video playback initialization."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 30
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST have a codec initialization latency of 30 ms or less for a 128 kbps or lower bitrate audio decoding session for all audio decoders when under load. Load here is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs together with the 1080p audio-video playback initialization."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 30
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST have a codec initialization latency of 30 ms or less for a 128 kbps or lower bitrate audio decoding session for all audio decoders when under load. Load here is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs together with the 1080p audio-video playback initialization."
+      required_values: {
+        key: "codec_initialization_latency_ms"
+        value {
+          long_value: 30
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-14"
+  name: "AV1 Hardware Decoder"
+  description: "AV1 hardware decoder\n- Film grain effect"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 28
+    }
+  }
+  measurements: {
+    key: "av1_decoder_requirement_boolean"
+    value: {
+      description: "Is AV1 hardware decoder supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "av1_frames_without_film_grain"
+    value: {
+      description: "Number of frames without film grain effect."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support AV1 hardware decoder Main 10, Level 4.1."
+      required_values: {
+        key: "av1_decoder_requirement_boolean"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support AV1 hardware decoder Main 10, Level 4.1 and film grain."
+      required_values: {
+        key: "av1_decoder_requirement_boolean"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support AV1 hardware decoder Main 10, Level 4.1 with film grain effect over GPU composition."
+      required_values: {
+        key: "av1_decoder_requirement_boolean"
+        value {
+          bool_value: true
+        }
+      }
+      required_values: {
+        key: "av1_frames_without_film_grain"
+        value {
+          int_value: 0
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-SR-1"
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "Are STRONGLY RECOMMENDED to support Film Grain for AV1 hardware decoder."
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-15"
+  name: "Hardware Decoder 4K60"
+  description: "4K60 hardware decoder"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 29
+    }
+  }
+  measurements: {
+    key: "number_4k_hw_decoders"
+    value: {
+      description: "Number of 4K60 hardware decoders."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have at least 1 hardware video decoder supporting 4K60."
+      required_values: {
+        key: "number_4k_hw_decoders"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values: {
+        key: "number_4k_hw_decoders"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "number_4k_hw_decoders"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-16"
+  name: "Hardware Encoder 4K60"
+  description: "4K60 hardware encoder"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 30
+    }
+  }
+  measurements: {
+    key: "number_4k_hw_encoders"
+    value: {
+      description: "Number of 4K60 hardware encoders."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have at least 1 hardware video encoder supporting 4K60."
+      required_values: {
+        key: "number_4k_hw_encoders"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values: {
+        key: "number_4k_hw_encoders"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "number_4k_hw_encoders"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-17"
+  name: "AVIF Baseline Profile"
+  description: "AVIF Baseline Profile"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 31
+    }
+  }
+  measurements: {
+    key: "avif_image_decoder_boolean"
+    value: {
+      description: "has decoder supporting AVIF Baseline Profile supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST have at least 1 hardware image decoder supporting AVIF Baseline Profile."
+      required_values: {
+        key: "avif_image_decoder_boolean"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "avif_image_decoder_boolean"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-18"
+  name: "AV1 Encoder"
+  description: "AV1 encoder"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 32
+    }
+  }
+  measurements: {
+    key: "av1_encoder_resolution"
+    value: {
+      description: "Resolution of the test."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "av1_encoder_fps"
+    value: {
+      description: "Achieved FPS."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "av1_encoder_bitrate"
+    value: {
+      description: "Bitrate of the test."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support AV1 encoder which can encode up to 480p resolution at 30fps and 1Mbps."
+      required_values: {
+        key: "av1_encoder_resolution"
+        value {
+          int_value: 480
+        }
+      }
+      required_values: {
+        key: "av1_encoder_fps"
+        value {
+          double_value: 30.0
+        }
+      }
+      required_values: {
+        key: "av1_encoder_bitrate"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "av1_encoder_resolution"
+        value {
+          int_value: 480
+        }
+      }
+      required_values: {
+        key: "av1_encoder_fps"
+        value {
+          double_value: 30.0
+        }
+      }
+      required_values: {
+        key: "av1_encoder_bitrate"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.12/H-SR"
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "Are Strongly Recommended to support support the Feature_HdrEditing feature for all hardware AV1 and HEVC encoders present on the device."
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-19"
+  name: "Concurrent HDR Transcoding Sessions"
+  description: "Concurrent HDR transcoding sessions"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 33
+    }
+  }
+  measurements: {
+    key: "concurrent_fps"
+    value: {
+      description: "The number of frames per second that can be decoded concurrently"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "frame_drops_per_sec"
+    value: {
+      description: "The number of frames dropped per second"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description: "The resolution the test was run at"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support 3 instances of 10-bit (HDR) hardware video decoder and hardware video encoder sessions (AVC, HEVC, VP9, AV1 or later) in any codec combination running concurrently at 4K@30fps resolution (unless AV1) out of which at most 1 is an encoder session, which could be configured in RGBA_1010102 input format through a GL surface. HDR metadata generation by the encoder is not required if encoding from the GL surface. AV1 codec sessions are only required to support 1080p resolution even when this requirement calls for 4K."
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 42.75  # 3 codecs * 30 fps * 0.95 tolerance factor / 2
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support 2 instances of secure hardware video decoder sessions (AVC, HEVC, VP9, AV1, or later) in any codec combination running concurrently at 4k resolution@30 fps (unless AV1) for both 8-bit (SDR) and 10-bit HDR content. For all sessions, there MUST NOT be more than 1 frame dropped per second. AV1 codec sessions are only required to support 1080p resolution even when this requirement calls for 4K."
+      required_values: {
+        key: "concurrent_fps"
+        value {
+          double_value: 42.75  # 3 codecs * 30 fps * 0.95 tolerance factor / 2
+        }
+      }
+      required_values: {
+        key: "frame_drops_per_sec"
+        value {
+          double_value: 1
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-20"
+  name: "Video Codec Hlg Editing"
+  description: "Video codec Hlg Editing"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 34
+    }
+  }
+  measurements: {
+    key: "hlg_editing"
+    value: {
+      description: "Is hdr Editing supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support the Feature_HdrEditing feature for all hardware AV1 and HEVC encoders present on the device at 4K resolution or the largest Camera-supported resolution, whichever is less."
+      required_values: {
+        key: "hlg_editing"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-21"
+  name: "Video Codec Dynamic Color Aspect"
+  description: "Video codec dynamic color aspect"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 35
+    }
+  }
+  measurements: {
+    key: "dynamic_color_aspects"
+    value: {
+      description: "Is Dynamic Color Aspect supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support FEATURE_DynamicColorAspect for all hardware video decoders (AVC, HEVC, VP9, AV1, or later). Note: This means applications can update the color aspects of the video content during the decoding session. Decoders that support 10-bit and 8-bit content MUST support dynamically switching between 8- and 10-bit content in Surface mode. Decoders that support HDR transfer function MUST support dynamically switching between SDR and HDR content."
+      required_values: {
+        key: "dynamic_color_aspects"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.1/H-1-22"
+  name: "Video Codec Portrait Resolution"
+  description: "Video codec portrait resolution"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 36
+    }
+  }
+  measurements: {
+    key: "portrait_resolution"
+    value: {
+      description: "Is Portrait Resolution supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support encoding, decoding, GPU-editing and displaying video content in portrait aspect ratio regardless of the rotation metadata for the largest Camera supported resolution or 4K whichever is less. Note: this includes HDR profiles if codec supports HDR. AV1 codecs are only required to support 1080p resolution. This requirement is only for hardware codecs, GPU and the DPU."
+      required_values: {
+        key: "portrait_resolution"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.12/H-1-2"
+  name: "RGBA 1010102 color format"
+  description: "RGBA_1010102 color format support for hardware encoders."
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 37
+    }
+  }
+  measurements: {
+    key: "rgba_1010102_color_format"
+    value: {
+      description: "Is RGBA_1010102 supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support RGBA_1010102 color format for all hardware AV1 and HEVC encoders present on the device."
+      required_values: {
+        key: "rgba_1010102_color_format"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support RGBA_1010102 color format for all hardware AV1 and HEVC encoders present on the device."
+      required_values: {
+        key: "rgba_1010102_color_format"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.12/H-1-3"
+  name: "Ext Yuv Target"
+  description: "YUV texture sampling"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 38
+    }
+  }
+  measurements: {
+    key: "ext_yuv_target_supported"
+    value: {
+      description: "Is EXT_YUV_target supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST advertise support for the EXT_YUV_target extension to sample from YUV textures in both 8 and 10-bits."
+      required_values: {
+        key: "ext_yuv_target_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "ext_yuv_target_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.2/H-2-1"
+  name: "VEQ"
+  description: "Video encoding quality (VEQ) tests."
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 39
+    }
+  }
+  measurements: {
+    key: "bdrate_vmaf"
+    value: {
+      description: "BDRATE-VMAF result"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "calculated"
+    value: {
+      description:
+        "Was BDRATE-VMAF calculated. "
+        "Because 0 is a passing BDRATE-VMAF result, setting this field verifies "
+        "the calculation was done."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "codec_name"
+    value: {
+      description: "Codec name"
+      measurement_type: MEASUREMENT_TYPE_STRING
+      comparison: COMPARISON_INFO_ONLY
+      proto_field_number: 5
+    }
+  }
+  measurements: {
+    key: "bframes_allowed"
+    value: {
+      description: "The encoding is allowed to include b-frames."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_INFO_ONLY
+      proto_field_number: 6
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description:
+        "The resolution of the video written as height x width p "
+        "(for example 1080x1920p)."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_INFO_ONLY
+      proto_field_number: 7
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification:
+        "MUST meet the minimum quality target defined by the video encoder "
+        "rate-distortion curves for hardware AVC and HEVC codecs, as defined "
+        "in Run Performance Class 14 (PC14)-Video encoding quality (VEQ) tests."
+      required_values: {
+        key: "bdrate_vmaf"
+        value {
+          double_value: 0.0
+        }
+      }
+      required_values: {
+        key: "calculated"
+        value {
+          bool_value: true
+        }
+      }
+      required_values: {
+        key: "codec_name"
+        value {
+        }
+      }
+      required_values: {
+        key: "bframes_allowed"
+        value {
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification:
+        "MUST meet the minimum quality target defined by the video encoder "
+        "rate-distortion curves for hardware AVC and HEVC codecs, as defined "
+        "in Run Performance Class 14 (PC14)-Video encoding quality (VEQ) tests."
+      required_values: {
+        key: "bdrate_vmaf"
+        value {
+          double_value: 0.0
+        }
+      }
+      required_values: {
+        key: "calculated"
+        value {
+          bool_value: true
+        }
+      }
+      required_values: {
+        key: "codec_name"
+        value {
+        }
+      }
+      required_values: {
+        key: "bframes_allowed"
+        value {
+        }
+      }
+      required_values: {
+        key: "resolution"
+        value {
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.3/H-1-1"
+  name: "Frame drop"
+  description: "- Decoder frame drops"
+  test_configs: {
+    key: "1080p_30fps"
+    value: {
+      description: "Tests frame drop at 1080p resolution and 30fps"
+      proto_field_number: 40
+    }
+  }
+  test_configs: {
+    key: "1080p_60fps"
+    value: {
+      description: "Tests frame drop at 1080p resolution and 60fps"
+      proto_field_number: 41
+    }
+  }
+  test_configs: {
+    key: "4k_60fps"
+    value: {
+      description: "Tests frame drop at 4k resolution and 60fps"
+      proto_field_number: 42
+    }
+  }
+  measurements: {
+    key: "frame_drops_per_30sec"
+    value: {
+      id: "frame_drops_per_30sec"
+      description: "Frame dropped in 30 seconds"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "frame_rate"
+    value: {
+      id: "frame_rate"
+      description: "Frame rate the test was ran at."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      id: "resolution"
+      description: "Resolution the test was ran at."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST NOT drop more than 1 frame in 10 seconds (i.e less than 0.333 percent frame drop) for a 1080p 30 fps video session under load. Load is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs, as well as a 128 kbps AAC audio playback."
+      test_config_id: "1080p_30fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 3
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 30.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST NOT drop more than 2 frames in 10 seconds (i.e less than 0.333 percent frame drop) for a 1080p 60 fps video session under load. Load is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs, as well as a 128 kbps AAC audio playback."
+      test_config_id: "1080p_60fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 6
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 60.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST NOT drop more than 1 frame in 10 seconds (i.e less than 0.167 percent frame drop) for a 1080p 60 fps video session under load. Load is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs, as well as a 128 kbps AAC audio playback."
+      test_config_id: "1080p_60fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 3
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 60.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST NOT drop more than 1 frame in 10 seconds (i.e less than 0.167 percent frame drop) for a 4K 60 fps video session under load."
+      test_config_id: "4k_60fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 3
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 60.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      test_config_id: "4k_60fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 3
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 60.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.3/H-1-2"
+  name: "Adaptive Playback Frame Drop"
+  description: "Adaptive playback frame drop"
+  test_configs: {
+    key: "1080p_30fps"
+    value: {
+      description: "Tests adaptive playback at 1080p resolution and 30fps"
+      proto_field_number: 43
+    }
+  }
+  test_configs: {
+    key: "1080p_60fps"
+    value: {
+      description: "Tests adaptive playback at 1080p resolution and 60fps"
+      proto_field_number: 44
+    }
+  }
+  test_configs: {
+    key: "4k_60fps"
+    value: {
+      description: "Tests adaptive playback at 4k resolution and 60fps"
+      proto_field_number: 45
+    }
+  }
+  measurements: {
+    key: "frame_drops_per_30sec"
+    value: {
+      description: "Frame dropped in 30 seconds"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "frame_rate"
+    value: {
+      description: "Frame rate the test was ran at."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "resolution"
+    value: {
+      description: "Resolution the test was ran at."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CONFIG
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST NOT drop more than 1 frame in 10 seconds during a video resolution change in a 30 fps video session under load. Load is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs, as well as a 128Kbps AAC audio playback."
+      test_config_id: "1080p_30fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 3
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 30.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST NOT drop more than 2 frames in 10 seconds during a video resolution change in a 60 fps video session under load. Load is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs, as well as a 128 kbps AAC audio playback."
+      test_config_id: "1080p_60fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 6
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 60.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST NOT drop more than 1 frame in 10 seconds during a video resolution change in a 60 fps video session under load. Load is defined as a concurrent 1080p to 720p video-only transcoding session using hardware video codecs, as well as a 128 kbps AAC audio playback."
+      test_config_id: "1080p_60fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 3
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 60.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST NOT drop more than 1 frame in 10 seconds during a video resolution change in a 60 fps video session under load for a 4K session."
+      test_config_id: "4k_60fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 3
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 60.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      test_config_id: "4k_60fps"
+      required_values {
+        key: "frame_drops_per_30sec"
+        value {
+          int_value: 3
+        }
+      }
+      required_values {
+        key: "frame_rate"
+        value {
+          double_value: 60.0
+        }
+      }
+      required_values {
+        key: "resolution"
+        value {
+          int_value: 2160
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.6/H-1-1"
+  name: "Tap to Tone Latency"
+  description: "Tap to tone latency"
+  is_non_cts_test: true
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 46
+    }
+  }
+  measurements: {
+    key: "native_latency_ms"
+    value: {
+      description: "Native latency in milliseconds"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "java_latency_ms"
+    value: {
+      description: "Java latency in milliseconds"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST have a tap-to-tone latency of less than 100 milliseconds using the OboeTester tap-to-tone test or CTS Verifier tap-to-tone test."
+      required_values {
+        key: "native_latency_ms"
+        value {
+          double_value: 100.0
+        }
+      }
+      required_values {
+        key: "java_latency_ms"
+        value {
+          double_value: 100.0
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "same"
+      required_values {
+        key: "native_latency_ms"
+        value {
+          double_value: 100.0
+        }
+      }
+      required_values {
+        key: "java_latency_ms"
+        value {
+          double_value: 100.0
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have a tap-to-tone latency of 80 milliseconds or less using the OboeTester tap-to-tone test or CTS Verifier tap-to-tone test."
+      required_values {
+        key: "native_latency_ms"
+        value {
+          double_value: 80.0
+        }
+      }
+      required_values {
+        key: "java_latency_ms"
+        value {
+          double_value: 80.0
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST have a tap-to-tone latency of 80 milliseconds or less using the CTS Verifier tap-to-tone test."
+      required_values {
+        key: "native_latency_ms"
+        value {
+          double_value: 80.0
+        }
+      }
+      required_values {
+        key: "java_latency_ms"
+        value {
+          double_value: 80.0
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "native_latency_ms"
+        value {
+          double_value: 80.0
+        }
+      }
+      required_values {
+        key: "java_latency_ms"
+        value {
+          double_value: 80.0
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.6/H-1-2"
+  name: "Round Trip Audio Latency"
+  description: "Round-trip audio latency"
+  is_non_cts_test: true
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 47
+    }
+  }
+  measurements: {
+    key: "round_trip_audio_latency_ms"
+    value: {
+      description: "Round-trip audio latency in milliseconds"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have a round-trip audio latency of 80 milliseconds or less over at least one supported data path."
+      required_values {
+        key: "round_trip_audio_latency_ms"
+        value {
+          double_value: 80.0
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "round_trip_audio_latency_ms"
+        value {
+          double_value: 80.0
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "round_trip_audio_latency_ms"
+        value {
+          double_value: 80.0
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.6/H-1-3"
+  name: "Twenty Four Bit Audio"
+  description: "Wired headsets and USB audio devices support 24-bit audio"
+  is_non_cts_test: true
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 48
+    }
+  }
+  measurements: {
+    key: "twenty_four_bit_audio_supported"
+    value: {
+      description: "Is 24-bit audio supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support >=24-bit audio for stereo output over 3.5 mm audio jacks if present and over USB audio if supported through the entire data path for low latency and streaming configurations. For the low latency configuration, AAudio should be used by the app in low-latency callback mode. For the streaming configuration, a Java AudioTrack should be used by the app. In both the low latency and streaming configurations, the HAL output sink should accept either AUDIO_FORMAT_PCM_24_BIT, AUDIO_FORMAT_PCM_24_BIT_PACKED, AUDIO_FORMAT_PCM_32_BIT or AUDIO_FORMAT_PCM_FLOAT for its target output format."
+      required_values {
+        key: "twenty_four_bit_audio_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "twenty_four_bit_audio_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "twenty_four_bit_audio_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "5.6/H-1-4"
+  description: "- Wired headsets and USB audio devices"
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support >=4 channel USB audio devices (This is used by DJ controllers for previewing songs.)"
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+    }
+  }
+}
+requirements {
+  id: "5.6/H-1-5"
+  description: "- MIDI devices"
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support class compliant MIDI devices and declare the MIDI feature flag."
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+    }
+  }
+}
+requirements {
+  id: "5.6/H-1-9"
+  description: "- Multichannel audio mixing"
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support at least 12 channel mixing. This implies the capability to open an AudioTrack with 7.1.4 channel mask and properly spatialise or downmix all channels to stereo."
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+    }
+  }
+}
+requirements {
+  id: "5.6/H-SR"
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "Are STRONGLY RECOMMENDED to support 24 channel mixing with at least support for 9.1.6 and 22.2 channel masks."
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+    }
+  }
+}
+requirements {
+  id: "5.7/H-1-2"
+  name: "Media Drm Security Level Hardware Secure All"
+  description: "Hardware-backed trusted execution environment"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 49
+    }
+  }
+  measurements: {
+    key: "number_crypto_hw_secure_all_support"
+    value: {
+      description: "Number of crypto hw secure all supported."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification:
+        "MUST support MediaDrm.SECURITY_LEVEL_HW_SECURE_ALL with the below "
+        "content decryption capabilities.\n"
+        "Minimum Sample size        4 MiB\n"
+        "Minimum Number of Subsamples - H264 or HEVC        32\n"
+        "Minimum Number of Subsamples - VP9        9\n"
+        "Minimum Number of Subsamples - AV1        288\n"
+        "Minimum subsample buffer size        1 MiB\n"
+        "Minimum Generic crypto buffer size        500 KiB\n"
+        "Minimum Number of concurrent sessions        30\n"
+        "Minimum Number of keys per session        20\n"
+        "Minimum Total Number of Keys (all sessions)        80\n"
+        "Minimum Total Number of DRM Keys (all sessions)        6\n"
+        "Message Size        16 KiB\n"
+        "Decrypted Frames per Second        60 fps"
+      required_values {
+        key: "number_crypto_hw_secure_all_support"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "number_crypto_hw_secure_all_support"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "number_crypto_hw_secure_all_support"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-1"
+  name: "Primary Rear Camera Resolution and Frame Rate"
+  description: "Primary rear camera resolution and frame rate"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 50
+    }
+  }
+  measurements: {
+    key: "primary_camera_available"
+    value: {
+      description: "Is the primary camera available"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "primary_camera_resolution"
+    value: {
+      description: "Resolution of the primary camera"
+      measurement_type: MEASUREMENT_TYPE_LONG
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "primary_camera_video_size_req_satisfied"
+    value: {
+      description: "Video size requirement satisfied at 4k"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 5
+    }
+  }
+  measurements: {
+    key: "primary_camera_1080p_video_size_req_satisfied"
+    value: {
+      description: "Video size requirement satisfied at 1080p"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 6
+    }
+  }
+  measurements: {
+    key: "primary_camera_720p_video_size_req_satisfied"
+    value: {
+      description: "Video size requirement satisfied at 720p"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 7
+    }
+  }
+  measurements: {
+    key: "primary_camera_video_fps"
+    value: {
+      description: "Video fps at 4k"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 8
+    }
+  }
+  measurements: {
+    key: "primary_camera_1080p_video_fps"
+    value: {
+      description: "Video fps at 1080p"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 9
+    }
+  }
+  measurements: {
+    key: "primary_camera_720p_video_fps"
+    value: {
+      description: "Video fps at 720p"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 10
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST have a primary rear facing camera with a resolution of at least 12 megapixels supporting video capture at 4k@30fps. The primary rear-facing camera is the rear-facing camera with the lowest camera ID."
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 12000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "same"
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 12000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 12000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 12000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST have a primary rear facing camera with a resolution of at least 12 megapixels supporting video capture at 4k@30fps, 1080p@60fps, and 720p@60fps. The primary rear-facing camera is the rear-facing camera with the lowest camera ID."
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 12000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_1080p_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_720p_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+      required_values {
+        key: "primary_camera_1080p_video_fps"
+        value {
+          double_value: 59.9
+        }
+      }
+      required_values {
+        key: "primary_camera_720p_video_fps"
+        value {
+          double_value: 59.9
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-2"
+  name: "Primary Front Camera Resolution and Frame Rate"
+  description: "Primary front camera resolution and frame rate"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 51
+    }
+  }
+  measurements: {
+    key: "primary_camera_available"
+    value: {
+      description: "Is the primary camera available"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "primary_camera_resolution"
+    value: {
+      description: "Resolution of the primary camera"
+      measurement_type: MEASUREMENT_TYPE_LONG
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "primary_camera_video_size_req_satisfied"
+    value: {
+      description: "Video size requirement satisfied"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 5
+    }
+  }
+  measurements: {
+    key: "primary_camera_video_fps"
+    value: {
+      description: "Video fps"
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 6
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST have a primary front facing camera with a resolution of at least 4 megapixels supporting video capture at 1080p@30fps. The primary front-facing camera is the front-facing camera with the lowest camera ID."
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 4000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST have a primary front facing camera with a resolution of at least 5 megapixels and support video capture at 1080p@30fps. The primary front-facing camera is the front-facing camera with the lowest camera ID."
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 5000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 5000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST have a primary front-facing camera with a resolution of at least 6 megapixels and support video capture at 1080p@30fps. The primary front-facing camera is the front-facing camera with the lowest camera ID."
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 5000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "primary_camera_available"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_resolution"
+        value {
+          long_value: 5000000
+        }
+      }
+      required_values {
+        key: "primary_camera_video_size_req_satisfied"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_camera_video_fps"
+        value {
+          double_value: 29.9
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-3"
+  name: "Camera Hardware Level"
+  description: "Camera hardware level is FULL or better hardware level"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 52
+    }
+  }
+  measurements: {
+    key: "rear_primary_camera_hwl_level"
+    value: {
+      description: "Hardware level of the primary camera"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CAMERA_HARDWARE_LEVEL_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_primary_camera_hwl_level"
+    value: {
+      description: "Hardware level of the secondary camera"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_CAMERA_HARDWARE_LEVEL_GREATER_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST support android.info.supportedHardwareLevel property as FULL or better for back primary and LIMITED or better for front primary camera."
+      required_values {
+        key: "rear_primary_camera_hwl_level"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_hwl_level"
+        value {
+          int_value: 0
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST support android.info.supportedHardwareLevel property as FULL or better for both primary cameras."
+      required_values {
+        key: "rear_primary_camera_hwl_level"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_hwl_level"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      required_values {
+        key: "rear_primary_camera_hwl_level"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_hwl_level"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_primary_camera_hwl_level"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_hwl_level"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_primary_camera_hwl_level"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_hwl_level"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-4"
+  name: "Timestamp Source Realtime"
+  description: "Timestamp source is realtime"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 53
+    }
+  }
+  measurements: {
+    key: "rear_primary_camera_timestamp_source"
+    value: {
+      description: "Is the rear primary camera timestamp source realtime"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_primary_camera_timestamp_source"
+    value: {
+      description: "Is the front primary camera timestamp source realtime"
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST support CameraMetadata.SENSOR_INFO_TIMESTAMP_SOURCE_REALTIME for both primary cameras."
+      required_values {
+        key: "rear_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "same"
+      required_values {
+        key: "rear_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      required_values {
+        key: "rear_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+      required_values {
+        key: "front_primary_camera_timestamp_source"
+        value {
+          int_value: 1
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-5"
+  name: "Camera Capture Latency"
+  description: "Capture latencies"
+  is_non_cts_test: true
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 54
+    }
+  }
+  measurements: {
+    key: "rear_camera_latency"
+    value: {
+      description: "Capture latency in ms for the rear primary camera"
+      measurement_type: MEASUREMENT_TYPE_FLOAT
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_camera_latency"
+    value: {
+      description: "Capture latency in ms for the front primary camera"
+      measurement_type: MEASUREMENT_TYPE_FLOAT
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST have camera2 JPEG capture latency < 1000 ms for 1080p resolution as measured by the CTS camera PerformanceTest under ITS lighting conditions (3000K) for both primary cameras."
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "same"
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 1000
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-6"
+  name: "Camera Startup Latency"
+  description: "Startup latencies"
+  is_non_cts_test: true
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 55
+    }
+  }
+  measurements: {
+    key: "rear_camera_latency"
+    value: {
+      description: "Startup latency in ms for the rear primary camera"
+      measurement_type: MEASUREMENT_TYPE_FLOAT
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_camera_latency"
+    value: {
+      description: "Startup latency in ms for the front primary camera"
+      measurement_type: MEASUREMENT_TYPE_FLOAT
+      comparison: COMPARISON_LESS_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST have camera2 startup latency (open camera to first preview frame) < 600 ms as measured by the CTS camera PerformanceTest under ITS lighting conditions (3000K) for both primary cameras."
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 600
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 600
+        }
+      }
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "same"
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 600
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 600
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have camera2 startup latency (open camera to first preview frame) < 500 ms as measured by the CTS camera PerformanceTest under ITS lighting conditions (3000K) for both primary cameras."
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 500
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 500
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 500
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 500
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_latency"
+        value {
+          float_value: 500
+        }
+      }
+      required_values {
+        key: "front_camera_latency"
+        value {
+          float_value: 500
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-8"
+  name: "Camera RAW capability"
+  description: "RAW capabilities"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 56
+    }
+  }
+  measurements: {
+    key: "rear_camera_raw_supported"
+    value: {
+      description: "Is the rear primary camera RAW capability supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST support CameraMetadata.REQUEST_AVAILABLE_CAPABILITIES_RAW and android.graphics.ImageFormat.RAW_SENSOR for the primary back camera."
+      required_values {
+        key: "rear_camera_raw_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      required_values {
+        key: "rear_camera_raw_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_camera_raw_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_raw_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-9"
+  name: "Camera Slow Motion"
+  description: "Slow-mo recording"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 57
+    }
+  }
+  measurements: {
+    key: "rear_camera_240fps_supported"
+    value: {
+      description: "Is the rear primary camera slow motion supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have a rear-facing primary camera supporting 720p or 1080p @ 240fps."
+      required_values {
+        key: "rear_camera_240fps_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_camera_240fps_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_240fps_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-10"
+  name: "Camera Ultrawide Zoom Ratio"
+  description: "Minimum zoom ratio for ultrawide cameras"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 58
+    }
+  }
+  measurements: {
+    key: "rear_camera_ultrawide_zoom_req_met"
+    value: {
+      description: "Zoom ratio for rear primary camera is met"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_camera_ultrawide_zoom_req_met"
+    value: {
+      description: "Zoom ratio for front primary camera is met"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have min ZOOM_RATIO < 1.0 for the primary cameras if there is an ultrawide RGB camera facing the same direction."
+      required_values {
+        key: "rear_camera_ultrawide_zoom_req_met"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_ultrawide_zoom_req_met"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_camera_ultrawide_zoom_req_met"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_ultrawide_zoom_req_met"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_ultrawide_zoom_req_met"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_ultrawide_zoom_req_met"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-11"
+  name: "Camera Concurrent Rear Front Streaming"
+  description: "Concurrent camera front-back streaming"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 59
+    }
+  }
+  measurements: {
+    key: "rear_front_concurrent_camera"
+    value: {
+      description: "Is the rear primary camera concurrent front-back streaming supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST implement concurrent front-back streaming on primary cameras."
+      required_values {
+        key: "rear_front_concurrent_camera"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_front_concurrent_camera"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_front_concurrent_camera"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-12"
+  name: "Camera Preview Stabilization"
+  description: "Preview stabilization for primary rear camera"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 60
+    }
+  }
+  measurements: {
+    key: "rear_camera_preview_stabilization_supported"
+    value: {
+      description: "Is the rear primary camera preview stabilization supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support CONTROL_VIDEO_STABILIZATION_MODE_PREVIEW_STABILIZATION for the primary back camera."
+      required_values {
+        key: "rear_camera_preview_stabilization_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_camera_preview_stabilization_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_preview_stabilization_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-13"
+  name: "Camera Logical Multi Camera"
+  description: "Logical multi-camera"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 61
+    }
+  }
+  measurements: {
+    key: "rear_camera_logical_multi_camera_req_met"
+    value: {
+      description: "Is the rear primary camera logical multi-camera supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support LOGICAL_MULTI_CAMERA capability for the primary rear-facing camera if there are greater than 1 RGB rear-facing cameras."
+      required_values {
+        key: "rear_camera_logical_multi_camera_req_met"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_camera_logical_multi_camera_req_met"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_logical_multi_camera_req_met"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-14"
+  name: "Camera Stream Use Case"
+  description: "Stream use case for primary cameras"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 62
+    }
+  }
+  measurements: {
+    key: "rear_camera_stream_usecase_supported"
+    value: {
+      description: "Is the rear primary camera stream use case supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_camera_stream_usecase_supported"
+    value: {
+      description: "Is the front primary camera stream use case supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST support STREAM_USE_CASE capability for both primary front and primary back camera."
+      required_values {
+        key: "rear_camera_stream_usecase_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_stream_usecase_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values {
+        key: "rear_camera_stream_usecase_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_stream_usecase_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_stream_usecase_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_stream_usecase_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-15"
+  name: "Camera Night Mode Extension"
+  description: "Night mode extension"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 63
+    }
+  }
+  measurements: {
+    key: "rear_camera2_extension_night_supported"
+    value: {
+      description: "Is the rear Camera2 night mode extension supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_camera2_extension_night_supported"
+    value: {
+      description: "Is the front Camera2 night mode extension supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "rear_camerax_extension_night_supported"
+    value: {
+      description: "Is the rear CameraX night mode extension supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 5
+    }
+  }
+  measurements: {
+    key: "front_camerax_extension_night_supported"
+    value: {
+      description: "Is the front CameraX night mode extension supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 6
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support Night mode extensions via both CameraX and Camera2 extensions for primary cameras."
+      required_values {
+        key: "rear_camera2_extension_night_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera2_extension_night_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "rear_camerax_extension_night_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camerax_extension_night_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera2_extension_night_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera2_extension_night_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "rear_camerax_extension_night_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camerax_extension_night_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-16"
+  name: "Camera Dynamic Range 10 Bit"
+  description: "Support for 10 bit dynamic range for primary cameras"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 64
+    }
+  }
+  measurements: {
+    key: "rear_camera_dynamic_tenbits_supported"
+    value: {
+      description: "Is the rear primary camera 10 bit dynamic range supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_camera_dynamic_tenbits_supported"
+    value: {
+      description: "Is the front primary camera 10 bit dynamic range supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support DYNAMIC_RANGE_TEN_BIT capability for the primary cameras."
+      required_values {
+        key: "rear_camera_dynamic_tenbits_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_dynamic_tenbits_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_dynamic_tenbits_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_dynamic_tenbits_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-17"
+  name: "Camera Face Detection"
+  description: "Face detection scene mode"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 65
+    }
+  }
+  measurements: {
+    key: "rear_camera_face_detection_supported"
+    value: {
+      description: "Is the rear primary camera face detection supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_camera_face_detection_supported"
+    value: {
+      description: "Is the front primary camera face detection supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST support face detection capability (STATISTICS_FACE_DETECT_MODE_SIMPLE or STATISTICS_FACE_DETECT_MODE_FULL) for the primary cameras."
+      required_values {
+        key: "rear_camera_face_detection_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_face_detection_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values {
+        key: "rear_camera_face_detection_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_face_detection_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-18"
+  name: "Camera JPEG R"
+  description: "JPEG R support for primary cameras"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 66
+    }
+  }
+  measurements: {
+    key: "primary_rear_camera_jpeg_r_supported"
+    value: {
+      description: "Is the rear primary camera JPEG R supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "primary_front_camera_jpeg_r_supported"
+    value: {
+      description: "Is the front primary camera JPEG R supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support JPEG_R for the primary rear and primary front cameras."
+      required_values {
+        key: "primary_rear_camera_jpeg_r_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "primary_front_camera_jpeg_r_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-19"
+  name: "Camera Video Preview Stabilization"
+  description: "Support for video preview stabilization for primary cameras"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 67
+    }
+  }
+  measurements: {
+    key: "primary_camera_hlg_combination_supported"
+    value: {
+      description: "Is the rear primary camera stabilization supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support CONTROL_VIDEO_STABILIZATION_MODE_PREVIEW_STABILIZATION for 1080p HLG10 preview with maximum-size 16:9 aspect ratio JPEG, and for 720p HLG10 preview with maximum-size 16:9 aspect ratio JPEG stream combinations for the primary rear camera."
+      required_values {
+        key: "primary_camera_hlg_combination_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.5/H-1-20"
+  name: "Camera Ultra HDR"
+  description: "Ultra HDR support for primary camera"
+  is_non_cts_test: true
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 68
+    }
+  }
+  measurements: {
+    key: "rear_camera_ultra_hdr_supported"
+    value: {
+      description: "Is the rear primary camera Ultra HDR supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "front_camera_ultra_hdr_supported"
+    value: {
+      description: "Is the front primary camera Ultra HDR supported"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST by default output JPEG_R for the primary rear and primary front cameras in the native camera app."
+      required_values {
+        key: "rear_camera_ultra_hdr_supported"
+        value {
+          bool_value: true
+        }
+      }
+      required_values {
+        key: "front_camera_ultra_hdr_supported"
+        value {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.1.1.1/H-1-1"
+  name: "Screen Resolution R"
+  description: "- Screen resolution"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 69
+    }
+  }
+  measurements {
+    key: "long_resolution_pixels"
+    value: {
+      id: "long_resolution_pixels"
+      description: "The screen resolution width in pixels (longer of the two dimensions)."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements {
+    key: "short_resolution_pixels"
+    value: {
+      id: "short_resolution_pixels"
+      description: "The screen resolution height in pixels (shorter of the two dimensions)."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST have screen resolution of at least 1080p."
+      required_values: {
+        key: "long_resolution_pixels"
+        value: {
+          int_value: 1920
+        }
+      }
+      required_values: {
+        key: "short_resolution_pixels"
+        value: {
+          int_value: 1080
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.1.1.1/H-2-1"
+  name: "Screen Resolution"
+  description: "- Screen resolution"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 70
+    }
+  }
+  measurements {
+    key: "long_resolution_pixels"
+    value: {
+      id: "long_resolution_pixels"
+      description: "The screen resolution width in pixels (longer of the two dimensions)."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements {
+    key: "short_resolution_pixels"
+    value: {
+      id: "short_resolution_pixels"
+      description: "The screen resolution height in pixels (shorter of the two dimensions)."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST have screen resolution of at least 1080p."
+      required_values: {
+        key: "long_resolution_pixels"
+        value: {
+          int_value: 1920
+        }
+      }
+      required_values: {
+        key: "short_resolution_pixels"
+        value: {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      required_values: {
+        key: "long_resolution_pixels"
+        value: {
+          int_value: 1920
+        }
+      }
+      required_values: {
+        key: "short_resolution_pixels"
+        value: {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values: {
+        key: "long_resolution_pixels"
+        value: {
+          int_value: 1920
+        }
+      }
+      required_values: {
+        key: "short_resolution_pixels"
+        value: {
+          int_value: 1080
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "long_resolution_pixels"
+        value: {
+          int_value: 1920
+        }
+      }
+      required_values: {
+        key: "short_resolution_pixels"
+        value: {
+          int_value: 1080
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.1.1.3/H-1-1"
+  name: "Screen Density R"
+  description: "- Screen density"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 71
+    }
+  }
+  measurements {
+    key: "display_density_dpi"
+    value: {
+      id: "display_density_dpi"
+      description: "The screen display density in pixels per square inch."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST have screen density of at least 400 dpi."
+      required_values: {
+        key: "display_density_dpi"
+        value: {
+          int_value: 400
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.1.1.3/H-2-1"
+  name: "Screen Density"
+  description: "- Screen density"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 72
+    }
+  }
+  measurements {
+    key: "display_density_dpi"
+    value: {
+      id: "display_density_dpi"
+      description: "The screen display density in pixels per square inch."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST have screen density of at least 400 dpi."
+      required_values: {
+        key: "display_density_dpi"
+        value: {
+          int_value: 400
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      required_values: {
+        key: "display_density_dpi"
+        value: {
+          int_value: 400
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values: {
+        key: "display_density_dpi"
+        value: {
+          int_value: 400
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "display_density_dpi"
+        value: {
+          int_value: 400
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.1.1.3/H-3-1"
+  name: "HDR display"
+  description: "HDR display"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 73
+    }
+  }
+  measurements: {
+    key: "is_hdr"
+    value: {
+      id: "is_hdr"
+      description: "Does the display support HDR"
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "display_luminance_nits"
+    value: {
+      id: "display_luminance_nits"
+      description: "The display luminance in nits."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_INVALID
+      specification: "MUST have a HDR display supporting at least 1000 nits"
+      required_values: {
+        key: "display_luminance_nits"
+        value: {
+          double_value: 1000
+        }
+      }
+      required_values: {
+        key: "is_hdr"
+        value: {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.1.4/H-1-1"
+  description: "- Hardware overlays"
+}
+requirements {
+  id: "7.6.1/H-1-1"
+  name: "Android 11 Memory"
+  description: "Minimum memory available to the kernel as reported by ActivityManager.MemoryInfo.totalMemory"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 74
+    }
+  }
+  measurements: {
+    key: "physical_memory_mb"
+    value: {
+      description: "Physical memory in MiB as reported by ActivityManager.MemeryInfo.totalMemory."
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      measurement_type: MEASUREMENT_TYPE_LONG
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST have at least 6 GB of physical memory."
+      required_values: {
+        key: "physical_memory_mb"
+        value: {
+          long_value: 5120
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.6.1/H-2-1"
+  name: "Memory"
+  description: "Minimum memory available to the kernel as reported by ActivityManager.MemoryInfo.totalMemory"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 75
+    }
+  }
+  measurements: {
+    key: "physical_memory_mb"
+    value: {
+      description: "Physical memory in MiB as reported by ActivityManager.MemoryInfo.totalMemory."
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      measurement_type: MEASUREMENT_TYPE_LONG
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST have at least 6 GB of physical memory."
+      required_values: {
+        key: "physical_memory_mb"
+        value: {
+          long_value: 5120
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST have at least 8 GB of physical memory."
+      required_values: {
+        key: "physical_memory_mb"
+        value: {
+          long_value: 6800
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST have at least 8 GB of physical memory."
+      required_values: {
+        key: "physical_memory_mb"
+        value: {
+          long_value: 6800
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST have at least 8 GB of physical memory, with at least 6.64 GB available to the kernel as reported by android.app.ActivityManager.MemoryInfo."
+      required_values: {
+        key: "physical_memory_mb"
+        value: {
+          long_value: 6800
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "8.2/H-1-1"
+  name: "Sequential write"
+  description: "Sequential write"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 76
+    }
+  }
+  measurements: {
+    key: "filesystem_io_rate_mbps"
+    value: {
+      id: "filesystem_io_rate_mbps"
+      description: "Sequential write performance in MB per second."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST ensure a sequential write performance of at least 100 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 100
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST ensure a sequential write performance of at least 125 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 125
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST ensure a sequential write performance of at least 150 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 150
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST ensure a sequential write performance of at least 150&nbsp;MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 150
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "8.2/H-2-1"
+  name: "Sequential write S"
+  description: "Sequential write"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 77
+    }
+  }
+  measurements: {
+    key: "filesystem_io_rate_mbps"
+    value: {
+      id: "filesystem_io_rate_mbps"
+      description: "Sequential write performance in MB per second."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST ensure a sequential write performance of at least 125 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 125
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "8.2/H-1-2"
+  name: "Random Write"
+  description: "- Random write"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 78
+    }
+  }
+  measurements: {
+    key: "filesystem_io_rate_mbps"
+    value: {
+      id: "filesystem_io_rate_mbps"
+      description: "Random write performance in MB per second."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST ensure a random write performance of at least 10 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 10
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "same"
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 10
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 10
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 10
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "8.2/H-2-2"
+  name: "Random Write S"
+  description: "- Random write"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 79
+    }
+  }
+  measurements: {
+    key: "filesystem_io_rate_mbps"
+    value: {
+      id: "filesystem_io_rate_mbps"
+      description: "Random write performance in MB per second."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST ensure a random write performance of at least 10 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 10
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "8.2/H-1-3"
+  name: "Sequential Read"
+  description: "- Sequential read"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 80
+    }
+  }
+  measurements: {
+    key: "filesystem_io_rate_mbps"
+    value: {
+      id: "filesystem_io_rate_mbps"
+      description: "Sequential read performance in MB per second."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST ensure a sequential read performance of at least 200 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 200
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST ensure a sequential read performance of at least 250 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 250
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "same"
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 250
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 250
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "8.2/H-2-3"
+  name: "Sequential Read S"
+  description: "- Sequential read"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 81
+    }
+  }
+  measurements: {
+    key: "filesystem_io_rate_mbps"
+    value: {
+      id: "filesystem_io_rate_mbps"
+      description: "Sequential read performance in MB per second."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST ensure a sequential read performance of at least 250 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 250
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "8.2/H-1-4"
+  name: "Random Read"
+  description: "- Random read"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 82
+    }
+  }
+  measurements: {
+    key: "filesystem_io_rate_mbps"
+    value: {
+      id: "filesystem_io_rate_mbps"
+      description: "Random read performance in MB per second."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 30
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_11
+      specification: "MUST ensure a random read performance of at least 25 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 25
+        }
+      }
+    }
+  }
+  specs {
+    key: 33
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_13
+      specification: "MUST ensure a random read performance of at least 40 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 40
+        }
+      }
+    }
+  }
+  specs {
+    key: 34
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_14
+      specification: "MUST ensure a random read performance of at least 100 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 100
+        }
+      }
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "same"
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 100
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "8.2/H-2-4"
+  name: "Random Read S"
+  description: "- Random read"
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 83
+    }
+  }
+  measurements: {
+    key: "filesystem_io_rate_mbps"
+    value: {
+      id: "filesystem_io_rate_mbps"
+      description: "Random read performance in MB per second."
+      measurement_type: MEASUREMENT_TYPE_DOUBLE
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 3
+    }
+  }
+  specs {
+    key: 31
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_12
+      specification: "MUST ensure a random read performance of at least 40 MB/s."
+      required_values: {
+        key: "filesystem_io_rate_mbps"
+        value: {
+          double_value: 40
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "8.2/H-1-5"
+  description: "- Read and write performance"
+}
+requirements {
+  id: "7.1.4.1/H-1-2"
+  name: "EGL"
+  description: "Supports EGL_IMG_context_priority and EGL_EXT_protected_content extensions."
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 84
+    }
+  }
+  measurements: {
+    key: "egl_img_context_priority"
+    value: {
+      id: "egl_img_context_priority"
+      description: "Is EGL_IMG_context_priority supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "egl_ext_protected_content"
+    value: {
+      id: "egl_ext_protected_content"
+      description: "Is EGL_EXT_protected_content supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support the EGL_IMG_context_priority and EGL_EXT_protected_content extensions."
+      required_values: {
+        key: "egl_img_context_priority"
+        value: {
+          bool_value: true
+        }
+      }
+      required_values: {
+        key: "egl_ext_protected_content"
+        value: {
+          bool_value: true
+        }
+      }
+    }
+  }
+}
+requirements {
+  id: "7.1.4.1/H-1-3"
+  name: "Vulkan"
+  description: "Must support vulkan physical device protected memory and global priority."
+  test_configs: {
+    key: ""
+    value: {
+      description: "Default test config"
+      proto_field_number: 85
+    }
+  }
+  measurements: {
+    key: "vk_ext_global_priority"
+    value: {
+      description: "Is VK_EXT_global_priority supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 3
+    }
+  }
+  measurements: {
+    key: "vk_physical_device_protected_memory"
+    value: {
+      description: "Is VkPhysicalDeviceProtectedMemoryFeatures.protectedMemory supported."
+      measurement_type: MEASUREMENT_TYPE_BOOL
+      comparison: COMPARISON_EQUAL
+      proto_field_number: 4
+    }
+  }
+  measurements: {
+    key: "vk_non_cpu_device_count"
+    value: {
+      description: "The count of non VK_PHYSICAL_DEVICE_TYPE_CPU Vulcan Devices."
+      measurement_type: MEASUREMENT_TYPE_INT
+      comparison: COMPARISON_GREATER_THAN_OR_EQUAL
+      proto_field_number: 5
+    }
+  }
+  specs {
+    key: 35
+    value {
+      mpc: MEDIA_PERFORMANCE_CLASS_15
+      specification: "MUST support VkPhysicalDeviceProtectedMemoryFeatures.protectedMemory and VK_KHR_global_priority."
+      required_values: [
+        {
+          key: "vk_ext_global_priority"
+          value: {
+            bool_value: true
+
+          }
+        },
+        {
+          key: "vk_physical_device_protected_memory"
+          value: {
+            bool_value: true
+          }
+        },
+        {
+          key: "vk_non_cpu_device_count"
+          value: {
+            int_value: 1
+          }
+        }
+      ]
+    }
+  }
+}

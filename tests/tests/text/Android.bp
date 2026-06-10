@@ -1,0 +1,125 @@
+// Copyright (C) 2008 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_team: "trendy_team_android_text",
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "CtsTextTestCases",
+    defaults: ["cts_defaults"],
+    sdk_version: "test_current",
+    stl: "c++_shared",
+
+    srcs: [
+        "src/**/*.java",
+        "src/**/*.kt",
+    ],
+
+    static_libs: [
+        "compatibility-device-util-axt",
+        "ctsdeviceutillegacy-axt",
+        "ctstestrunner-axt",
+        "flag-junit",
+        "ravenwood-junit",
+        "mockito-target-minus-junit4",
+        "androidx.test.rules",
+        "androidx.test.uiautomator_uiautomator",
+        "junit-params",
+        "com.android.text.flags-aconfig-java",
+    ],
+
+    libs: [
+        "android.test.runner.stubs.test",
+        "android.test.base.stubs.test",
+    ],
+
+    jni_libs: [
+        "libctstext_jni",
+        "libnativehelper_compat_libc++",
+    ],
+    // Include both the 32 and 64 bit versions of libctstext_jni, where
+    // applicable.
+    compile_multilib: "both",
+
+    test_suites: [
+        "cts",
+        "general-tests",
+        "mts",
+        "sts",
+        "dts",
+    ],
+    data: [
+        ":CtsTextTestResourceData",
+        ":TestIme",
+    ],
+    per_testcase_directory: true,
+}
+
+android_app {
+    name: "CtsTextTestCases-res",
+    defaults: ["cts_defaults"],
+    sdk_version: "test_current",
+    use_resource_processor: false,
+    enforce_uses_libs: false,
+}
+
+android_ravenwood_test {
+    name: "CtsTextTestCasesRavenwood",
+    defaults: ["cts_defaults"],
+    srcs: [
+        "src/android/text/cts/**/*.java",
+        "src/android/text/cts/**/*.kt",
+        "src/android/text/style/cts/*.java",
+        "src/android/text/style/cts/*.kt",
+        "src/android/text/util/cts/*.java",
+        "src/android/text/util/cts/*.kt",
+        "src/android/text/method/cts/EditorState.java",
+
+        ":CtsTextTestCases-res{.aapt.srcjar}",
+    ],
+    exclude_srcs: [
+        // Require Activity support
+        "src/**/*Activity.java",
+        "src/android/text/cts/ClipboardManagerTest.java",
+        "src/android/text/cts/EmojiTest.java",
+        "src/android/text/style/cts/URLSpanTest.java",
+    ],
+    static_libs: [
+        "compatibility-device-util-axt-ravenwood",
+        "ctsdeviceutillegacy-axt-ravenwood",
+        "ctstestrunner-axt",
+        "flag-junit",
+        "ravenwood-junit",
+        "androidx.test.rules",
+        "androidx.test.uiautomator_uiautomator",
+        "junit-params",
+        "com.android.text.flags-aconfig-java",
+    ],
+    libs: [
+        "android.test.runner.stubs.test",
+        "android.test.base.stubs.test",
+    ],
+    resource_apk: "CtsTextTestCases-res",
+    auto_gen_config: true,
+    team: "trendy_team_ravenwood",
+}
+
+test_module_config {
+    name: "CtsTextTestCases_text",
+    base: "CtsTextTestCases",
+    test_suites: ["general-tests"],
+    exclude_annotations: ["androidx.test.filters.LargeTest"],
+}

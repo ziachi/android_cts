@@ -1,0 +1,3 @@
+# Android Compatibility Test Suite Verifier Host
+
+This is an extension tool of CTS-V to support host-side interactive and mobly tests.

@@ -1,0 +1,12 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsWebkitTestCases"
+    }
+  ],
+  "kernel-presubmit": [
+    {
+      "name": "CtsWebkitTestCases"
+    }
+  ]
+}

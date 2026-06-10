@@ -1,0 +1,7 @@
+{
+    "presubmit": [
+        {
+            "name": "CtsBroadcastTestCases_android_server_am"
+        }
+    ]
+}

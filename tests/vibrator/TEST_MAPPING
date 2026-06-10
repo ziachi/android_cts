@@ -1,0 +1,15 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsVibratorTestCases"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsVibratorTestCases",
+      "options": [
+        {"exclude-annotation": "org.junit.Ignore"}
+      ]
+    }
+  ]
+}

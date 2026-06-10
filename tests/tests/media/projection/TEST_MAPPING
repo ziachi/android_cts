@@ -1,0 +1,13 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsMediaProjectionTestCases"
+    },
+    {
+      "name": "CtsMediaProjectionSDK33TestCases"
+    },
+    {
+      "name": "CtsMediaProjectionSDK34TestCases"
+    }
+  ]
+}

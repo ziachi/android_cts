@@ -1,0 +1,12 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsSoundTriggerTestCases"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsSoundTriggerTestCases"
+    }
+  ]
+}

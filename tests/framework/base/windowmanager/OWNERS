@@ -1,0 +1,7 @@
+# others
+# Bug template url: https://b.corp.google.com/issues/new?component=316125&template=1018199
+include platform/frameworks/base:/services/core/java/com/android/server/wm/OWNERS
+
+charlesccchen@google.com
+natanieljr@google.com
+

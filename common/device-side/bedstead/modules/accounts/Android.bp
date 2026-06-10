@@ -1,0 +1,45 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_library {
+    name: "bedstead-accounts",
+    sdk_version: "test_current",
+    srcs: [
+        "src/main/kotlin/**/*.kt",
+        "src/main/kotlin/**/*.java",
+    ],
+    manifest: "src/main/AndroidManifest.xml",
+    static_libs: [
+        "bedstead",
+        "bedstead-testapps",
+        "bedstead-enterprise",
+        "RemoteAccountAuthenticator",
+    ],
+    min_sdk_version: "29",
+}
+
+filegroup {
+    name: "bedstead-accounts-harrier-temporary-srcs",
+    srcs: [
+        "src/main/kotlin/**/*.kt",
+        "src/main/kotlin/**/*.java",
+    ],
+}
+
+android_test {
+    name: "bedstead-accounts-test",
+    srcs: [
+        "src/test/kotlin/**/*.kt",
+    ],
+    test_suites: [
+        "general-tests",
+    ],
+    static_libs: [
+        "bedstead-accounts",
+        "androidx.test.ext.junit",
+        "truth",
+    ],
+    manifest: "src/test/AndroidManifest.xml",
+    min_sdk_version: "29",
+}

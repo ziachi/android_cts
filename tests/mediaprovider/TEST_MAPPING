@@ -1,0 +1,12 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsMediaProviderTestCases",
+      "options": [
+        {
+          "exclude-annotation": "android.platform.test.annotations.LargeTest"
+        }
+      ]
+    }
+  ]
+}

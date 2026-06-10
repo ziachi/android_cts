@@ -1,0 +1,13 @@
+# Bug component: 316125 = per-file OnBackInvokedDispatcherTest.java
+# Bug component: 801322 = per-file ScrollFeedbackProviderTest.java,ScrollCaptureSessionTest.java,ScrollCaptureTargetTest.java
+
+# Fallback
+# Bug component: 25700
+adamp@google.com
+clarabayarri@google.com
+jreck@google.com
+mount@google.com
+sumir@google.com
+
+# WindowManager
+per-file Window*.java = file:platform/frameworks/base:/services/core/java/com/android/server/wm/OWNERS

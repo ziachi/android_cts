@@ -1,0 +1,3 @@
+Lcom/android/cts/storageapp/UtilsActivity;
+SHLcom/android/cts/storageapp/UtilsActivity;->method1()I
+SHLcom/android/cts/storageapp/UtilsActivity;->method2()I

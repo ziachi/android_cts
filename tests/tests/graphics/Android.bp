@@ -1,0 +1,176 @@
+// Copyright (C) 2008 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    default_team: "trendy_team_android_core_graphics_stack",
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_test {
+    name: "CtsGraphicsTestCases",
+    defaults: ["cts_defaults"],
+    compile_multilib: "both",
+    libs: [
+        "android.test.runner.stubs.test",
+        "android.test.base.stubs.test",
+    ],
+    static_libs: [
+        "androidx.test.rules",
+        "mockito-target-minus-junit4",
+        "compatibility-device-util-axt",
+        "ctsdeviceutillegacy-axt",
+        "ctstestrunner-axt",
+        "androidx.annotation_annotation",
+        "hamcrest-library",
+        "junit",
+        "flag-junit",
+        "cts-display-lib",
+        "junit-params",
+        "SurfaceFlingerProperties",
+        "testng",
+        "androidx.core_core",
+        "framework_graphics_flags_java_lib",
+        "com.android.text.flags-aconfig-java",
+        "com.android.window.flags.window-aconfig-java",
+        "hwui_flags_java_lib",
+        "surfaceflinger_flags_java_lib",
+        "libmonet",
+        "android.view.flags-aconfig-java",
+        "ravenwood-junit",
+    ],
+    jni_libs: ["libctsgraphics_jni"],
+    srcs: [
+        "src/**/*.kt",
+        "src/**/*.java",
+    ],
+    // Tag this module as a cts test artifact
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+    // Enforce public / test api only
+    sdk_version: "test_current",
+}
+
+android_app {
+    name: "CtsGraphicsTestCases-res",
+    defaults: ["cts_defaults"],
+    sdk_version: "test_current",
+    use_resource_processor: false,
+    enforce_uses_libs: false,
+}
+
+android_ravenwood_test {
+    name: "CtsGraphicsTestCasesRavenwood",
+    defaults: ["cts_defaults"],
+    static_libs: [
+        "androidx.test.rules",
+        "compatibility-device-util-axt-ravenwood",
+        "ctsdeviceutillegacy-axt-ravenwood",
+        "ctstestrunner-axt",
+        "androidx.annotation_annotation",
+        "hamcrest-library",
+        "junit",
+        "flag-junit",
+        "junit-params",
+        "SurfaceFlingerProperties",
+        "testng",
+        "androidx.core_core",
+        "framework_graphics_flags_java_lib",
+        "com.android.text.flags-aconfig-java",
+        "com.android.window.flags.window-aconfig-java",
+        "hwui_flags_java_lib",
+        "libmonet",
+        "android.view.flags-aconfig-java",
+    ],
+    srcs: [
+        "src/**/*.kt",
+        "src/**/*.java",
+
+        ":CtsGraphicsTestCases-res{.aapt.srcjar}",
+    ],
+    exclude_srcs: [
+        // Require hardware support
+        "src/android/graphics/cts/ComputeAhbTest.java",
+        "src/android/graphics/cts/EGL14Test.java",
+        "src/android/graphics/cts/EGL15Test.java",
+        "src/android/graphics/cts/*Vulkan*.java",
+        "src/android/graphics/cts/HardwareRendererTest.java",
+        "src/android/graphics/cts/OpenGlEsDeqpLevelTest.java",
+        "src/android/graphics/cts/SyncTest.java",
+
+        // Testing NDK APIs
+        "src/android/graphics/cts/ANativeWindowTest.java",
+        "src/android/graphics/cts/AImageDecoderTest.java",
+        "src/android/graphics/cts/ASurfaceTextureTest.java",
+        "src/android/graphics/fonts/NativeSystemFont*.java",
+
+        // Require activity support
+        "src/android/graphics/**/*Activity.java",
+        "src/android/graphics/cts/AnimatorLeakTest.java",
+        "src/android/graphics/cts/CameraGpuTest.java",
+        "src/android/graphics/cts/FrameRateOverrideTest.java",
+        "src/android/graphics/cts/MatchContentFrameRateTest.java",
+        "src/android/graphics/cts/SetFrameRateTest.java",
+
+        // Require drawable support
+        "src/android/graphics/drawable/**/*.java",
+
+        // Deprecated class
+        "src/android/graphics/cts/MovieTest.java",
+    ],
+    // Graphics on Ravenwood is still experimental, so the ravenwood team owns it for now.
+    team: "trendy_team_ravenwood",
+    resource_apk: "CtsGraphicsTestCases-res",
+    auto_gen_config: true,
+    sdk_version: "test_current",
+}
+
+test_module_config {
+    name: "CtsGraphicsTestCases_cts_icontest",
+    base: "CtsGraphicsTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.graphics.drawable.cts.IconTest"],
+}
+
+test_module_config {
+    name: "CtsGraphicsTestCases_cts_vulkanpretransformtest",
+    base: "CtsGraphicsTestCases",
+    test_suites: ["general-tests"],
+    include_filters: ["android.graphics.cts.VulkanPreTransformTest"],
+}
+
+test_module_config {
+    name: "CtsGraphicsTestCases-presubmit",
+    base: "CtsGraphicsTestCases",
+    test_suites: ["general-tests"],
+
+    // TODO(b/242858942): periodically re-enable tests on case-by-case basis when they're fixed.
+    exclude_filters: [
+        // Broken very frequently; provides little value for our presubmit
+        "android.graphics.cts.ColorTest#resourceColor",
+        "android.graphics.cts.FrameRateOverrideTest#testAppBackpressure",
+    ],
+}
+
+test_module_config {
+    name: "CtsGraphicsTestCases-minus-gsi-flakes",
+    base: "CtsGraphicsTestCases",
+    test_suites: ["general-tests"],
+    // flaky on mixed gsi builds
+    exclude_filters: [
+        "android.graphics.cts.AnimatorLeakTest#testPauseResume",
+        "android.graphics.cts.CameraGpuTest#testCameraImageCaptureAndRendering",
+    ],
+}

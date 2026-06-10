@@ -1,0 +1,8 @@
+# Android > Android OS & Apps > Framework (Java + Native) > Activity Manager > Task and Activity lifecycle
+# Bug template url: https://b.corp.google.com/issues/new?component=316020&template=1018174 = per-file Activity*, AspectRatio*, ConfigChange*, ConfigurationCallbacks*, DialogFrame*, *WindowCtsActivity*
+
+# Android > Android OS & Apps > Framework (Java + Native) > Window Manager > WM Shell > Split screen
+# Bug template url: https://b.corp.google.com/issues/new?component=928697&template=1490890 = per-file *MultiWindow*
+
+# Android > Android OS & Apps > Framework (Java + Native) > Window Manager > Other
+# Bug template url: https://b.corp.google.com/issues/new?component=316125&template=1018199

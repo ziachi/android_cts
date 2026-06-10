@@ -1,0 +1,8 @@
+# Android > Android OS & Apps > Framework (Java + Native) > Window Manager > Animations/Transitions > Layout
+# Bug template url: https://b.corp.google.com/issues/new?component=1517318&template=1946513 = per-file Display*, KeepScreenOnTests*, Blur*, MinimalPostProcessing*, *Layout*, Location*, DialogFrame*
+
+# Android > Android OS & Apps > Framework (Java + Native) > Window Manager > Animations/Transitions > Splash Screens
+# Bug template url: https://b.corp.google.com/issues/new?component=1514550&template=0 = per-file *Splashscreen*
+
+# Android > Android OS & Apps > Framework (Java + Native) > Window Manager > Animations/Transitions
+# Bug template url: https://b.corp.google.com/issues/new?component=316275&template=1018192

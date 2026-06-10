@@ -1,0 +1,69 @@
+// Copyright (C) 2022 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    // See: http://go/android-license-faq
+    default_applicable_licenses: ["Android-Apache-2.0"],
+    // TODO(b/349106078): replace with correct team
+    default_team: "trendy_team_android_media_solutions_playback",
+}
+
+java_defaults {
+    name: "MediaSessionTestCases_defaults",
+    defaults: ["cts_defaults"],
+    static_libs: [
+        "androidx.test.ext.truth",
+        "ctstestrunner-axt",
+        "cts-media-common",
+        "flag-junit",
+        "truth",
+        "bedstead-enterprise",
+    ],
+    aaptflags: [
+        "--auto-add-overlay",
+    ],
+    srcs: [
+        "src/**/*.java",
+        "aidl/**/*.aidl",
+    ],
+    // TODO(b/387500109): This test uses private APIs. Replace with sdk_version.
+    platform_apis: true,
+    host_required: ["cts-dynamic-config"],
+    min_sdk_version: "29",
+    target_sdk_version: "31",
+}
+
+android_test {
+    name: "CtsMediaSessionTestCases",
+    defaults: ["MediaSessionTestCases_defaults"],
+    test_config: "AndroidTest.xml",
+    // Tag this module as a cts test artifact
+    test_suites: [
+        "cts",
+        "general-tests",
+    ],
+}
+
+android_test {
+    name: "MctsMediaSessionTestCases",
+    defaults: ["MediaSessionTestCases_defaults"],
+    test_config: "AndroidTest-mcts.xml",
+    // Tag this module as a cts test artifact
+    test_suites: [
+        "cts",
+        "general-tests",
+        "mcts-media",
+        "mts-media",
+    ],
+}

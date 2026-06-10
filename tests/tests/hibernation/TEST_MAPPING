@@ -1,0 +1,27 @@
+{
+  "presubmit": [
+      {
+          "name": "CtsHibernationTestCases"
+      }
+  ],
+  "mainline-presubmit": [
+      {
+          "name": "CtsHibernationTestCases[com.google.android.permission.apex]",
+          "options": [
+              {
+                  "exclude-annotation": "androidx.test.filters.FlakyTest"
+              }
+          ]
+      }
+  ],
+  "permission-mainline-presubmit": [
+      {
+          "name": "CtsHibernationTestCases"
+      }
+  ],
+  "postsubmit": [
+    {
+        "name": "CtsHibernationTestCases"
+    }
+  ]
+}

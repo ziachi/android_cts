@@ -1,0 +1,49 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+java_library_host {
+    name: "InteractiveCommon",
+    srcs: [
+        "common/src/main/java/**/*.java",
+        "common/src/main/java/**/*.kt",
+    ],
+    static_libs: [
+        "bedstead-core-annotations",
+    ],
+}
+
+android_library {
+    name: "InteractiveCommonAndroid",
+    srcs: [
+        "common/src/main/java/**/*.java",
+        "common/src/main/java/**/*.kt",
+    ],
+    manifest: "common/src/main/AndroidManifest.xml",
+    sdk_version: "current",
+    min_sdk_version: "29",
+    platform_apis: true,
+    static_libs: [
+        "HarrierCommonAndroid",
+    ],
+}
+
+android_library {
+    name: "Interactive",
+    srcs: [
+        "src/main/java/**/*.java",
+        "src/main/java/**/*.kt",
+        "steps/src/main/java/**/*.java",
+        "steps/src/main/java/**/*.kt",
+    ],
+    manifest: "src/main/AndroidManifest.xml",
+    sdk_version: "test_current",
+    min_sdk_version: "29",
+    static_libs: [
+        "bedstead",
+        "InteractiveCommonAndroid",
+        "bedstead-usb",
+        "bedstead-adb",
+    ],
+    resource_dirs: ["src/main/res"],
+}

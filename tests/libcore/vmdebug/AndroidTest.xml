@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<configuration description="Config for CTS VMDebug API test cases">
+    <option name="test-suite-tag" value="cts" />
+    <option name="config-descriptor:metadata" key="component" value="libcore" />
+    <option name="config-descriptor:metadata" key="parameter" value="instant_app" />
+    <option name="config-descriptor:metadata" key="parameter" value="not_multi_abi" />
+    <option name="config-descriptor:metadata" key="parameter" value="secondary_user" />
+    <option name="config-descriptor:metadata" key="parameter" value="secondary_user_on_secondary_display" />
+    <option name="config-descriptor:metadata" key="mainline-param" value="com.google.android.art.apex" />
+    <option name="config-descriptor:metadata" key="mainline-param" value="com.android.art.apex" />
+    <target_preparer class="com.android.tradefed.targetprep.suite.SuiteApkInstaller">
+        <option name="cleanup-apks" value="true" />
+        <option name="test-file-name" value="CtsVMDebugDeviceTestCases.apk" />
+    </target_preparer>
+    <!-- VMDebug#getExecutableMethodFileOffets works on AOT compiled code.
+         Precompile the test package so we can fetch offsets from the test package itself. -->
+    <target_preparer class="com.android.tradefed.targetprep.RunCommandTargetPreparer">
+        <option name="throw-if-cmd-fail" value="true" />
+        <option name="run-command" value="pm compile -m speed android.libcore.cts.vmdebug" />
+    </target_preparer>
+    <test class="com.android.tradefed.testtype.AndroidJUnitTest" >
+        <option name="package" value="android.libcore.cts.vmdebug" />
+    </test>
+    <!-- When this test is run in a Mainline context (e.g. with `mts-tradefed`), only enable it if
+         one of the Mainline modules below is present on the device used for testing. -->
+    <object type="module_controller" class="com.android.tradefed.testtype.suite.module.MainlineTestModuleController">
+        <!-- ART Mainline Module (internal version). -->
+        <option name="mainline-module-package-name" value="com.google.android.art" />
+        <!-- ART Mainline Module (external (AOSP) version). -->
+        <option name="mainline-module-package-name" value="com.android.art" />
+    </object>
+
+    <!-- Only run tests if the device under test is SDK version 31 (Android 12) or above. -->
+    <object type="module_controller" class="com.android.tradefed.testtype.suite.module.Sdk31ModuleController" />
+
+</configuration>

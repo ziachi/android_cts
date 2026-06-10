@@ -1,0 +1,33 @@
+android_robolectric_test {
+    name: "CtsLocationTestCasesRobo",
+    instrumentation_for: "MyRoboApplication",
+    static_libs: [
+        "LocationCtsCommon",
+        "androidx.test.ext.junit",
+        "androidx.test.ext.truth",
+        "androidx.test.rules",
+        "compatibility-device-util-axt",
+        "ctstestrunner-axt",
+        "inline-mockito-robolectric-prebuilt",
+        // TODO: remove once Android migrates to JUnit 4.12, which provides assertThrows:
+        "apache-commons-math",
+        "platform-test-annotations",
+        "testng",
+        "truth",
+    ],
+    libs: [
+        "android.test.base.stubs.system",
+    ],
+    srcs: [
+        //"*/protos/**/*.proto",
+        "location_coarse/src/**/*.java",
+        "location_fine/src/**/*.java",
+        //"location_gnss/src/**/*.java",
+        "location_none/src/**/*.java",
+        "location_privileged/src/**/*.java",
+        "common/src/**/*.java",
+    ],
+    strict_mode: false,
+    platform_apis: true,
+    java_resource_dirs: ["config"],
+}

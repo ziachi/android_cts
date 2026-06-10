@@ -1,0 +1,12 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsInstallHostTestCases_NoLarge"
+    }
+  ],
+  "postsubmit": [
+    {
+      "name": "CtsInstallHostTestCases"
+    }
+  ]
+}

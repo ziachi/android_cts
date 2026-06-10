@@ -1,0 +1,14 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsSurfaceControlTests"
+
+    }
+
+  ],
+  "hwasan-postsubmit": [
+    {
+      "name": "CtsSurfaceControlTests"
+    }
+  ]
+}

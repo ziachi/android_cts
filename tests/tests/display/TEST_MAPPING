@@ -1,0 +1,21 @@
+{
+  "kernel-presubmit": [
+    {
+      "name": "CtsDisplayTestCases"
+    },
+    {
+      "name": "CtsStatsdAtomHostTestCases",
+      "options": [
+        {
+          "include-filter": "android.cts.statsdatom.statsd.UidAtomTests#testScreenBrightness"
+        },
+        {
+          "include-filter": "android.cts.statsdatom.display.DisplayBrightnessChangedStatsTests"
+        },
+        {
+          "include-filter": "android.cts.statsdatom.display.DisplayWakeReportedStatsTests"
+        }
+      ]
+    }
+  ]
+}

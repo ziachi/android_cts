@@ -1,0 +1,14 @@
+# Bug component: 49079
+# android-drm-team
+conglin@google.com
+fredgc@google.com
+juce@google.com
+kylealexander@google.com
+mattfedd@google.com
+rfrias@google.com
+robertshih@google.com
+sigquit@google.com
+vickymin@google.com
+per-file src/android/media/drmframework/cts/CodecDecoderDrmTest.java = file:platform/frameworks/av:/media/janitors/codec_OWNERS
+per-file src/android/media/drmframework/cts/CodecDecoderMultiAccessUnitDrmTest.java = file:platform/frameworks/av:/media/janitors/codec_OWNERS
+per-file src/android/media/drmframework/cts/CodecDecoderBlockModelMultiAccessUnitDrmTest.java = file:platform/frameworks/av:/media/janitors/codec_OWNERS

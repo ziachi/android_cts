@@ -1,0 +1,3 @@
+# Bug component: 27091
+# Bug component: 812130 = per-file AutoPrivacySettingsTest.java
+include platform/packages/apps/Settings:/OWNERS

@@ -1,0 +1,7 @@
+TestBeds:
+  - Name: CtsNfcHceMultiDeviceTestCases-py-ctsv
+    Controllers:
+        AndroidDevice:
+          - serial: "<device-id>"
+    TestParams:
+        pn532_serial_path: "<pn532-serial-path>"

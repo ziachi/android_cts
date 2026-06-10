@@ -1,0 +1,6 @@
+# Bug component: 1075130
+include platform/frameworks/base:/OWNERS
+include platform/frameworks/base:/graphics/java/android/graphics/OWNERS
+
+# Text and font related tests and resources.
+include platform/frameworks/base:/core/java/android/text/OWNERS

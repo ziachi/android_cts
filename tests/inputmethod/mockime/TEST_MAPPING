@@ -1,0 +1,7 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsWindowManagerDeviceInsets_insets_windowinsetsanimationcontrollertests"
+    }
+  ]
+}

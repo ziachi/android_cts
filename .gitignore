@@ -1,0 +1,16 @@
+*.pyc
+*.*~
+*.py~
+.cproject
+/bin
+.idea/*
+.idea/
+.project
+.vscode/
+gen/
+*.iml
+*.class
+*.sw*
+
+# Jars added by Idea's "Konfigure kotlin in project" action
+**/lib/kotlin-*.jar

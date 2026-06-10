@@ -1,0 +1,7 @@
+{
+  "presubmit": [
+    {
+      "name": "CtsOsHostTestCases_cts_staticsharedlibshosttests_Presubmit"
+    }
+  ]
+}

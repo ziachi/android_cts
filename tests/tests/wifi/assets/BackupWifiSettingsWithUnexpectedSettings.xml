@@ -1,0 +1,10 @@
+<WifiSettingsBackupData>
+<WifiSettingsSection>
+<Settings>
+<map name="Values">
+<boolean name="wep_allowed" value="false" />
+<boolean name="unexpected_tag" valie="false" />
+</map>
+</Settings>
+</WifiSettingsSection>
+</WifiSettingsBackupData>

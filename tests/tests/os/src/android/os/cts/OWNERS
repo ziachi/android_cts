@@ -1,0 +1,8 @@
+per-file MessageQueueTest.java=mfasheh@google.com, shayba@google.com
+per-file TestLooperManagerTest.java=mfasheh@google.com, shayba@google.com
+per-file IpcDataCache*.java = file:platform/frameworks/base:/PERFORMANCE_OWNERS
+per-file RemoteCallbackListTest.java = shayba@google.com
+per-file BinderFrozenTest.java = yutingtseng@google.com, shayba@google.com
+per-file SeccompTest.java = file:/platform/external/minijail:/OWNERS
+per-file SecurityStateManagerTest.java = file:platform/frameworks/base:/SECURITY_STATE_OWNERS
+per-file StrictModeBalTest.java = file:platform/frameworks/base:/BAL_OWNERS

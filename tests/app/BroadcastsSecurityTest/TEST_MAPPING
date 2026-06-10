@@ -1,0 +1,7 @@
+{
+    "postsubmit": [
+        {
+            "name": "CtsBroadcastSecurityTestCases_android_server_am"
+        }
+    ]
+}

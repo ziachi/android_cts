@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <inject-rules>
+        <rule>
+            <pattern>.*Libcore.*</pattern>
+            <apiPrefixes>
+                <prefix>dalvik/</prefix>
+                <prefix>java/</prefix>
+                <prefix>javax/</prefix>
+                <prefix>libcore/</prefix>
+                <prefix>org/</prefix>
+                <prefix>sun/</prefix>
+            </apiPrefixes>
+            <callerPrefixes>
+                <prefix>libcore/</prefix>
+                <prefix>org/</prefix>
+            </callerPrefixes>
+        </rule>
+    </inject-rules>
+</config>

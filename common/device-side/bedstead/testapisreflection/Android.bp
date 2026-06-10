@@ -1,0 +1,60 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_library {
+    name: "TestApisReflection",
+    sdk_version: "system_current",
+    srcs: [
+        "javac/src/types/main/java/**/*.kt",
+        "common/java/**/*.kt",
+    ],
+    static_libs: [
+        "TestApisReflection_Annotations",
+        "androidx.test.ext.junit"
+    ],
+    manifest: "javac/src/types/main/AndroidManifest.xml",
+    min_sdk_version: "29",
+    plugins: ["TestApisReflection_Processor"],
+}
+
+java_library {
+    name: "TestApisReflection_Annotations",
+    sdk_version: "system_current",
+    srcs: [
+        "javac/src/processor/main/java/com/android/bedstead/testapisreflection/processor/annotations/*.kt",
+    ],
+    host_supported: true,
+}
+
+java_library_host {
+    name: "TestApisReflection_Processor_Src",
+    srcs: [
+        "javac/src/processor/main/java/com/android/bedstead/testapisreflection/processor/**/*.java",
+        "javac/src/processor/main/java/com/android/bedstead/testapisreflection/processor/**/*.kt",
+    ],
+    static_libs: [
+        "guava",
+        "kotlinpoet",
+        "auto_service_annotations",
+        "TestApisReflection_Annotations",
+        "bedstead-testapis-parser",
+    ],
+    java_resource_dirs: [
+        "common/java/",
+    ],
+    kotlincflags: [
+        "-Werror",
+        "-verbose",
+    ],
+    plugins: ["auto_service_plugin"],
+}
+
+java_plugin {
+    name: "TestApisReflection_Processor",
+    processor_class: "com.android.bedstead.testapisreflection.processor.Processor",
+    static_libs: [
+        "TestApisReflection_Processor_Src",
+    ],
+    generates_api: true,
+}

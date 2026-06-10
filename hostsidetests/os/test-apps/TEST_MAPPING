@@ -1,0 +1,11 @@
+{
+  "presubmit": [
+    {
+      "file_patterns": [
+          "(/|^)StaticSharedLib.*",
+          "(/|^)StaticSharedNativeLib.*"
+      ],
+      "name": "CtsOsHostTestCases_cts_staticsharedlibshosttests"
+    }
+  ]
+}

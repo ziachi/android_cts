@@ -1,0 +1,2 @@
+Landroid/compilation/cts/statuscheckerapp/StatusCheckerAppTest;
+HSPLandroid/compilation/cts/statuscheckerapp/StatusCheckerAppTest;->checkStatus()V
